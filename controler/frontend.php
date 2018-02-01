@@ -43,8 +43,6 @@ function viewModifComment()
 
     $commentModifView = $commentManager->viewModifComment($_GET['id']);
 
-    $data = $commentModifView->fetch();
-
     require('view/frontend/modifCommentView.php');
 }
 

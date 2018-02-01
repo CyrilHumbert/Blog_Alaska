@@ -28,8 +28,9 @@ class CommentManager extends Manager
         $db = $this->dbConnect();
         $comments = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE id = ?');
         $comments->execute(array($commentId));
+        $modifComment = $comments->fetch();
 
-        return $comments;
+        return $modifComment;
     }
 
     public function modifComment($author, $comment, $commentId)

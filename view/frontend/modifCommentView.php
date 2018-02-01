@@ -9,11 +9,11 @@
 <form action="index.php?action=modifComment&amp;id=<?= $_GET['id'] ?>&amp;idp=<?= $_GET['idp']?>" method="post">
     <div>
         <label for="author">Auteur</label><br />
-        <input type="text" id="author" name="author"  value="<?= $data['author']; ?>" />
+        <input type="text" id="author" name="author"  value="<?= $commentModifView['author']; ?>" />
     </div>
     <div>
         <label for="comment">Commentaire</label><br />
-        <textarea id="comment" name="comment"><?= $data['comment']; ?></textarea>
+        <textarea id="comment" name="comment"><?= $commentModifView['comment']; ?></textarea>
     </div>
     <div>
         <input type="submit" />
