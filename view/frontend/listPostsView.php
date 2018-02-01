@@ -1,10 +1,6 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
-<div id="Banniere">
-    <h1 id="title1">Billet simple pour l'Alaska</h1>
-    <h1 id="title2">De Jean Forteroche</h1>
-</div>
 
 <p id="textWelcome">Celui-ci sera dédié entièrement à la publication de mon dernier roman "Billet simple pour l'Alaska", cette fois-ci il sera publié un nouveau chapitre du roman toutes les semaines en ligne sur ce blog.</br>
     Ainsi vous pourrez profiter gratuitement de celui-ci et en plus vous pouvez partager vos avis sur les différents chapitre !</br>

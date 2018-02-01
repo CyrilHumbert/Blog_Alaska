@@ -1,10 +1,6 @@
 <?php $title = 'Modification de commentaire'; ?>
 
 <?php ob_start(); ?>
-<div id="Banniere">
-    <h1 id="title1">Billet simple pour l'Alaska</h1>
-    <h1 id="title2">De Jean Forteroche</h1>
-</div>
 
 <p><a href="index.php?action=post&id=<?= $_GET['idp'] ?>">Retour au chapitre</a></p>
 

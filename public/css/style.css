@@ -1,32 +1,35 @@
+/* font */
+
+@font-face {
+    font-family: 'alex_brushregular';
+    src: url('../fonts/alexbrush-regular-webfont.woff2') format('woff2'),
+         url('../fonts/alexbrush-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 
 /* CSS de la bannière */
 
-#Banniere #title1 
+#headerBan 
 {
-    width: 100%;
-    height: 20%;
-    text-align: center;
+    background-color: #669999;
+    height: 400px;
+    margin-bottom: 50px;
 }
 
-#Banniere #title2
+#titleAlaska
 {
-    width: 100%;
-    height: 50%;
-    text-align: right;
+    font-size: 5vw;
+    font-family: 'alex_brushregular';
+    margin-top: 130px;
 }
 
-#Banniere
+#titleJeanForteroche
 {
-  
-    font-size: 40px;
-    border: 1px black solid;
-    width: 100%;
-    height: 30%;
-    background-color: #66ccff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    font-size: 4vw;
+    font-family: 'alex_brushregular';
 }
 
 /* CSS listPostsView */
