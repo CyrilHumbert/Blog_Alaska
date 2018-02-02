@@ -9,7 +9,6 @@
 
 }
 
-
 /* CSS de la bannière */
 
 #headerBan 
@@ -68,6 +67,21 @@
 {
     text-align: center;
 }
+
+/* CSS footer */
+
+.test
+{
+    height: 50px;
+    background-color: #669999;
+    border: 1px black solid;
+}
+
+#linkAdmin
+{
+    padding-top: 15px;
+}
+
 /* CSS global */
 
 h3
