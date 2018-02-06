@@ -39,6 +39,11 @@ try {
                 throw new Exception('Identifiant de billet incorrect');
             }
         }
+        elseif ($_GET['action'] == 'login') {
+            login();
+        }else {
+            throw new Exception('Page introuvable');
+        }
     }else {
         listPosts();
     }

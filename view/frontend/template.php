@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title><?= $title ?></title>
-        <link href="public/css/bootstrap.css" rel="stylesheet"> 
+        <link href="public/css/bootstrap.css" rel="stylesheet">
         <link href="public/css/style.css" rel="stylesheet">   
     </head>
         
@@ -24,7 +24,7 @@
 
         <footer>
             <nav class="navbar navbar-default navbar-fixed-bottom">
-                <a href="#" class="container test col-lg-12" id="linkAdmin">
+                <a href="index.php?action=login" class="container test col-lg-12" id="linkAdmin">
                 Administration
                 </a>
             </nav>

@@ -4,6 +4,11 @@
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
 
+function login()
+{
+    require('view/frontend/loginAdminView.php');
+}
+
 function listPosts()
 {
     $postManager = new \cours\Tp_forum\model\PostManager(); // Création d'un objet

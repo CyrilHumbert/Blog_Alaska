@@ -82,6 +82,17 @@
     padding-top: 15px;
 }
 
+/* CSS loginAdminView */
+
+#formLogin 
+{
+    margin-top: 20px;
+}
+
+.formPassword
+{
+    margin-right: 20px;
+}
 /* CSS global */
 
 h3
