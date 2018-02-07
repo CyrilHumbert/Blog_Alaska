@@ -13,7 +13,7 @@
     </div>
 
     <div id="formLogin" class="row text-center">
-        <form method="POST" >
+        <form method="POST" action="index.php?action=login&amp;postLogin=true">
             <div class="form-group">
                 <label for="pseudo">Identifiant :</label>
                 <input id="pseudo" name="pseudo" type="text"/>

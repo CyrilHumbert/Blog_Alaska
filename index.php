@@ -1,5 +1,6 @@
 <?php
 require('controler/frontend.php');
+require('controler/backend.php');
 
 try {
     if (isset($_GET['action'])) {
@@ -40,9 +41,11 @@ try {
             }
         }
         elseif ($_GET['action'] == 'login') {
-            login();
-        }else {
-            throw new Exception('Page introuvable');
+            if (isset($_GET['postLogin']) &&  $_GET['postLogin'] == true) {
+                verifLogin($_POST['pseudo'], $_POST['password']);
+            }else {
+                loginView();
+            }
         }
     }else {
         listPosts();

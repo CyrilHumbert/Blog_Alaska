@@ -4,14 +4,17 @@
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
 
-function login()
+use Blog_Alaska\model\PostManager as PostManager;
+use Blog_Alaska\model\CommentManager as CommentManager;
+
+function loginView()
 {
     require('view/frontend/loginAdminView.php');
 }
 
 function listPosts()
 {
-    $postManager = new \cours\Tp_forum\model\PostManager(); // Création d'un objet
+    $postManager = new PostManager; // Création d'un objet
     $posts = $postManager->getPosts(); // Appel d'une fonction de cet objet
 
     require('view/frontend/listPostsView.php');
@@ -19,8 +22,8 @@ function listPosts()
 
 function post()
 {
-    $postManager = new \cours\Tp_forum\model\PostManager();
-    $commentManager = new \cours\Tp_forum\model\CommentManager();
+    $postManager = new PostManager;
+    $commentManager = new CommentManager;
 
     $post = $postManager->getPost($_GET['id']);
     $comments = $commentManager->getComments($_GET['id']);
@@ -30,7 +33,7 @@ function post()
 
 function addComment($postId, $author, $comment)
 {
-    $commentManager = new \cours\Tp_forum\model\CommentManager();
+    $commentManager = new CommentManager;
 
     $affectedLines = $commentManager->postComment($postId, $author, $comment);
 
@@ -44,7 +47,7 @@ function addComment($postId, $author, $comment)
 
 function viewModifComment()
 {
-    $commentManager = new \cours\Tp_forum\model\CommentManager();
+    $commentManager = new CommentManager;
 
     $commentModifView = $commentManager->viewModifComment($_GET['id']);
 
@@ -53,7 +56,7 @@ function viewModifComment()
 
 function rewordComment()
 {
-    $commentManager = new \cours\Tp_forum\model\CommentManager();
+    $commentManager = new CommentManager;
 
     $affectedComment = $commentManager->modifComment($_POST['author'], $_POST['comment'], $_GET['id']);
 

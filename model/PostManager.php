@@ -1,5 +1,5 @@
 <?php
-namespace cours\Tp_forum\model;
+namespace Blog_Alaska\model;
 
 require_once("model/Manager.php");
 
