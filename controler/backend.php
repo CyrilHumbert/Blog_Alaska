@@ -18,7 +18,7 @@ function verifLogin($postPseudo, $postPassword) {
         require('view/backend/pannelAdmin.php');
     }
 
-    else {
+    else{
         echo "2";
     }
 }

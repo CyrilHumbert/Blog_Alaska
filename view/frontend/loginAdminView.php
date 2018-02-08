@@ -12,19 +12,26 @@
         <h2 class="text-center">Connexion au service d'administration</h2>
     </div>
 
-    <div id="formLogin" class="row text-center">
-        <form method="POST" action="index.php?action=login&amp;postLogin=true">
-            <div class="form-group">
+    <div id="formLogin" class="row col-sm-12 center-block">
+        <form method="POST" action="index.php?action=login&amp;postLogin=true" class="well">
+            <div class="form-group form-inline col-sm-7 col-sm-offset-5 ">
                 <label for="pseudo">Identifiant :</label>
-                <input id="pseudo" name="pseudo" type="text"/>
+                <input id="pseudo" name="pseudo" type="text" class="form-control"/>
             </div>
 
-            <div class="form-group formPassword">
+            <div class="form-group form-inline formPassword col-sm-7">
                 <label for="password">Mot de passe :</label>
-                <input id="password" name="password" type="password" />
+                <input id="password" name="password" type="password" class="form-control"/>
             </div>
 
-            <input type="submit" name="button" value="Connexion" />
+            <div class="row">
+                <div class="alert alert-block alert-danger text-center col-sm-12" style="display: none;">
+                <h4>Erreur !</h4>
+                Identifiant incorrect ! 
+                </div>
+            </div>
+
+            <button name="button" class="btn btn-primary col-sm-offset-6" >Connexion</button>
         </form>
     </div>
 </div>

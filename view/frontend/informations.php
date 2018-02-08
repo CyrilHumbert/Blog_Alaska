@@ -22,15 +22,15 @@
             </header>
         </div>  
 
-        <?= $content ?>
+        <div id="message" class="row col-lg-offset-5 col-sm-6">
+        <?= 'Erreur : ' . $e->getMessage(); ?>
+        </div>
 
         <footer>
-            <nav class="footer row">
-                <div id="linkFooterAdmin" class="col-sm-2">
-                    <a href="index.php?action=login" class="test" id="linkAdmin">
-                    Administration
-                    </a>
-                </div>
+            <nav class="navbar navbar-default navbar-fixed-bottom">
+                <a href="index.php?action=login" class="container test col-lg-12" id="linkAdmin">
+                Administration
+                </a>
             </nav>
         </footer>
 
@@ -39,16 +39,6 @@
         <script>
             $(window).resize(function() {
             $('h1').css('z-index', 'auto'); //auto reflow
-            });
- 
-            $(function(){
-            $("form").on("submit", function() {
-                if($("input").val().length < 4) {
-                    $("div.form-group").addClass("has-error");
-                    $("div.alert").show("slow").delay(4000).hide("slow");
-                    return false;
-                }
-                });
             });
         </script>
     </body>

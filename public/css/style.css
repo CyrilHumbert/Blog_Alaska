@@ -70,16 +70,22 @@
 
 /* CSS footer */
 
-.test
+.footer
 {
     height: 50px;
     background-color: #669999;
-    border: 1px black solid;
+    margin-top: 20px;
 }
 
-#linkAdmin
+#linkFooterAdmin
 {
     padding-top: 15px;
+    margin-left: 15px;
+}
+
+footer {
+	display : table-row;
+    height: 50px;
 }
 
 /* CSS loginAdminView */
@@ -91,9 +97,20 @@
 
 .formPassword
 {
-    margin-right: 20px;
+    padding-left: 0px;
+    margin-left: 41.26666667%;
 }
 /* CSS global */
+
+html, body {
+	height: 100%;
+	margin: 0; padding: 0;
+}
+
+body {
+	display : table;
+	width: 100%;
+}
 
 h3
 {
