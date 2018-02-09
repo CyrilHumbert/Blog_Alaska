@@ -24,12 +24,14 @@
                 <input id="password" name="password" type="password" class="form-control"/>
             </div>
 
+            <?php if (isset($error)): ?>
             <div class="row">
-                <div class="alert alert-block alert-danger text-center col-sm-12" style="display: none;">
+                <div class="alert alert-block alert-danger text-center col-sm-12">
                 <h4>Erreur !</h4>
                 Identifiant incorrect ! 
                 </div>
             </div>
+            <?php endif ?>   
 
             <button name="button" class="btn btn-primary col-sm-offset-6" >Connexion</button>
         </form>

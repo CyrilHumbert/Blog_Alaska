@@ -4,6 +4,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?= $title ?></title>
         <link href="public/css/bootstrap.css" rel="stylesheet">
         <link href="public/css/style.css" rel="stylesheet">   
@@ -27,10 +28,12 @@
         </div>
 
         <footer>
-            <nav class="navbar navbar-default navbar-fixed-bottom">
-                <a href="index.php?action=login" class="container test col-lg-12" id="linkAdmin">
-                Administration
-                </a>
+            <nav class="footer row">
+                <div id="linkFooterAdmin" class="col-sm-2">
+                    <a href="index.php?action=login" class="test" id="linkAdmin">
+                    Administration
+                    </a>
+                </div>
             </nav>
         </footer>
 

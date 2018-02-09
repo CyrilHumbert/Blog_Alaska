@@ -4,6 +4,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?= $title ?></title>
         <link href="public/css/bootstrap.css" rel="stylesheet">
         <link href="public/css/style.css" rel="stylesheet">   
@@ -39,17 +40,7 @@
         <script>
             $(window).resize(function() {
             $('h1').css('z-index', 'auto'); //auto reflow
-            });
- 
-            $(function(){
-            $("form").on("submit", function() {
-                if($("input").val().length < 4) {
-                    $("div.form-group").addClass("has-error");
-                    $("div.alert").show("slow").delay(4000).hide("slow");
-                    return false;
-                }
-                });
-            });
+            }); 
         </script>
     </body>
 </html>
