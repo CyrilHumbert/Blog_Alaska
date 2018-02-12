@@ -84,7 +84,10 @@
 }
 
 footer {
-	display : table-row;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     height: 50px;
 }
 
@@ -100,16 +103,69 @@ footer {
     padding-left: 0px;
     margin-left: 41.26666667%;
 }
-/* CSS global */
 
-html, body {
-	height: 100%;
-	margin: 0; padding: 0;
+/* CSS pannelAdmin */
+
+#tableAdminChapiter tr
+{
+    height: 70px;
 }
 
-body {
-	display : table;
-	width: 100%;
+#tableAdminChapiter td
+{
+    padding: 25px;
+}
+
+#tableAdminChapiter th
+{
+    padding-top: 25px;
+}
+
+.lineTitle
+{
+    width: 25%;
+}
+
+.buttonAddAdmin 
+{
+    margin-top: 28px;
+    margin-bottom: 10px;
+}
+
+/* CSS editionAdmin */
+
+#editor
+{
+    height: 500px;
+}
+
+.labelTitleEditor
+{
+    font-size: 2em;
+}
+
+#buttonEditor
+{
+    height: 50px;
+    font-size: 1.5em;
+}
+
+/* CSS global */
+
+* {-moz-box-sizing: border-box; box-sizing: border-box;}
+
+html 
+{
+    height: 100%;
+}
+
+body 
+{
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 50px;
 }
 
 h3

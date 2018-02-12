@@ -41,8 +41,15 @@ try {
             }
         }
         elseif ($_GET['action'] == 'login') {
-            if (isset($_GET['postLogin']) &&  $_GET['postLogin'] == true) {
+            if (isset($_GET['postLogin'])) {
                 verifLogin($_POST['pseudo'], $_POST['password']);
+            }
+            elseif(isset($_GET['editor'])) {
+                if(isset($_GET['post'])) {
+                    addPostAdmin($_POST['title'], $_POST['content']);
+                }else {
+                    viewEditor();
+                }
             }else {
                 loginView();
             }

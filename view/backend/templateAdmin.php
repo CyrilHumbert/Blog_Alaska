@@ -5,7 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?= $title ?></title>
         <link href="public/css/bootstrap.css" rel="stylesheet">
-        <link href="public/css/style.css" rel="stylesheet">   
+        <link href="public/css/style.css" rel="stylesheet">
+        <script src="public/js/jquery-3.3.1.min.js"></script>
+        <script src="public/js/bootstrap.min.js"></script>   
     </head>
         
     <body>
@@ -21,7 +23,7 @@
             </header>
         </div>  
 
-        <?php $content ; ?>
+        <?= $content; ?>
 
         <footer>
             <nav class="footer row">
@@ -32,9 +34,7 @@
                 </div>
             </nav>
         </footer>
-
-        <script src="public/js/jquery-3.3.1.min.js"></script>
-        <script src="public/js/bootstrap.min.js"></script>
+        
         <script>
             $(window).resize(function() {
             $('h1').css('z-index', 'auto'); //auto reflow
