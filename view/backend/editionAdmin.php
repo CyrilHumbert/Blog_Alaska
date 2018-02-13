@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="container">
-        <form method="POST" action="index.php?action=login&amp;editor&amp;post">
+        <form method="POST" action="index.php?action=administration&amp;editer&amp;post">
             <div class="form-group text-center">
                 <label for="title" class="labelTitleEditor">Titre du chapitre :</label>
                 <input type="text" name="title"  class="form-control"/>

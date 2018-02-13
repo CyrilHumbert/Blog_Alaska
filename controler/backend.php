@@ -16,7 +16,6 @@ function viewPostsAdmin() {
 
 function verifLogin($postPseudo, $postPassword) {
     $loginManager = new LoginManager;
-    $adminManager = new AdminManager;
 
     $verifLogin = $loginManager->login();
 
@@ -26,9 +25,9 @@ function verifLogin($postPseudo, $postPassword) {
 		$_SESSION['admin_pseudo'] = $verifLogin['pseudo'];
         $_SESSION['admin_mdp'] = $verifLogin['passwordde'];
 
-        $listPosts = $adminManager->listPostsAdmin();
+        $_SESSION['disconnect'] = true;
         
-        require('view/backend/pannelAdmin.php');
+        header('location: index.php?action=administration');
     }
 
     else{
@@ -36,6 +35,12 @@ function verifLogin($postPseudo, $postPassword) {
 
         require('view/frontend/loginAdminView.php');
     }
+}
+
+function pannelAdminView() {
+    $listPosts = viewPostsAdmin();
+
+    require('view/backend/pannelAdmin.php');
 }
 
 function viewEditor() {
@@ -48,14 +53,107 @@ function addPostAdmin($title, $content) {
     if(isset($title) && !empty($title) && isset($content) && !empty($content)) {
         $adminManager->insertPostAdmin($title, $content);
 
-        $listPosts = $adminManager->listPostsAdmin();
-
-        require('view/backend/pannelAdmin.php');
+        header('location: index.php?action=administration');
     }
 
-    else {
+    else{
         $error = true;
 
-        require('view/backend/editionAdmin.php');
+        header('location: index.php?action=administration&editer');
     }
+}
+
+function refresh_session(){
+    $adminManager = new AdminManager;
+
+	if(isset($_SESSION['admin_id']) && intval($_SESSION['admin_id']) != 0) {     
+        $infoSession = $adminManager->getInfoSession();
+		
+		if(isset($infoSession['pseudo']) && $infoSession['pseudo'] != '' && $_SESSION['admin_pseudo'] == $infoSession['pseudo']) {
+            
+            if($_SESSION['admin_mdp'] != $infoSession['passwordde']) {
+				$informations = Array( /*Mot de passe de session incorrect*/
+									true,
+									'Session invalide',
+									'Le mot de passe de votre session est incorrect, vous devez vous reconnecter.',
+									'',
+									'membres/connexion.php',
+									3
+									);
+				require_once('../view/frontend/informations.php');
+				$adminManager->empty_cookie();
+				session_destroy();
+				exit();
+			}
+			
+			else {
+					$_SESSION['admin_id'] = $infoSession['id'];
+					$_SESSION['admin_pseudo'] = $infoSession['pseudo'];
+                    $_SESSION['admin_mdp'] = $infoSession['passwordde'];
+                    
+                    $_SESSION['disconnect'] = true;
+			}
+		}
+	}
+	
+	else {
+		if(isset($_COOKIE['admin_id']) && isset($_COOKIE['admin_mdp'])) {
+			if(intval($_COOKIE['admin_id']) != 0) {
+				$infoSession = $adminManager->getInfoCookie();
+				
+				if(isset($infoSession['pseudo']) && $infoSession['pseudo'] != '' && $_COOKIE['admin_pseudo'] == $infoSession['pseudo']) {
+					if($_COOKIE['membre_mdp'] != $infoSession['passwordde']) {
+						$informations = Array( /*Mot de passe de cookie incorrect*/
+											true,
+											'Mot de passe cookie erroné',
+											'Le mot de passe conservé sur votre cookie est incorrect vous devez vous reconnecter.',
+											'',
+											'membres/connexion.php',
+											3
+											);
+                        require_once('../view/frontend/informations.php');
+						$adminManager->empty_cookie();
+						session_destroy();
+						exit();
+					}
+					
+					else {
+						$_SESSION['admin_id'] = $infoSession['id'];
+						$_SESSION['admin_pseudo'] = $infoSession['pseudo'];
+                        $_SESSION['admin_mdp'] = $infoSession['passwordde'];
+                        
+                        $_SESSION['disconnect'] = true;
+					}
+				}
+			}
+			
+			else {
+				$informations = Array( /*L'id de cookie est incorrect*/
+									true,
+									'Cookie invalide',
+									'Le cookie conservant votre id est corrompu, il va donc être détruit vous devez vous reconnecter.',
+									'',
+									'membres/connexion.php',
+									3
+									);
+                require_once('../view/frontend/informations.php');
+				$adminManager->empty_cookie();
+				session_destroy();
+				exit();
+			}
+		}
+		
+		else {
+			if(isset($_SESSION['membre_id'])) unset($_SESSION['membre_id']);
+			$adminManager->empty_cookie();
+		}
+	}
+}
+
+function disconnect() {
+    session_start();
+    session_unset();
+    session_destroy();
+
+    header('location: index.php');
 }

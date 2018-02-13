@@ -43,15 +43,22 @@ try {
         elseif ($_GET['action'] == 'login') {
             if (isset($_GET['postLogin'])) {
                 verifLogin($_POST['pseudo'], $_POST['password']);
+            }else {
+                loginView();
             }
-            elseif(isset($_GET['editor'])) {
+        }
+        elseif ($_GET['action'] == 'disconnect') {
+            disconnect();
+        }
+        elseif ($_GET['action'] == 'administration') {
+            if(isset($_GET['editer'])) {
                 if(isset($_GET['post'])) {
                     addPostAdmin($_POST['title'], $_POST['content']);
                 }else {
                     viewEditor();
                 }
             }else {
-                loginView();
+                pannelAdminView();
             }
         }
     }else {

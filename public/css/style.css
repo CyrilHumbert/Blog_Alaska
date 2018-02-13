@@ -83,6 +83,12 @@
     margin-left: 15px;
 }
 
+#linkFooterDisconnect
+{
+    padding-top: 15px;
+    margin-left: 15px;
+}
+
 footer {
     position: absolute;
     bottom: 0;
