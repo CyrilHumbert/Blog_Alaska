@@ -11,7 +11,7 @@
             </div>
 
             <div class="form-group">
-                <textarea id="editor" name="content">Next, start a free trial!</textarea>
+                <textarea id="editer" name="content">Next, start a free trial!</textarea>
             </div>
 
             <?php if (isset($error)): ?>

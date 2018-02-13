@@ -11,8 +11,32 @@
         <link href="public/css/style.css" rel="stylesheet">
         <script src="public/js/jquery-3.3.1.min.js"></script>
         <script src="public/js/bootstrap.min.js"></script>
-        <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
-        <script>tinymce.init({ selector:'textarea' });</script>   
+        <script src="public/js/tinymce/tinymce.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            tinyMCE.init({
+                language : "fr_FR",
+                selector: "textarea#editer",
+                theme: "modern",
+                branding: false,
+                height: 500,
+                plugins: [
+                    "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                    "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+            content_css: "css/content.css",
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons | searchreplace fullscreen", 
+            style_formats: [
+                    {title: 'Bold text', inline: 'b'},
+                    {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                    {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                    {title: 'Example 1', inline: 'span', classes: 'example1'},
+                    {title: 'Example 2', inline: 'span', classes: 'example2'},
+                    {title: 'Table styles'},
+                    {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+                ]
+            }); 
+        </script>
     </head>
         
     <body>
@@ -33,12 +57,12 @@
         <footer>
             <nav class="footer row">
                 <div id="linkFooterAdmin" class="col-sm-2">
-                    <a href="<?php if(isset($_SESSION['disconnect'])): ?>index.php?action=administration <?php else: ?>index.php?action=login<?php endif ?>" class="test" id="linkAdmin">
+                    <a href="<?php if(isset($_SESSION['connected'])): ?>index.php?action=administration <?php else: ?>index.php?action=login<?php endif ?>" class="test" id="linkAdmin">
                     Administration
                     </a>
                 </div>
 
-                <?php if (isset($_SESSION['disconnect'])): ?>
+                <?php if (isset($_SESSION['connected'])): ?>
                     <div id="linkFooterDisconnect" class="col-sm-1 pull-right">
                         <a href="index.php?action=disconnect" id="linkDisconnect">
                             Déconnexion

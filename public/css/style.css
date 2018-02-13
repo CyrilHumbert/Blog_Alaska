@@ -46,6 +46,19 @@
 
 }
 
+.chapterContainer 
+{
+    height: 400px;
+    padding-left: 0px;
+    padding-right: 10px;
+}
+
+.chapterContent
+{
+    height: 390px;
+    border: 1px black solid;
+}
+
 /* CSS postView */
 
 #titleComment
@@ -140,11 +153,6 @@ footer {
 
 /* CSS editionAdmin */
 
-#editor
-{
-    height: 500px;
-}
-
 .labelTitleEditor
 {
     font-size: 2em;
@@ -172,25 +180,6 @@ body
     margin: 0;
     padding: 0;
     padding-bottom: 50px;
-}
-
-h3
-{
-    text-align:center;
-    background-color:black;
-    color:white;
-    font-size:0.9em;
-    margin-bottom:0px;
-}
-.news p
-{
-    background-color:#CCCCCC;
-    margin-top:0px;
-}
-.news
-{
-    width:70%;
-    margin:auto;
 }
 
 a

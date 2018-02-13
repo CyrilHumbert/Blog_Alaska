@@ -24,14 +24,14 @@ class AdminManager extends Manager
 
     public function getInfoSession()
     {
-        $req = $this->sqlquery('SELECT id, pseudo, passwordde FROM admintest WHERE id = ' . intval($_SESSION['admin_id']), 1);
+        $req = $this->sqlquery('SELECT id, pseudo, passwordde FROM logadmin WHERE id = ' . intval($_SESSION['admin_id']), 1);
 
         return $req;
     }
 
     public function getInfoCookie()
     {
-        $req = $this->sqlquery('SELECT id, pseudo, passwordde FROM admintest WHERE id = ' . intval($_COOKIE['admin_id']), 1);
+        $req = $this->sqlquery('SELECT id, pseudo, passwordde FROM logadmin WHERE id = ' . intval($_COOKIE['admin_id']), 1);
 
         return $req;
     }

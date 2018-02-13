@@ -33,12 +33,12 @@
         <footer>
             <nav class="footer row">
                 <div id="linkFooterAdmin" class="col-sm-2">
-                    <a href="<?php if(isset($_SESSION['disconnect'])): ?>index.php?action=administration <?php else: ?>index.php?action=login<?php endif ?>" class="test" id="linkAdmin">
+                    <a href="<?php if(isset($_SESSION['connected'])): ?>index.php?action=administration <?php else: ?>index.php?action=login<?php endif ?>" class="test" id="linkAdmin">
                     Administration
                     </a>
                 </div>
 
-                <?php if (isset($_SESSION['disconnect'])): ?>
+                <?php if (isset($_SESSION['connected'])): ?>
                     <div id="linkFooterDisconnect" class="col-sm-1 pull-right">
                         <a href="" id="linkDisconnect">
                             Déconnexion

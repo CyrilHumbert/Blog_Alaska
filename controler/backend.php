@@ -25,7 +25,7 @@ function verifLogin($postPseudo, $postPassword) {
 		$_SESSION['admin_pseudo'] = $verifLogin['pseudo'];
         $_SESSION['admin_mdp'] = $verifLogin['passwordde'];
 
-        $_SESSION['disconnect'] = true;
+        $_SESSION['connected'] = true;
         
         header('location: index.php?action=administration');
     }
@@ -91,7 +91,7 @@ function refresh_session(){
 					$_SESSION['admin_pseudo'] = $infoSession['pseudo'];
                     $_SESSION['admin_mdp'] = $infoSession['passwordde'];
                     
-                    $_SESSION['disconnect'] = true;
+                    $_SESSION['connected'] = true;
 			}
 		}
 	}
@@ -122,7 +122,7 @@ function refresh_session(){
 						$_SESSION['admin_pseudo'] = $infoSession['pseudo'];
                         $_SESSION['admin_mdp'] = $infoSession['passwordde'];
                         
-                        $_SESSION['disconnect'] = true;
+                        $_SESSION['connected'] = true;
 					}
 				}
 			}
