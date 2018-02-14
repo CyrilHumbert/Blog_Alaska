@@ -53,7 +53,11 @@ try {
         elseif ($_GET['action'] == 'administration') {
             if(isset($_GET['editer'])) {
                 if(isset($_GET['post'])) {
+                    if(isset($_GET['id']) && $_GET['id'] > 0) {
+                        chapterModif($_POST['title'], $_POST['author'], $_POST['content'], $_GET['id']);
+                    }else {
                     addPostAdmin($_POST['title'], $_POST['content'], $_POST['author']);
+                    }
                 }elseif(isset($_GET['id']) && $_GET['id'] > 0) {
                     editerModif($_GET['id']);
                 }else {

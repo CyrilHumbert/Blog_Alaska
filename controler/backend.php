@@ -167,3 +167,13 @@ function editerModif($postId) {
 
 	require('view/backend/editionAdmin.php');
 }
+
+function chapterModif($postTitle, $postAuthor, $postContent, $getId) {
+	$adminManager = new AdminManager;
+
+	$adminManager->updateChapter($postTitle, $postAuthor, $postContent, $getId);
+
+	$listPosts = viewPostsAdmin();
+
+    require('view/backend/pannelAdmin.php');
+}

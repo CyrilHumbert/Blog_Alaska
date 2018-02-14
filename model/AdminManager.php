@@ -5,10 +5,17 @@ require_once("model/Manager.php");
 
 class AdminManager extends Manager
 {
+    public function updateChapter($postTitle, $postAuthor, $postContent, $getId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE posts SET title = ?, author = ?, content = ?, comment_date = NOW() WHERE id = ?');
+        $req->execute(array($postTitle, $postAuthor, $postContent, $getId));
+    }
+
     public function listPostsAdmin() 
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, title, content, author, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date');
+        $req = $db->query('SELECT id, title, content, author, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC');
 
         return $req;
     }
