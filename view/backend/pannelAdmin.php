@@ -7,7 +7,7 @@
 
     <div class="row">
         <h2 class="col-sm-offset-4 col-sm-3">Liste des chapitres</h2>
-        <p class="col-sm-2 buttonAddAdmin"><a href="index.php?action=administration&amp;editer">Ajouter</a></p>
+        <a class="btn btn-primary btnAdd" href="index.php?action=administration&amp;editer&amp;id=0" data-toggle="tooltip" data-placement="right" title="Ajoutez un chapitre"><i class="fas fa-plus-circle fa-4x"></i></a>
     </div>
 
 
@@ -23,6 +23,7 @@
                 <tr>
                     <td class="text-center lineTitle"><?= $data['title'] ?></td><br>
                     <td class="text-center lineAuthor"><?= $data['author'] ?></td>
+                    <td class="text-center"><a href="index.php?action=administration&amp;editer&amp;id=<?= $data['id'] ?>">Modifier</a></td>
                 </tr>
             <?php endwhile; ?>
         </table>

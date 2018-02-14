@@ -6,12 +6,22 @@ require_once('model/AdminManager.php');
 use Blog_Alaska\model\LoginManager as LoginManager;
 use Blog_Alaska\model\AdminManager as AdminManager;
 
+function viewEditer() {
+    require('view/backend/editionAdmin.php');
+}
+
 function viewPostsAdmin() {
     $adminManager = new AdminManager;
 
     $listPosts = $adminManager->listPostsAdmin();
 
     return $listPosts;
+}
+
+function pannelAdminView() {
+    $listPosts = viewPostsAdmin();
+
+    require('view/backend/pannelAdmin.php');
 }
 
 function verifLogin($postPseudo, $postPassword) {
@@ -35,16 +45,6 @@ function verifLogin($postPseudo, $postPassword) {
 
         require('view/frontend/loginAdminView.php');
     }
-}
-
-function pannelAdminView() {
-    $listPosts = viewPostsAdmin();
-
-    require('view/backend/pannelAdmin.php');
-}
-
-function viewEditor() {
-    require('view/backend/editionAdmin.php');
 }
 
 function addPostAdmin($title, $content, $author) {
@@ -156,4 +156,14 @@ function disconnect() {
     session_destroy();
 
     header('location: index.php');
+}
+
+function editerModif($postId) {
+	$adminManager = new AdminManager;
+
+	$data = $adminManager->getChapterModif($postId);
+
+	$modified = true;
+
+	require('view/backend/editionAdmin.php');
 }

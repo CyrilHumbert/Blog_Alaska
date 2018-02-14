@@ -54,8 +54,10 @@ try {
             if(isset($_GET['editer'])) {
                 if(isset($_GET['post'])) {
                     addPostAdmin($_POST['title'], $_POST['content'], $_POST['author']);
+                }elseif(isset($_GET['id']) && $_GET['id'] > 0) {
+                    editerModif($_GET['id']);
                 }else {
-                    viewEditor();
+                    viewEditer();
                 }
             }else {
                 pannelAdminView();

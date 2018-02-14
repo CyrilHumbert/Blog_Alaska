@@ -74,29 +74,66 @@
 
         
         <script>
-            $(window).resize(function() {
-            $('h1').css('z-index', 'auto'); //auto reflow
-            });
+            $(function(){
 
-            $(".inputEditerTitle").focus(function() {
-            $(".labelEditerTitle").addClass('active');
-            $(".inputEditerTitle").css({
-                "border-color": "red",
-                "border-bottom-width": "2px",
-                "outline": "0"
+                $(window).resize(function() {
+                $('h1').css('z-index', 'auto'); //auto reflow
                 });
-            });
 
-            $(".inputEditerAuthor").focus(function() {
-            $(".labelEditerAuthor").addClass('active');
-            $(".inputEditerAuthor").css({
-                "border-color": "green",
-                "border-bottom-width": "2px",
-                "outline": "0"
+                $(".inputEditerTitle").focus(function() {
+                $(".labelEditerTitle").addClass('active');
+                $(".inputEditerTitle").css({
+                    "border-color": "red",
+                    "border-bottom-width": "2px",
+                    "outline": "0"
+                    });
                 });
-            });
 
-            $(".inputEditerTitle").focusout(function() {
+                $(".inputEditerAuthor").focus(function() {
+                $(".labelEditerAuthor").addClass('active');
+                $(".inputEditerAuthor").css({
+                    "border-color": "green",
+                    "border-bottom-width": "2px",
+                    "outline": "0"
+                    });
+                });
+
+                $(".inputEditerTitle").focusout(function() {
+                    if($(".inputEditerTitle").val().length > 0) {
+                        $(".labelEditerTitle").addClass('active');
+                        $(".inputEditerTitle").css({
+                            "border-color": "red",
+                            "border-bottom-width": "2px",
+                            "outline": "0"
+                            });
+                    }else {
+                        $(".labelEditerTitle").removeClass('active');
+                        $(".inputEditerTitle").css({
+                        "border-color": "",
+                        "border-bottom-width": "",
+                        "outline": ""
+                        });  
+                    }
+                });
+
+                $(".inputEditerAuthor").focusout(function() {
+                    if($(".inputEditerAuthor").val().length > 0) {
+                        $(".labelEditerAuthor").addClass('active');
+                        $(".inputEditerAuthor").css({
+                            "border-color": "green",
+                            "border-bottom-width": "2px",
+                            "outline": "0"
+                            });
+                    }else {
+                        $(".labelEditerAuthor").removeClass('active');
+                        $(".inputEditerAuthor").css({
+                        "border-color": "",
+                        "border-bottom-width": "",
+                        "outline": ""
+                        });  
+                    }
+                });
+
                 if($(".inputEditerTitle").val().length > 0) {
                     $(".labelEditerTitle").addClass('active');
                     $(".inputEditerTitle").css({
@@ -104,17 +141,8 @@
                         "border-bottom-width": "2px",
                         "outline": "0"
                         });
-                }else {
-                    $(".labelEditerTitle").removeClass('active');
-                    $(".inputEditerTitle").css({
-                    "border-color": "",
-                    "border-bottom-width": "",
-                    "outline": ""
-                    });  
                 }
-            });
-
-            $(".inputEditerAuthor").focusout(function() {
+                
                 if($(".inputEditerAuthor").val().length > 0) {
                     $(".labelEditerAuthor").addClass('active');
                     $(".inputEditerAuthor").css({
@@ -122,13 +150,6 @@
                         "border-bottom-width": "2px",
                         "outline": "0"
                         });
-                }else {
-                    $(".labelEditerAuthor").removeClass('active');
-                    $(".inputEditerAuthor").css({
-                    "border-color": "",
-                    "border-bottom-width": "",
-                    "outline": ""
-                    });  
                 }
             });
 

@@ -13,6 +13,16 @@ class AdminManager extends Manager
         return $req;
     }
 
+    public function getChapterModif($postId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id, title, content, author FROM posts WHERE id = ?');
+        $req->execute(array($postId));
+        $post = $req->fetch();
+
+        return $post;
+    }
+
     public function insertPostAdmin($title, $content, $author)
     {
         $db = $this->dbConnect();

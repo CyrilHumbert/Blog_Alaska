@@ -9,6 +9,7 @@
         <title><?= $title ?></title>
         <link href="public/css/bootstrap.css" rel="stylesheet">
         <link href="public/css/style.css" rel="stylesheet">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
         <script src="public/js/jquery-3.3.1.min.js"></script>
         <script src="public/js/bootstrap.min.js"></script>   
     </head>
@@ -49,6 +50,10 @@
         <script>
             $(window).resize(function() {
             $('h1').css('z-index', 'auto'); //auto reflow
+            });
+
+            $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip(); 
             });
         </script>
     </body>
