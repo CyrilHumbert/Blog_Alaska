@@ -5,14 +5,14 @@
     <div class="container">
         <form method="POST" action="index.php?action=administration&amp;editer&amp;post">
             <div class="row">
-                <div class="divTitle form-group col-lg-9">
-                    <label for="title" class="labelTitleEditor">Titre du chapitre</label>
-                    <input type="text" name="title"  class="inputTitle "/>
+                <div class="divEditer form-group col-lg-9">
+                    <label for="title" class="labelEditerTitle">Titre du chapitre</label>
+                    <input type="text" name="title"  class="inputEditerTitle"/>
                 </div>
 
-                <div class="divAuthor form-group col-lg-3">
-                    <label for="author" class="labelAuthorEditor">Auteur</label>
-                    <input type="text" name="author" class="inputAuthor form-control"/>
+                <div class="divEditer form-group col-lg-3">
+                    <label for="author" class="labelEditerAuthor">Auteur</label>
+                    <input type="text" name="author" class="inputEditerAuthor"/>
                 </div>
             </div>
 

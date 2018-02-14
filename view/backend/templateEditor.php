@@ -77,6 +77,61 @@
             $(window).resize(function() {
             $('h1').css('z-index', 'auto'); //auto reflow
             });
+
+            $(".inputEditerTitle").focus(function() {
+            $(".labelEditerTitle").addClass('active');
+            $(".inputEditerTitle").css({
+                "border-color": "red",
+                "border-bottom-width": "2px",
+                "outline": "0"
+                });
+            });
+
+            $(".inputEditerAuthor").focus(function() {
+            $(".labelEditerAuthor").addClass('active');
+            $(".inputEditerAuthor").css({
+                "border-color": "green",
+                "border-bottom-width": "2px",
+                "outline": "0"
+                });
+            });
+
+            $(".inputEditerTitle").focusout(function() {
+                if($(".inputEditerTitle").val().length > 0) {
+                    $(".labelEditerTitle").addClass('active');
+                    $(".inputEditerTitle").css({
+                        "border-color": "red",
+                        "border-bottom-width": "2px",
+                        "outline": "0"
+                        });
+                }else {
+                    $(".labelEditerTitle").removeClass('active');
+                    $(".inputEditerTitle").css({
+                    "border-color": "",
+                    "border-bottom-width": "",
+                    "outline": ""
+                    });  
+                }
+            });
+
+            $(".inputEditerAuthor").focusout(function() {
+                if($(".inputEditerAuthor").val().length > 0) {
+                    $(".labelEditerAuthor").addClass('active');
+                    $(".inputEditerAuthor").css({
+                        "border-color": "green",
+                        "border-bottom-width": "2px",
+                        "outline": "0"
+                        });
+                }else {
+                    $(".labelEditerAuthor").removeClass('active');
+                    $(".inputEditerAuthor").css({
+                    "border-color": "",
+                    "border-bottom-width": "",
+                    "outline": ""
+                    });  
+                }
+            });
+
         </script>
     </body>
 </html>
