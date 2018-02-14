@@ -25,7 +25,7 @@
                     </h3>
 
                     <p>
-                        <em>publié le <?= $data['creation_date_fr'] ?></em>
+                        <em>publié le <?= $data['creation_date_fr'] ?> par <?= $data['author'] ?></em>
                     </p>
                     
                     <p>

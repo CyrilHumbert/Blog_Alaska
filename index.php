@@ -53,7 +53,7 @@ try {
         elseif ($_GET['action'] == 'administration') {
             if(isset($_GET['editer'])) {
                 if(isset($_GET['post'])) {
-                    addPostAdmin($_POST['title'], $_POST['content']);
+                    addPostAdmin($_POST['title'], $_POST['content'], $_POST['author']);
                 }else {
                     viewEditor();
                 }

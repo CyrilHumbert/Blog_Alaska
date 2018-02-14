@@ -155,13 +155,48 @@ footer {
 
 .labelTitleEditor
 {
-    font-size: 2em;
+    font-size: 1em;
+    position: absolute;
+}
+
+.labelAuthorEditor
+{
+    font-size: 1em;
+    position: absolute;
+}
+
+.divAuthor
+{
+    position: relative;
+}
+
+.divTitle
+{
+    position: relative;
+}
+
+.inputTitle
+{
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    border: 0px;
+    border-bottom: 1px solid #ccc;
+    -webkit-transition: border-color ease-in-out .15s;
+         -o-transition: border-color ease-in-out .15s;
+            transition: border-color ease-in-out .15s;
 }
 
 #buttonEditor
 {
     height: 50px;
     font-size: 1.5em;
+}
+
+.rowButton
+{
+    padding-right: 13px;
 }
 
 /* CSS global */

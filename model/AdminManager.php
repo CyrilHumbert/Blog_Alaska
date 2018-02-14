@@ -8,16 +8,16 @@ class AdminManager extends Manager
     public function listPostsAdmin() 
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date');
+        $req = $db->query('SELECT id, title, content, author, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date');
 
         return $req;
     }
 
-    public function insertPostAdmin($title, $content)
+    public function insertPostAdmin($title, $content, $author)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO posts(title, content, creation_date) VALUE (?, ?, NOW())');
-        $reqs = $req->execute(array($title, $content));
+        $req = $db->prepare('INSERT INTO posts(title, content, author, creation_date) VALUE (?, ?, ?, NOW())');
+        $reqs = $req->execute(array($title, $content, $author));
 
         return $reqs;
     }

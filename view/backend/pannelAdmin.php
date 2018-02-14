@@ -14,12 +14,14 @@
         <table id="tableAdminChapiter" class="table table-bordered table-striped table-condensed">
             <tr>
                 <th class="text-center lineTitle">Titres du chapitre</th>
+                <th class="text-center">Auteur</th>
                 <th class="text-center">Modification</th>
             </tr>
 
             <?php while($data = $listPosts->fetch()): ?>
                 <tr>
                     <td class="text-center lineTitle"><?= $data['title'] ?></td><br>
+                    <td class="text-center lineAuthor"><?= $data['author'] ?></td>
                 </tr>
             <?php endwhile; ?>
         </table>

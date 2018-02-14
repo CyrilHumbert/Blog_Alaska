@@ -47,11 +47,11 @@ function viewEditor() {
     require('view/backend/editionAdmin.php');
 }
 
-function addPostAdmin($title, $content) {
+function addPostAdmin($title, $content, $author) {
     $adminManager = new AdminManager;
 
-    if(isset($title) && !empty($title) && isset($content) && !empty($content)) {
-        $adminManager->insertPostAdmin($title, $content);
+    if(isset($title) && !empty($title) && isset($content) && !empty($content) && isset($author) && !empty($author)) {
+        $adminManager->insertPostAdmin($title, $content, $author);
 
         header('location: index.php?action=administration');
     }
