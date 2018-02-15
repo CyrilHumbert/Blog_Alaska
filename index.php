@@ -11,7 +11,7 @@ try {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 post();
             }else {
-                throw new Exception('Aucun identifiant de billet envoyé');
+                throw new Exception('Aucun identifiant de chapitre envoyé');
             }
         }
         elseif ($_GET['action'] == 'addComment') {
@@ -23,7 +23,7 @@ try {
                     throw new Exception('Tous les champs ne sont pas remplis !');
                 }
             }else {
-                throw new Exception('Aucun identifiant de billet envoyé');
+                throw new Exception('Aucun identifiant de chapitre envoyé');
             }
         }
         elseif ($_GET['action'] == 'modifComment') {
@@ -37,7 +37,7 @@ try {
                     }
                 }
             }else {
-                throw new Exception('Identifiant de billet incorrect');
+                throw new Exception('Identifiant de chapitre incorrect');
             }
         }
         elseif ($_GET['action'] == 'login') {
@@ -56,12 +56,18 @@ try {
                     if(isset($_GET['id']) && $_GET['id'] > 0) {
                         chapterModif($_POST['title'], $_POST['author'], $_POST['content'], $_GET['id']);
                     }else {
-                    addPostAdmin($_POST['title'], $_POST['content'], $_POST['author']);
+                        addPostAdmin($_POST['title'], $_POST['content'], $_POST['author']);
                     }
                 }elseif(isset($_GET['id']) && $_GET['id'] > 0) {
                     editerModif($_GET['id']);
                 }else {
                     viewEditer();
+                }
+            }elseif(isset($_GET['delete'])) {
+                if(isset($_GET['id']) && $_GET['id'] > 0) {
+                    chapterTrash($_GET['id']);
+                }else {
+                    throw new Exception('Identifiant de chapitre incorrect');
                 }
             }else {
                 pannelAdminView();

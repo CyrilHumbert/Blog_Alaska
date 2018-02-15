@@ -23,7 +23,10 @@
                 <tr>
                     <td class="text-center lineTitle"><?= $data['title'] ?></td><br>
                     <td class="text-center lineAuthor"><?= $data['author'] ?></td>
-                    <td class="text-center"><a href="index.php?action=administration&amp;editer&amp;id=<?= $data['id'] ?>">Modifier</a></td>
+                    <td class="text-center">
+                        <a href="index.php?action=administration&amp;editer&amp;id=<?= $data['id'] ?>">Modifier</a>
+                        <a href="index.php?action=administration&amp;delete&amp;id=<?= $data['id'] ?>" style="padding-left: 10px;">Supprimer</a>
+                    </td>
                 </tr>
             <?php endwhile; ?>
         </table>

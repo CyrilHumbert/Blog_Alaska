@@ -60,4 +60,37 @@ class AdminManager extends Manager
             setcookie($key, '', time()-3600);
         }
     }
+
+    public function selectChapterForTrash($postId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id, title, content, author, creation_date FROM posts WHERE id = ?');
+        $req->execute(array($postId));
+        $reqs = $req->fetch();
+
+        return $reqs;
+    }
+
+    public function insertChapterInTrash($postId, $title, $author, $content, $creationDate)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('INSERT INTO trash(id_chapter, title, author, content, creation_date) VALUE (?, ?, ?, ?, ?)');
+        $req->execute(array($postId, $title, $author, $content, $creationDate));
+    }
+
+    public function verifChapterSinceTrash($idChapter)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id_chapter FROM trash WHERE id_chapter = ?');
+        $req->execute(array($idChapter));
+
+        return $req;
+    }
+
+    public function deleteChapterFromPosts($idChapter)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM posts WHERE id = ?');
+        $req->execute(array($idChapter));
+    }
 }

@@ -173,7 +173,21 @@ function chapterModif($postTitle, $postAuthor, $postContent, $getId) {
 
 	$adminManager->updateChapter($postTitle, $postAuthor, $postContent, $getId);
 
-	$listPosts = viewPostsAdmin();
+	pannelAdminView();
+}
 
-    require('view/backend/pannelAdmin.php');
+function chapterTrash($postId) {
+	$adminManager = new AdminManager;
+
+	$chapterSelected = $adminManager->selectChapterForTrash($postId);
+
+	$adminManager->insertChapterInTrash($chapterSelected['id'], $chapterSelected['title'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
+
+	$verifChapter = $adminManager->verifChapterSinceTrash($postId);
+
+	if(isset($verifChapter) && !empty($verifChapter)) {
+		$adminManager->deleteChapterFromPosts($postId);
+
+		pannelAdminView();
+	}
 }
