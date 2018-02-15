@@ -160,6 +160,11 @@ footer {
     position: relative;
 }
 
+.linkTrash
+{
+    padding-top: 25px;
+}
+
 /* CSS editionAdmin */
 
 .divEditer

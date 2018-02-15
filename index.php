@@ -69,6 +69,23 @@ try {
                 }else {
                     throw new Exception('Identifiant de chapitre incorrect');
                 }
+            }
+            elseif(isset($_GET['trash'])) {
+                if(isset($_GET['restore'])) {
+                    if(isset($_GET['id']) && $_GET['id'] > 0) {
+                        restoreTrash($_GET['id']);
+                    }else {
+                        throw new Exception('Identifiant de chapitre incorrect');
+                    }
+                }elseif(isset($_GET['delete'])) {
+                    if(isset($_GET['id']) && $_GET['id'] > 0) {
+                        deleteDefinitely($_GET['id']);
+                    }else {
+                        throw new Exception('Identifiant de chapitre incorrect');  
+                    }
+                }else {
+                    viewTrash();
+                }
             }else {
                 pannelAdminView();
             }

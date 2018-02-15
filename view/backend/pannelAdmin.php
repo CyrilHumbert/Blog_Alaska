@@ -14,7 +14,7 @@
     <div class="row">
         <table id="tableAdminChapiter" class="table table-bordered table-striped table-condensed">
             <tr>
-                <th class="text-center lineTitle">Titres du chapitre</th>
+                <th class="text-center lineTitle">Titre du chapitre</th>
                 <th class="text-center">Auteur</th>
                 <th class="text-center">Modification</th>
             </tr>
@@ -30,6 +30,11 @@
                 </tr>
             <?php endwhile; ?>
         </table>
+    </div>
+
+    <div class="row">
+        <h2 class="col-sm-offset-4 col-sm-2">Corbeille</h2>
+        <a href="index.php?action=administration&amp;trash" class="linkTrash col-sm-1" >Vider</a>
     </div>
 </div>
 

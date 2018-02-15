@@ -18,6 +18,20 @@ function viewPostsAdmin() {
     return $listPosts;
 }
 
+function viewPostsTrash() {
+    $adminManager = new AdminManager;
+
+    $listPosts = $adminManager->listPostsTrash();
+
+    return $listPosts;
+}
+
+function viewTrash() {
+	$listPosts = viewPostsTrash();
+
+	require('view/backend/trashAdmin.php');
+}
+
 function pannelAdminView() {
     $listPosts = viewPostsAdmin();
 
@@ -179,7 +193,7 @@ function chapterModif($postTitle, $postAuthor, $postContent, $getId) {
 function chapterTrash($postId) {
 	$adminManager = new AdminManager;
 
-	$chapterSelected = $adminManager->selectChapterForTrash($postId);
+	$chapterSelected = $adminManager->selectChapterFromPosts($postId);
 
 	$adminManager->insertChapterInTrash($chapterSelected['id'], $chapterSelected['title'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
 
@@ -190,4 +204,28 @@ function chapterTrash($postId) {
 
 		pannelAdminView();
 	}
+}
+
+function restoreTrash($idChapter) {
+	$adminManager = new AdminManager;
+
+	$chapterSelected = $adminManager->selectChapterFromTrash($idChapter);
+
+	$adminManager->insertChapterInPosts($chapterSelected['id_chapter'], $chapterSelected['title'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
+
+	$verifChapter = $adminManager->verifChapterSincePosts($idChapter);
+
+	if(isset($verifChapter) && !empty($verifChapter)) {
+		$adminManager->deleteChapterFromTrash($idChapter);
+
+		viewTrash();
+	}
+}
+
+function deleteDefinitely($idChapterTrash) {
+	$adminManager = new AdminManager;
+
+	$adminManager->deleteDefinitelySinceTrash($idChapterTrash);
+
+	viewTrash();
 }
