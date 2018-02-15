@@ -21,7 +21,7 @@
                     <td class="text-center lineAuthor"><?= $data['author'] ?></td>
                     <td class="text-center">
                         <a href="index.php?action=administration&amp;trash&amp;restore&amp;id=<?= $data['id_chapter'] ?>">Restaurer</a>
-                        <a href="index.php?action=administration&amp;trash&amp;delete&amp;id=<?= $data['id'] ?>" style="padding-left: 10px;">Supprimer définitivement</a>
+                        <a href="index.php?action=administration&amp;trash&amp;deletetrash&amp;id=<?= $data['id'] ?>" style="padding-left: 10px;">Supprimer définitivement</a>
                     </td>
                 </tr>
             <?php endwhile; ?>

@@ -77,7 +77,7 @@ try {
                     }else {
                         throw new Exception('Identifiant de chapitre incorrect');
                     }
-                }elseif(isset($_GET['delete'])) {
+                }elseif(isset($_GET['deletetrash'])) {
                     if(isset($_GET['id']) && $_GET['id'] > 0) {
                         deleteDefinitely($_GET['id']);
                     }else {
