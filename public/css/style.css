@@ -9,29 +9,57 @@
 
 }
 
-/* CSS de la bannière */
+/************** CSS global **************/
+
+* {-moz-box-sizing: border-box; box-sizing: border-box;}
+
+html 
+{
+    height: 100%;
+}
+
+body 
+{
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 50px;
+}
+
+a
+{
+    text-decoration: none;
+    color: blue;
+}
+
+/************** CSS de la bannière **************/
+
+/**** Dans postView.php ****/
 
 #headerBan 
 {
     background-color: #669999;
-    height: 400px;
+    min-height: 250px;
     margin-bottom: 50px;
+    padding-top: 50px;
 }
 
-#titleAlaska
+#titleChapter
 {
-    font-size: 5vw;
-    font-family: 'alex_brushregular';
-    margin-top: 130px;
-}
-
-#titleJeanForteroche
-{
-    font-size: 4vw;
+    font-size: 5em;
     font-family: 'alex_brushregular';
 }
 
-/* CSS listPostsView */
+#dateChapter
+{
+    font-size: 1.5em;
+    font-weight: normal;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-style: italic;
+}
+
+/************** CSS listPostsView **************/
 
 #titreLastNews
 {
@@ -59,7 +87,7 @@
     border: 1px black solid;
 }
 
-/* CSS postView */
+/************** CSS postView **************/
 
 #titleComment
 {
@@ -81,7 +109,7 @@
     text-align: center;
 }
 
-/* CSS footer */
+/************** CSS footer **************/
 
 .footer
 {
@@ -110,7 +138,7 @@ footer {
     height: 50px;
 }
 
-/* CSS loginAdminView */
+/************** CSS loginAdminView **************/
 
 #formLogin 
 {
@@ -123,7 +151,7 @@ footer {
     margin-left: 41.26666667%;
 }
 
-/* CSS pannelAdmin */
+/************** CSS pannelAdmin **************/
 
 #tableAdminChapiter tr
 {
@@ -165,7 +193,7 @@ footer {
     padding-top: 25px;
 }
 
-/* CSS editionAdmin */
+/************** CSS editionAdmin **************/
 
 .divEditer
 {
@@ -255,28 +283,4 @@ footer {
 .rowButton
 {
     padding-right: 13px;
-}
-
-/* CSS global */
-
-* {-moz-box-sizing: border-box; box-sizing: border-box;}
-
-html 
-{
-    height: 100%;
-}
-
-body 
-{
-    position: relative;
-    min-height: 100%;
-    margin: 0;
-    padding: 0;
-    padding-bottom: 50px;
-}
-
-a
-{
-    text-decoration: none;
-    color: blue;
 }

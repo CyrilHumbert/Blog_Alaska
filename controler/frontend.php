@@ -14,8 +14,8 @@ function loginView()
 
 function listPosts()
 {
-    $postManager = new PostManager; // Création d'un objet
-    $posts = $postManager->getPosts(); // Appel d'une fonction de cet objet
+    $postManager = new PostManager;
+    $posts = $postManager->getPosts();
 
     require('view/frontend/listPostsView.php');
 }

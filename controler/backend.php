@@ -2,9 +2,13 @@
 
 require_once('model/LoginManager.php');
 require_once('model/AdminManager.php');
+require_once('model/TrashManager.php');
 
 use Blog_Alaska\model\LoginManager as LoginManager;
 use Blog_Alaska\model\AdminManager as AdminManager;
+use Blog_Alaska\model\TrashManager as TrashManager;
+
+/**** VIEW ****/
 
 function viewEditer() {
     require('view/backend/editionAdmin.php');
@@ -19,9 +23,9 @@ function viewPostsAdmin() {
 }
 
 function viewPostsTrash() {
-    $adminManager = new AdminManager;
+    $trashManager = new TrashManager;
 
-    $listPosts = $adminManager->listPostsTrash();
+    $listPosts = $trashManager->listPostsTrash();
 
     return $listPosts;
 }
@@ -37,6 +41,8 @@ function pannelAdminView() {
 
     require('view/backend/pannelAdmin.php');
 }
+
+/**** GESTION DE SESSION ****/
 
 function verifLogin($postPseudo, $postPassword) {
     $loginManager = new LoginManager;
@@ -61,27 +67,17 @@ function verifLogin($postPseudo, $postPassword) {
     }
 }
 
-function addPostAdmin($title, $content, $author) {
-    $adminManager = new AdminManager;
-
-    if(isset($title) && !empty($title) && isset($content) && !empty($content) && isset($author) && !empty($author)) {
-        $adminManager->insertPostAdmin($title, $content, $author);
-
-        header('location: index.php?action=administration');
-    }
-
-    else{
-        $error = true;
-
-        header('location: index.php?action=administration&editer');
-    }
+function empty_cookie(){
+    foreach($_COOKIE as $key => $element){
+            setcookie($key, '', time()-3600);
+        }
 }
 
 function refresh_session(){
-    $adminManager = new AdminManager;
+    $loginManager = new LoginManager;
 
 	if(isset($_SESSION['admin_id']) && intval($_SESSION['admin_id']) != 0) {     
-        $infoSession = $adminManager->getInfoSession();
+        $infoSession = $loginManager->getInfoSession();
 		
 		if(isset($infoSession['pseudo']) && $infoSession['pseudo'] != '' && $_SESSION['admin_pseudo'] == $infoSession['pseudo']) {
             
@@ -95,7 +91,7 @@ function refresh_session(){
 									3
 									);
 				require_once('../view/frontend/informations.php');
-				$adminManager->empty_cookie();
+				empty_cookie();
 				session_destroy();
 				exit();
 			}
@@ -113,7 +109,7 @@ function refresh_session(){
 	else {
 		if(isset($_COOKIE['admin_id']) && isset($_COOKIE['admin_mdp'])) {
 			if(intval($_COOKIE['admin_id']) != 0) {
-				$infoSession = $adminManager->getInfoCookie();
+				$infoSession = $loginManager->getInfoCookie();
 				
 				if(isset($infoSession['pseudo']) && $infoSession['pseudo'] != '' && $_COOKIE['admin_pseudo'] == $infoSession['pseudo']) {
 					if($_COOKIE['membre_mdp'] != $infoSession['passwordde']) {
@@ -126,7 +122,7 @@ function refresh_session(){
 											3
 											);
                         require_once('../view/frontend/informations.php');
-						$adminManager->empty_cookie();
+						empty_cookie();
 						session_destroy();
 						exit();
 					}
@@ -151,7 +147,7 @@ function refresh_session(){
 									3
 									);
                 require_once('../view/frontend/informations.php');
-				$adminManager->empty_cookie();
+				empty_cookie();
 				session_destroy();
 				exit();
 			}
@@ -159,7 +155,7 @@ function refresh_session(){
 		
 		else {
 			if(isset($_SESSION['membre_id'])) unset($_SESSION['membre_id']);
-			$adminManager->empty_cookie();
+			empty_cookie();
 		}
 	}
 }
@@ -170,6 +166,24 @@ function disconnect() {
     session_destroy();
 
     header('location: index.php');
+}
+
+/**** GESTION DES CHAPITRES ****/
+
+function addPostAdmin($title, $content, $author) {
+    $adminManager = new AdminManager;
+
+    if(isset($title) && !empty($title) && isset($content) && !empty($content) && isset($author) && !empty($author)) {
+        $adminManager->insertPostAdmin($title, $content, $author);
+
+        header('location: index.php?action=administration');
+    }
+
+    else{
+        $error = true;
+
+        header('location: index.php?action=administration&editer');
+    }
 }
 
 function editerModif($postId) {
@@ -191,41 +205,41 @@ function chapterModif($postTitle, $postAuthor, $postContent, $getId) {
 }
 
 function chapterTrash($postId) {
-	$adminManager = new AdminManager;
+	$trashManager = new TrashManager;
 
-	$chapterSelected = $adminManager->selectChapterFromPosts($postId);
+	$chapterSelected = $trashManager->selectChapterFromPosts($postId);
 
-	$adminManager->insertChapterInTrash($chapterSelected['id'], $chapterSelected['title'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
+	$trashManager->insertChapterInTrash($chapterSelected['id'], $chapterSelected['title'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
 
-	$verifChapter = $adminManager->verifChapterSinceTrash($postId);
+	$verifChapter = $trashManager->verifChapterSinceTrash($postId);
 
 	if(isset($verifChapter) && !empty($verifChapter)) {
-		$adminManager->deleteChapterFromPosts($postId);
+		$trashManager->deleteChapterFromPosts($postId);
 
 		pannelAdminView();
 	}
 }
 
 function restoreTrash($idChapter) {
-	$adminManager = new AdminManager;
+	$trashManager = new TrashManager;
 
-	$chapterSelected = $adminManager->selectChapterFromTrash($idChapter);
+	$chapterSelected = $trashManager->selectChapterFromTrash($idChapter);
 
-	$adminManager->insertChapterInPosts($chapterSelected['id_chapter'], $chapterSelected['title'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
+	$trashManager->insertChapterInPosts($chapterSelected['id_chapter'], $chapterSelected['title'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
 
-	$verifChapter = $adminManager->verifChapterSincePosts($idChapter);
+	$verifChapter = $trashManager->verifChapterSincePosts($idChapter);
 
 	if(isset($verifChapter) && !empty($verifChapter)) {
-		$adminManager->deleteChapterFromTrash($idChapter);
+		$trashManager->deleteChapterFromTrash($idChapter);
 
 		viewTrash();
 	}
 }
 
 function deleteDefinitely($idChapterTrash) {
-	$adminManager = new AdminManager;
+	$trashManager = new TrashManager;
 
-	$adminManager->deleteDefinitelySinceTrash($idChapterTrash);
+	$trashManager->deleteDefinitelySinceTrash($idChapterTrash);
 
 	viewTrash();
 }

@@ -2,6 +2,18 @@
 
 <?php ob_start(); ?>
 
+<header id="headerBan" class="row">
+    <div class="container-fluid">
+        <div class="row" id="firstLine">
+            <h1 id="titleAlaska" class="col-sm-offset-1 col-md-offset-2 col-lg-offset-2 col-lg-8">Billet simple pour l'Alaska</h1>
+        </div>
+        
+        <div class="row" id="secondeLine">
+            <h1 id="titleJeanForteroche" class="col-lg-offset-6 col-sm-6 pull-right">De Jean Forteroche</h1>
+        </div>
+    </div> 
+</header>
+
 <p><a href="index.php?action=post&id=<?= $_GET['idp'] ?>">Retour au chapitre</a></p>
 
 <h2>Commentaires</h2>
