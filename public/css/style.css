@@ -200,30 +200,7 @@ footer {
     position: relative;
 }
 
-.labelEditerTitle
-{
-    font-size: 1.2em;
-    position: absolute;
-    cursor: text;
-    -webkit-transition: -webkit-transform .1s ease-out;
-    transition: -webkit-transform .1s ease-out;
-    transition: transform .1s ease-out;
-    transition: transform .1s ease-out, -webkit-transform .1s ease-out;
-    -webkit-transform-origin: 0% 100%;
-            transform-origin: 0% 100%;
-    -webkit-transform: translateY(6px);
-            transform: translateY(6px);
-    pointer-events: none;
-    }
-
-.labelEditerTitle.active
-{
-    -webkit-transform: translateY(-14px) scale(0.8);
-            transform: translateY(-14px) scale(0.8);
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-}
-
+.labelEditerTitle,
 .labelEditerAuthor
 {
     font-size: 1.2em;
@@ -240,6 +217,7 @@ footer {
     pointer-events: none;
     }
 
+.labelEditerTitle.active,
 .labelEditerAuthor.active
 {
     -webkit-transform: translateY(-14px) scale(0.8);
@@ -248,19 +226,7 @@ footer {
             transform-origin: 0 0;
 }
 
-.inputEditerTitle
-{
-    display: block;
-    width: 100%;
-    height: 34px;
-    padding: 6px 0px;
-    border: 0px;
-    border-bottom: 1px solid #ccc;
-    -webkit-transition: border-color ease-in-out .25s;
-         -o-transition: border-color ease-in-out .25s;
-            transition: border-color ease-in-out .25s;
-}
-
+.inputEditerTitle,
 .inputEditerAuthor
 {
     display: block;

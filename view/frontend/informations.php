@@ -1,6 +1,3 @@
-<?php session_start(); ?>
-<?php refresh_session(); ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,8 +23,23 @@
             </header>
         </div>  
 
-        <div id="message" class="row col-lg-offset-5 col-sm-6">
-        <?= 'Erreur : ' . $e->getMessage(); ?>
+        <div class="container">
+
+            <?php if(isset($informations)): ?>
+                <div id="info" class="<?= $informations[0]; ?>">
+                    <div class="help-block text-center">
+                        <?= $informations[1] ?> : <?= $informations[2]; ?><br/>
+                        <a href="<?= $informations[4]; ?>">Cliquez ici pour revenir à l'accueil...</a>
+                    </div>
+                </div>
+            <?php endif ?>
+
+            <?php if(isset($e)): ?>
+                <div id="messageInfo" class="text-center" style="color: red;">
+                    <?= 'Erreur : ' . $e->getMessage(); ?>
+                </div>
+            <?php endif ?>
+
         </div>
 
         <footer>

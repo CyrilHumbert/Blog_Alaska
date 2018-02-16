@@ -36,13 +36,22 @@
                 <input id="password" name="password" type="password" class="form-control"/>
             </div>
 
-            <?php if (isset($error)): ?>
-            <div class="row">
-                <div class="alert alert-block alert-danger text-center col-sm-12">
-                <h4>Erreur !</h4>
-                Identifiant incorrect ! 
+            <?php if (isset($errorIdentifiant)): ?>
+                <div class="row">
+                    <div class="alert alert-block alert-danger text-center col-sm-12">
+                    <h4>Erreur !</h4>
+                    Identifiant incorrect ! 
+                    </div>
                 </div>
-            </div>
+            <?php endif ?>  
+            
+            <?php if (isset($error403)): ?>
+                <div class="row">
+                    <div class="alert alert-block alert-danger text-center col-sm-12">
+                    <h4>Impossible !</h4>
+                    Il faut être connecté ! 
+                    </div>
+                </div>
             <?php endif ?>   
 
             <button name="button" class="btn btn-primary col-sm-offset-6" >Connexion</button>

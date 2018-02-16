@@ -1,6 +1,10 @@
+<?php session_start(); ?>
+
 <?php
 require('controler/frontend.php');
 require('controler/backend.php');
+
+refresh_session();
 
 try {
     if (isset($_GET['action'])) {
@@ -51,45 +55,55 @@ try {
             disconnect();
         }
         elseif ($_GET['action'] == 'administration') {
-            if(isset($_GET['editer'])) {
-                if(isset($_GET['post'])) {
-                    if(isset($_GET['id']) && $_GET['id'] > 0) {
-                        chapterModif($_POST['title'], $_POST['author'], $_POST['content'], $_GET['id']);
-                    }else {
-                        addPostAdmin($_POST['title'], $_POST['content'], $_POST['author']);
+            if(isset($_SESSION['admin_id'])) {
+                refresh_session();
+                if(isset($_SESSION['connected'])) {
+                    if(isset($_GET['editer'])) {
+                        if(isset($_GET['post'])) {
+                            if(isset($_GET['id']) && $_GET['id'] > 0) {
+                                chapterModif($_POST['title'], $_POST['author'], $_POST['content'], $_GET['id']);
+                            }else {
+                                addPostAdmin($_POST['title'], $_POST['content'], $_POST['author']);
+                            }
+                        }elseif(isset($_GET['id']) && $_GET['id'] > 0) {
+                            editerModif($_GET['id']);
+                        }else {
+                            viewEditer();
+                        }
                     }
-                }elseif(isset($_GET['id']) && $_GET['id'] > 0) {
-                    editerModif($_GET['id']);
-                }else {
-                    viewEditer();
-                }
-            }elseif(isset($_GET['delete'])) {
-                if(isset($_GET['id']) && $_GET['id'] > 0) {
-                    chapterTrash($_GET['id']);
-                }else {
-                    throw new Exception('Identifiant de chapitre incorrect');
-                }
-            }
-            elseif(isset($_GET['trash'])) {
-                if(isset($_GET['restore'])) {
-                    if(isset($_GET['id']) && $_GET['id'] > 0) {
-                        restoreTrash($_GET['id']);
-                    }else {
-                        throw new Exception('Identifiant de chapitre incorrect');
+                    elseif(isset($_GET['delete'])) {
+                        if(isset($_GET['id']) && $_GET['id'] > 0) {
+                            chapterTrash($_GET['id']);
+                        }else {
+                            throw new Exception('Identifiant de chapitre incorrect');
+                        }
                     }
-                }elseif(isset($_GET['deletetrash'])) {
-                    if(isset($_GET['id']) && $_GET['id'] > 0) {
-                        deleteDefinitely($_GET['id']);
+                    elseif(isset($_GET['trash'])) {
+                        if(isset($_GET['restore'])) {
+                            if(isset($_GET['id']) && $_GET['id'] > 0) {
+                                restoreTrash($_GET['id']);
+                            }else {
+                                throw new Exception('Identifiant de chapitre incorrect');
+                            }
+                        }elseif(isset($_GET['deletetrash'])) {
+                            if(isset($_GET['id']) && $_GET['id'] > 0) {
+                                deleteDefinitely($_GET['id']);
+                            }else {
+                                throw new Exception('Identifiant de chapitre incorrect');  
+                            }
+                        }else {
+                            viewTrash();
+                        }
                     }else {
-                        throw new Exception('Identifiant de chapitre incorrect');  
+                        pannelAdminView();
                     }
-                }else {
-                    viewTrash();
-                }
             }else {
-                pannelAdminView();
-            }
+                throw new Exception('Session invalide, merci de vous reconnectez. <br> <a href="index.php"/>Cliquez ici pour revenir à l\'accueil...</a>'); 
+            }            
+        }else {
+            accessDenied();
         }
+    }
     }else {
         listPosts();
     }

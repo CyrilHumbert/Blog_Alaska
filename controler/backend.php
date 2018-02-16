@@ -42,6 +42,16 @@ function pannelAdminView() {
     require('view/backend/pannelAdmin.php');
 }
 
+/**** GESTION DES ERREURS ****/
+
+function accessDenied() {
+	header("HTTP/1.0 403 Forbidden");
+
+	$error403 = true;
+
+	require('view/frontend/loginAdminView.php');
+}
+
 /**** GESTION DE SESSION ****/
 
 function verifLogin($postPseudo, $postPassword) {
@@ -61,7 +71,7 @@ function verifLogin($postPseudo, $postPassword) {
     }
 
     else{
-        $error = true;
+        $errorIdentifiant = true;
 
         require('view/frontend/loginAdminView.php');
     }
@@ -92,6 +102,7 @@ function refresh_session(){
 									);
 				require_once('../view/frontend/informations.php');
 				empty_cookie();
+				session_unset();
 				session_destroy();
 				exit();
 			}
@@ -123,6 +134,7 @@ function refresh_session(){
 											);
                         require_once('../view/frontend/informations.php');
 						empty_cookie();
+						session_unset();
 						session_destroy();
 						exit();
 					}
@@ -148,6 +160,7 @@ function refresh_session(){
 									);
                 require_once('../view/frontend/informations.php');
 				empty_cookie();
+				session_unset();
 				session_destroy();
 				exit();
 			}
