@@ -7,10 +7,18 @@ require('controler/backend.php');
 refresh_session();
 
 try {
-    if (isset($_GET['action'])) {
+    //======================================================================
+    // Vérification du paramètre action en GET
+    //======================================================================
+    if (isset($_GET['action'])) { 
+        
+        /* On affiche la liste des chapitres, référenciel page d'accueil */
         if ($_GET['action'] == 'listPosts') {
             listPosts();
         }
+        /* Fin d'affichage liste chapitre */
+
+        /* Affhichage d'un chapitre et ses commentaires */
         elseif ($_GET['action'] == 'chapter') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 post();
@@ -18,6 +26,9 @@ try {
                 throw new Exception('Aucun identifiant de chapitre envoyé');
             }
         }
+        /* Fin d'affichage d'un chapitre */
+
+        /* Ajout d'un commentaire lié à un chapitre */
         elseif ($_GET['action'] == 'addComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 if (!empty($_POST['author']) && !empty($_POST['comment'])) {
@@ -30,6 +41,9 @@ try {
                 throw new Exception('Aucun identifiant de chapitre envoyé');
             }
         }
+        /* Fin d'ajout de commentaire */
+
+        /* Modification d'un commentaire lié à un chapitre */
         elseif ($_GET['action'] == 'modifComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                     viewModifComment($_GET['id']);
@@ -44,21 +58,38 @@ try {
                 throw new Exception('Identifiant de chapitre incorrect');
             }
         }
-        elseif ($_GET['action'] == 'login') {
-            if (isset($_GET['postLogin'])) {
+        /* Fin modification commentaire */
+
+        /* Système de login */
+        elseif ($_GET['action'] == 'login') { 
+            if(isset($_SESSION['admin_id'])) {
+                refresh_session();       // Si déjà connecté, redirige vers le pannel d'admin
+                if(isset($_SESSION['connected'])) {
+                    pannelAdminView();
+                }else {
+                    accessDenied();     // Si la session est invalide, erreur 403
+                }
+            }elseif(isset($_GET['postLogin'])) {
                 verifLogin($_POST['pseudo'], $_POST['password']);
             }else {
                 loginView();
-            }
+            }    
         }
+        /* Fin système login */
+
+        /* Gestion de la déconnexion */
         elseif ($_GET['action'] == 'disconnect') {
             disconnect();
         }
-        elseif ($_GET['action'] == 'administration') {
+        /* Fin déconnexion */
+
+        /* Gestion de l'administration */
+        elseif ($_GET['action'] == 'administration') { 
             if(isset($_SESSION['admin_id'])) {
-                refresh_session();
+                refresh_session();      // Vérification de la connexion 
                 if(isset($_SESSION['connected'])) {
-                    if(isset($_GET['editer'])) {
+                    /* Gestion de l'éditeur */
+                    if(isset($_GET['editer'])) { 
                         if(isset($_GET['post'])) {
                             if(isset($_GET['id']) && $_GET['id'] > 0) {
                                 chapterModif($_POST['title'], $_POST['author'], $_POST['content'], $_GET['id']);
@@ -71,13 +102,19 @@ try {
                             viewEditer();
                         }
                     }
-                    elseif(isset($_GET['delete'])) {
+                    /* Fin de l'éditeur */
+
+                    /* Gestion de la mise en corbeille */
+                    elseif(isset($_GET['delete'])) { // 
                         if(isset($_GET['id']) && $_GET['id'] > 0) {
                             chapterTrash($_GET['id']);
                         }else {
                             throw new Exception('Identifiant de chapitre incorrect');
                         }
                     }
+                    /* Fin de la mise en corbeille */
+
+                    /* Gestion de la corbeille (restauration, supression..) */
                     elseif(isset($_GET['trash'])) {
                         if(isset($_GET['restore'])) {
                             if(isset($_GET['id']) && $_GET['id'] > 0) {
@@ -94,7 +131,11 @@ try {
                         }else {
                             viewTrash();
                         }
-                    }else {
+                    }
+                    /* Fin de la gestion de la corbeille */
+                    
+                    /* Si aucune valeur, affiche le pannel admin */
+                    else {
                         pannelAdminView();
                     }
             }else {
@@ -104,10 +145,19 @@ try {
             accessDenied();
         }
     }
-    }else {
+    /* Fin de la gestion administration */
+
+    }
+    //======================================================================
+    // Fin Vérification du paramètre action en GET
+    //======================================================================
+
+    /* Si aucune valeur, affiche la page d'accueil par défault */
+    else {
         listPosts();
     }
-}
+
+} // Fin du try
 catch(Exception $e) {
     require "view/frontend/informations.php";
 }
