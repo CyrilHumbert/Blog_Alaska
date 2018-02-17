@@ -33,9 +33,80 @@
         </footer>
 
         <script>
-            $(window).resize(function() {
-            $('h1').css('z-index', 'auto'); //auto reflow
-            }); 
+            $(function(){
+
+                $(".inputPostComment").focus(function() {
+                $(".labelPostComment").addClass('active');
+                $(".inputPostComment").css({
+                    "border-color": "red",
+                    "border-bottom-width": "2px",
+                    "outline": "0"
+                    });
+                });
+
+                $(".inputPostAuthor").focus(function() {
+                $(".labelPostAuthor").addClass('active');
+                $(".inputPostAuthor").css({
+                    "border-color": "green",
+                    "border-bottom-width": "2px",
+                    "outline": "0"
+                    });
+                });
+
+                $(".inputPostComment").focusout(function() {
+                    if($(".inputPostComment").val().length > 0) {
+                        $(".labelPostComment").addClass('active');
+                        $(".inputPostComment").css({
+                            "border-color": "red",
+                            "border-bottom-width": "2px",
+                            "outline": "0"
+                            });
+                    }else {
+                        $(".labelPostComment").removeClass('active');
+                        $(".inputPostComment").css({
+                        "border-color": "",
+                        "border-bottom-width": "",
+                        "outline": ""
+                        });  
+                    }
+                });
+
+                $(".inputPostAuthor").focusout(function() {
+                    if($(".inputPostAuthor").val().length > 0) {
+                        $(".labelPostAuthor").addClass('active');
+                        $(".inputPostAuthor").css({
+                            "border-color": "green",
+                            "border-bottom-width": "2px",
+                            "outline": "0"
+                            });
+                    }else {
+                        $(".labelPostAuthor").removeClass('active');
+                        $(".inputPostAuthor").css({
+                        "border-color": "",
+                        "border-bottom-width": "",
+                        "outline": ""
+                        });  
+                    }
+                });
+
+                if($(".inputPostComment").val().length > 0) {
+                    $(".labelPostComment").addClass('active');
+                    $(".inputPostComment").css({
+                        "border-color": "red",
+                        "border-bottom-width": "2px",
+                        "outline": "0"
+                        });
+                }
+                
+                if($(".inputPostAuthor").val().length > 0) {
+                    $(".labelPostAuthor").addClass('active');
+                    $(".inputPostAuthor").css({
+                        "border-color": "green",
+                        "border-bottom-width": "2px",
+                        "outline": "0"
+                        });
+                }
+            });
         </script>
     </body>
 </html>

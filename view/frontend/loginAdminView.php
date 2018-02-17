@@ -48,8 +48,8 @@
             <?php if (isset($error403)): ?>
                 <div class="row">
                     <div class="alert alert-block alert-danger text-center col-sm-12">
-                    <h4>Impossible !</h4>
-                    Il faut être connecté ! 
+                    <h4>Erreur 403 !</h4>
+                    Vous devez être connecté ! 
                     </div>
                 </div>
             <?php endif ?>   

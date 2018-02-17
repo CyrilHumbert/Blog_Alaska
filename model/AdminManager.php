@@ -16,8 +16,9 @@ class AdminManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->query('SELECT id, title, content, author, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC');
+        $reqs = $req->fetchAll();
 
-        return $req;
+        return $reqs;
     }
 
     public function getChapterModif($postId)
@@ -37,27 +38,5 @@ class AdminManager extends Manager
         $reqs = $req->execute(array($title, $content, $author));
 
         return $reqs;
-    }
-
-    public function getInfoSession()
-    {
-        $req = $this->sqlquery('SELECT id, pseudo, passwordde FROM logadmin WHERE id = ' . intval($_SESSION['admin_id']), 1);
-
-        return $req;
-    }
-
-    public function getInfoCookie()
-    {
-        $req = $this->sqlquery('SELECT id, pseudo, passwordde FROM logadmin WHERE id = ' . intval($_COOKIE['admin_id']), 1);
-
-        return $req;
-    }
-
-    public function empty_cookie()
-    {
-        foreach($_COOKIE as $key => $element)
-        {
-            setcookie($key, '', time()-3600);
-        }
     }
 }

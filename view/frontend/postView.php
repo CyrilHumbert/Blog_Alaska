@@ -26,32 +26,55 @@
 
     <h2 id="titleComment">Commentaires</h2>
 
-    <?php
-    $count = 0;
+    <p style="text-align: center; font-weight: bold;">Commentaire totaux : <?= count($comments); ?></p>
 
-    while ($comment = $comments->fetch())
-    {
-    ?>
-        <p class="anotComment"><strong><?= $comment['author'] ?></strong> le <?= $comment['comment_date_fr'] ?> (<a href="index.php?action=modifComment&amp;id=<?= $comment['id']?>&amp;idp=<?= $_GET['id']?>">modifier</a>)</p>
-        <p class="commentContent"><?= $comment['comment'] ?></p>
-    <?php
-    $count++;
-    }
-    ?>
+    <ul class="media-list">
+        <?php foreach($comments as $row => $data): ?>
+            <li class="media thumbnail">
+                <div class="media-body">
+                    <div class="pull-left"><p class="media-heading">Par <?= $data['author'] ?> (<a href="index.php?action=modifComment&amp;id=<?= $data['id']?>&amp;idp=<?= $_GET['id']?>">modifier</a>)</p></div> <div class="pull-right col-"><p>Le <?= $data['comment_date_fr'] ?></p></div>
+                    <div class="col-lg-12"><p><?= $data['comment'] ?></p></div>
 
-    <p style="text-align: center; font-weight: bold;">Commentaire totaux : <?= $count; ?></p>
+                    <?php if(isset($response)): ?>
+                        <div class="media thumbnail  body-responv">
+                            <div class="media-body">
+                                <h4 class="media-heading">Animaux dangereux</h4>
+                                <p>Tu délires complètement, ce sont des animaux trop dangereux pour les laisser vivre.</p>
+                            </div>
 
-    <form id="formAddComment" action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
-        <div>
-            <label for="author">Auteur</label><br />
-            <input type="text" id="author" name="author" />
+                            <div class="media" style="border-top: 1px black solid;">
+                                <div class="media-body">
+                                    <h4 class="media-heading">Animaux dangereux</h4>
+                                    <p>Tu délires complètement, ce sont des animaux trop dangereux pour les laisser vivre.</p>
+                                </div>       
+                            </div>
+
+                            <div class="media" style="border-top: 1px black solid;">
+                                <div class="media-body">
+                                    <h4 class="media-heading">Animaux dangereux</h4>
+                                    <p>Tu délires complètement, ce sont des animaux trop dangereux pour les laisser vivre.</p>
+                                </div>
+                            </div>  
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
+    <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
+        <div class="divPost">
+            <label for="author" class="labelPostAuthor">Auteur</label>
+            <input type="text" id="author" name="author" class="inputPostAuthor"/>
         </div>
-        <div>
-            <label for="comment">Commentaire</label><br />
-            <textarea id="comment" name="comment"></textarea>
+
+        <div class="divPost">
+            <label for="comment" class="labelPostComment">Commentaire</label>
+            <textarea id="comment" name="comment" class="inputPostComment"></textarea>
         </div>
+
         <div>
-            <input type="submit" />
+            <input class="btn btn-primary" type="submit" />
         </div>
     </form>
 

@@ -214,7 +214,7 @@ function chapterModif($postTitle, $postAuthor, $postContent, $getId) {
 
 	$adminManager->updateChapter($postTitle, $postAuthor, $postContent, $getId);
 
-	pannelAdminView();
+	header('location: index.php?action=administration');
 }
 
 function chapterTrash($postId) {
@@ -229,7 +229,7 @@ function chapterTrash($postId) {
 	if(isset($verifChapter) && !empty($verifChapter)) {
 		$trashManager->deleteChapterFromPosts($postId);
 
-		pannelAdminView();
+		header('location: index.php?action=administration');
 	}
 }
 
@@ -245,7 +245,7 @@ function restoreTrash($idChapter) {
 	if(isset($verifChapter) && !empty($verifChapter)) {
 		$trashManager->deleteChapterFromTrash($idChapter);
 
-		viewTrash();
+		header('location: index.php?action=administration&trash');
 	}
 }
 
@@ -254,5 +254,5 @@ function deleteDefinitely($idChapterTrash) {
 
 	$trashManager->deleteDefinitelySinceTrash($idChapterTrash);
 
-	viewTrash();
+	header('location: index.php?action=administration&trash');
 }

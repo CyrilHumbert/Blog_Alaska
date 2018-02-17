@@ -20,13 +20,13 @@ function listPosts()
     require('view/frontend/listPostsView.php');
 }
 
-function post()
+function post($chapterId)
 {
     $postManager = new PostManager;
     $commentManager = new CommentManager;
 
-    $post = $postManager->getPost($_GET['id']);
-    $comments = $commentManager->getComments($_GET['id']);
+    $post = $postManager->getPost($chapterId);
+    $comments = $commentManager->getComments($chapterId);
 
     require('view/frontend/postView.php');
 }
@@ -41,7 +41,7 @@ function addComment($postId, $author, $comment)
         throw new Exception('Impossible d\'ajouter le commentaire !');
     }
     else {
-        header('Location: index.php?action=post&id=' . $postId);
+        header('Location: index.php?action=chapter&id=' . $postId);
     }
 }
 

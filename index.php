@@ -21,7 +21,7 @@ try {
         /* Affhichage d'un chapitre et ses commentaires */
         elseif ($_GET['action'] == 'chapter') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
-                post();
+                post($_GET['id']);
             }else {
                 throw new Exception('Aucun identifiant de chapitre envoyé');
             }
@@ -88,6 +88,7 @@ try {
             if(isset($_SESSION['admin_id'])) {
                 refresh_session();      // Vérification de la connexion 
                 if(isset($_SESSION['connected'])) {
+
                     /* Gestion de l'éditeur */
                     if(isset($_GET['editer'])) { 
                         if(isset($_GET['post'])) {
@@ -139,10 +140,10 @@ try {
                         pannelAdminView();
                     }
             }else {
-                throw new Exception('Session invalide, merci de vous reconnectez. <br> <a href="index.php"/>Cliquez ici pour revenir à l\'accueil...</a>'); 
+                throw new Exception('Session invalide, merci de vous reconnectez. <br> <a href="index.php"/>Cliquez ici pour revenir à l\'accueil...</a>'); // Connecté mais session invalide
             }            
         }else {
-            accessDenied();
+            accessDenied(); // Si on veut accèder à l'administration sans être connecté, erreur 403
         }
     }
     /* Fin de la gestion administration */
