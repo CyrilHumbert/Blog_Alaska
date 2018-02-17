@@ -14,6 +14,7 @@
         <table id="tableAdminChapiter" class="table table-bordered table-striped table-condensed">
             <tr>
                 <th class="text-center lineTitle">Titre du chapitre</th>
+                <th class="text-center">Nombre de vues</th>
                 <th class="text-center">Auteur</th>
                 <th class="text-center">Modification</th>
             </tr>
@@ -21,10 +22,11 @@
             <?php foreach($listPosts as $raw => $data): ?>
                 <tr>
                     <td class="text-center lineTitle"><?= $data['title'] ?></td>
+                    <td class="text-center"><?= $data['nb_views'] ?></td>
                     <td class="text-center lineAuthor"><?= $data['author'] ?></td>
                     <td class="text-center">
                         <a href="index.php?action=administration&amp;editer&amp;id=<?= $data['id'] ?>" class="btn btn-primary">Modifier</a>
-                        <a data-toggle="modal" href="#infos<?= $data['id'] ?>" class="btn btn-primary">Supprimer</a>
+                        <a data-toggle="modal" href="#infos<?= $data['id'] ?>" class="btn btn-primary linkdelete">Supprimer</a>
                         <div class="modal fade" id="infos<?= $data['id'] ?>">
                             <div class="modal-dialog">
                                 <div class="modal-content">

@@ -21,6 +21,7 @@ try {
         /* Affhichage d'un chapitre et ses commentaires */
         elseif ($_GET['action'] == 'chapter') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
+                checkVisite($_SERVER['REMOTE_ADDR'], $_GET['id']);
                 post($_GET['id']);
             }else {
                 throw new Exception('Aucun identifiant de chapitre envoyé');

@@ -61,9 +61,6 @@
         </footer>
 
         <script>
-            $(window).resize(function() {
-            $('h1').css('z-index', 'auto'); //auto reflow
-            });
         </script>
     </body>
 </html>

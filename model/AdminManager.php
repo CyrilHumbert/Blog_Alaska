@@ -15,8 +15,8 @@ class AdminManager extends Manager
     public function listPostsAdmin() 
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, title, content, author, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC');
-        $reqs = $req->fetchAll();
+        $req = $db->query('SELECT id, title, nb_views, content, author, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC');
+        $reqs = $req->fetchAll(\PDO::FETCH_ASSOC);
 
         return $reqs;
     }
@@ -39,4 +39,28 @@ class AdminManager extends Manager
 
         return $reqs;
     }
+
+    /**** GESTION DES IP ET COMPTEUR DE VUE ****/
+
+    public function getCheckIp($ip, $idChapter) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT ip FROM data_visiter WHERE ip = ? AND id_chapter = ?');
+        $req->execute(array($ip, $idChapter));
+        $reqs = $req->fetch();
+
+        return $reqs;
+    }
+
+    public function insertIp($ip, $idChapter) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('INSERT INTO data_visiter(ip, date_visite, id_chapter) VALUE (?, NOW(), ?)');
+        $req->execute(array($ip, $idChapter));
+    }
+
+    public function incrementView($idChapter) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE posts SET nb_views = nb_views + 1 WHERE id = ?');
+        $req->execute(array($idChapter));
+    }
+
 }

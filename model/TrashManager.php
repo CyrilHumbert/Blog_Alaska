@@ -8,9 +8,10 @@ class TrashManager extends Manager
     public function listPostsTrash()
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, id_chapter, title, content, author, creation_date FROM trash ORDER BY creation_date DESC');
+        $req = $db->query('SELECT id, id_chapter, title, nb_views, content, author, creation_date FROM trash ORDER BY creation_date DESC');
+        $reqs = $req->fetchAll(\PDO::FETCH_ASSOC);
 
-        return $req;
+        return $reqs;
     }
 
     /***** Insert into trash *****/
@@ -18,18 +19,18 @@ class TrashManager extends Manager
     public function selectChapterFromPosts($postId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, title, content, author, creation_date FROM posts WHERE id = ?');
+        $req = $db->prepare('SELECT id, title, nb_views, content, author, creation_date FROM posts WHERE id = ?');
         $req->execute(array($postId));
         $reqs = $req->fetch();
 
         return $reqs;
     }
 
-    public function insertChapterInTrash($postId, $title, $author, $content, $creationDate)
+    public function insertChapterInTrash($postId, $title, $nb_views, $author, $content, $creationDate)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO trash(id_chapter, title, author, content, creation_date) VALUE (?, ?, ?, ?, ?)');
-        $req->execute(array($postId, $title, $author, $content, $creationDate));
+        $req = $db->prepare('INSERT INTO trash(id_chapter, title, nb_views, author, content, creation_date) VALUE (?, ?, ?, ?, ?, ?)');
+        $req->execute(array($postId, $title, $nb_views, $author, $content, $creationDate));
     }
 
     public function verifChapterSinceTrash($postId)
@@ -37,8 +38,9 @@ class TrashManager extends Manager
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT id_chapter FROM trash WHERE id_chapter = ?');
         $req->execute(array($postId));
+        $reqs = $req->fetchAll();
 
-        return $req;
+        return $reqs;
     }
 
     public function deleteChapterFromPosts($postId)
@@ -55,18 +57,18 @@ class TrashManager extends Manager
     public function selectChapterFromTrash($idChapter)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, id_chapter, title, content, author, creation_date FROM trash WHERE id_chapter = ?');
+        $req = $db->prepare('SELECT id, id_chapter, title, nb_views, content, author, creation_date FROM trash WHERE id_chapter = ?');
         $req->execute(array($idChapter));
         $reqs = $req->fetch();
 
         return $reqs;
     }
 
-    public function insertChapterInPosts($idChapter, $title, $author, $content, $creationDate)
+    public function insertChapterInPosts($idChapter, $title, $nb_views, $author, $content, $creationDate)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO posts(id, title, author, content, creation_date) VALUE (?, ?, ?, ?, ?)');
-        $req->execute(array($idChapter, $title, $author, $content, $creationDate));
+        $req = $db->prepare('INSERT INTO posts(id, title, nb_views, author, content, creation_date) VALUE (?, ?, ?, ?, ?, ?)');
+        $req->execute(array($idChapter, $title, $nb_views, $author, $content, $creationDate));
     }
 
     public function verifChapterSincePosts($idChapter)
@@ -74,8 +76,9 @@ class TrashManager extends Manager
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT id FROM posts WHERE id = ?');
         $req->execute(array($idChapter));
+        $reqs = $req->fetchAll();
 
-        return $req;
+        return $reqs;
     }
 
     public function deleteChapterFromTrash($idChapter)

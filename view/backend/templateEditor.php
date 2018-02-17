@@ -73,10 +73,6 @@
         <script>
             $(function(){
 
-                $(window).resize(function() {
-                $('h1').css('z-index', 'auto'); //auto reflow
-                });
-
                 $(".inputEditerTitle").focus(function() {
                 $(".labelEditerTitle").addClass('active');
                 $(".inputEditerTitle").css({

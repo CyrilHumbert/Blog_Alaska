@@ -222,11 +222,14 @@ function chapterTrash($postId) {
 
 	$chapterSelected = $trashManager->selectChapterFromPosts($postId);
 
-	$trashManager->insertChapterInTrash($chapterSelected['id'], $chapterSelected['title'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
+	$trashManager->insertChapterInTrash($chapterSelected['id'], $chapterSelected['title'], $chapterSelected['nb_views'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
 
 	$verifChapter = $trashManager->verifChapterSinceTrash($postId);
 
-	if(isset($verifChapter) && !empty($verifChapter)) {
+	if(isset($verifChapter) && $verifChapter == false) {
+		throw new Exception('Il a y eu une erreur lors de la suppression.');
+	}
+	else {
 		$trashManager->deleteChapterFromPosts($postId);
 
 		header('location: index.php?action=administration');
@@ -238,11 +241,14 @@ function restoreTrash($idChapter) {
 
 	$chapterSelected = $trashManager->selectChapterFromTrash($idChapter);
 
-	$trashManager->insertChapterInPosts($chapterSelected['id_chapter'], $chapterSelected['title'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
+	$trashManager->insertChapterInPosts($chapterSelected['id_chapter'], $chapterSelected['title'], $chapterSelected['nb_views'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
 
 	$verifChapter = $trashManager->verifChapterSincePosts($idChapter);
 
-	if(isset($verifChapter) && !empty($verifChapter)) {
+	if(isset($verifChapter) && $verifChapter == false) {
+		throw new Exception('Il a y eu une erreur lors de la restauration.');
+	}
+	else {
 		$trashManager->deleteChapterFromTrash($idChapter);
 
 		header('location: index.php?action=administration&trash');
@@ -255,4 +261,18 @@ function deleteDefinitely($idChapterTrash) {
 	$trashManager->deleteDefinitelySinceTrash($idChapterTrash);
 
 	header('location: index.php?action=administration&trash');
+}
+
+/**** FONCTION UTILITAIRES ****/
+
+function checkVisite($ip, $idChapter) {
+	$adminManager = new AdminManager;
+
+	$checkIp = $adminManager->getCheckIp($ip, $idChapter);
+
+	if(isset($checkIp) && $checkIp == false) {
+		$adminManager->insertIp($ip, $idChapter);
+
+		$adminManager->incrementView($idChapter);
+	}
 }
