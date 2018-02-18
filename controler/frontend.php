@@ -27,6 +27,7 @@ function post($chapterId)
 
     $post = $postManager->getPost($chapterId);
     $comments = $commentManager->getComments($chapterId);
+    $commentsResponse = $commentManager->getCommentsResponse();
 
     require('view/frontend/postView.php');
 }
@@ -41,6 +42,22 @@ function addComment($postId, $author, $comment)
         throw new Exception('Impossible d\'ajouter le commentaire !');
     }
     else {
+        header('Location: index.php?action=chapter&id=' . $postId);
+    }
+}
+
+function addCommentResponse($postId, $author, $comment, $idComment)
+{
+    $commentManager = new CommentManager;
+
+    $addComment = $commentManager->postCommentResponse($postId, $author, $comment, $idComment);
+
+    if ($addComment === false) {
+        throw new Exception('Impossible d\'ajouter le commentaire !');
+    }
+    else {
+        $commentManager->updateCommentHaveResponse($idComment);
+
         header('Location: index.php?action=chapter&id=' . $postId);
     }
 }

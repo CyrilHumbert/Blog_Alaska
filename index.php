@@ -31,7 +31,25 @@ try {
 
         /* Ajout d'un commentaire lié à un chapitre */
         elseif ($_GET['action'] == 'addComment') {
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
+            if (isset($_GET['response'])) {
+                if (isset($_GET['idpost']) && $_GET['idpost'] > 0) {
+                    if (isset($_GET['idcomment']) && $_GET['idcomment'] > 0) {
+                        if (!empty($_POST['author']) && !empty($_POST['comment'])) {
+                            addCommentResponse($_GET['idpost'], $_POST['author'], $_POST['comment'], $_GET['idcomment']);
+                        }
+                        else {
+                            throw new Exception('Tous les champs ne sont pas remplis !');
+                        }
+                    }
+                    else {
+                        throw new Exception('Identifiant du commentaire incorrect');
+                    }
+                }
+                else {
+                    throw new Exception('Identifiant du chapitre incorrect');
+                }
+            }
+            elseif (isset($_GET['id']) && $_GET['id'] > 0) {
                 if (!empty($_POST['author']) && !empty($_POST['comment'])) {
                     addComment($_GET['id'], $_POST['author'], $_POST['comment']);
                 }

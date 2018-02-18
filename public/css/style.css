@@ -89,11 +89,6 @@ body
 
 /************** CSS postView **************/
 
-#titleComment
-{
-    text-align: center;
-}
-
 .divPost
 {
     position: relative;
@@ -139,9 +134,33 @@ body
             transition: border-color ease-in-out .25s;
 }
 
-.body-responv
+.body-response
 {
     margin-left: 50px;
+    border-bottom: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.responsePost
+{
+    border-bottom: 1px #ddd solid;
+}
+
+.btnAddComment
+{
+    margin-bottom: 50px;
+}
+
+.modalAddComment
+{
+    width: 100%;
+    top: 675px;
+}
+
+.modalAddCommenttest
+{
+
 }
 
 /**********************************/
