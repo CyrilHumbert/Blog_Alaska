@@ -70,8 +70,9 @@
                     <div class="media-body"> 
                         <div class="pull-left">
                             <p class="media-heading">Par <?= $data['author'] ?> 
-                            (<a href="index.php?action=modifComment&amp;id=<?= $data['id'] ?>&amp;idp=<?= $_GET['id']?>">modifier</a>) 
-                            (<a data-toggle="modal" href="#formulaire<?= $data['id'] ?>">Répondre</a>)
+                            | <a href="index.php?action=modifComment&amp;id=<?= $data['id'] ?>&amp;idp=<?= $_GET['id']?>">Modifier</a> | 
+                            <a data-toggle="modal" href="#formulaire<?= $data['id'] ?>">Répondre</a> |
+                            <a href="index.php?action=signal&amp;id=<?= $data['id'] ?>&amp;idp=<?= $_GET['id']?>">Signaler</a> | 
                             </p>
                             <!-- Début de la modal de l'ajout d'une réponse à un commentaire -->
                             <div class="modal fade" id="formulaire<?= $data['id'] ?>">
@@ -85,13 +86,13 @@
                                         <div class="modal-body">
                                             <form action="index.php?action=addComment&amp;response&amp;idpost=<?= $post['id'] ?>&amp;idcomment=<?= $data['id'] ?>" method="POST">
                                                 <div class="form-group">
-                                                    <label for="author">Pseudo</label>
-                                                    <input type="text" class="form-control" name="author" id="author">
+                                                    <label for="author" class="labelPostAuthor">Pseudo</label>
+                                                    <input type="text" class="inputPostAuthor" name="author" id="author">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="comment">Commentaire</label>
-                                                    <input type="text" class="form-control" name="comment" id="comment">
+                                                    <label for="comment" class="labelPostComment">Commentaire</label>
+                                                    <input type="text" class="inputPostComment" name="comment" id="comment">
                                                 </div>
                                         </div>
 

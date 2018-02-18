@@ -27,10 +27,11 @@ class CommentManager extends Manager
 
     /**** GESTION DES COMMENTAIRES QUI SONT DES REPONSES ****/
 
-    public function getCommentsResponse()
+    public function getCommentsResponse($idChapter)
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, author, comment, id_comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%i\') AS comment_date_fr FROM comments WHERE comment_response = 1 ORDER BY comment_date DESC');
+        $req = $db->prepare('SELECT id, author, comment, id_comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%i\') AS comment_date_fr FROM comments WHERE comment_response = 1 AND post_id = ? ORDER BY comment_date DESC');
+        $req->execute(array($idChapter));
         $commentsResponse = $req->fetchAll(\PDO::FETCH_ASSOC);
 
         return $commentsResponse;
@@ -69,5 +70,14 @@ class CommentManager extends Manager
         $affectedComment = $comments->execute(array($author, $comment, $commentId));
 
         return $affectedComment;    
+    }
+
+    /**** SIGALEMENT COMMENTAIRE ****/
+
+    public function updateSignalComment($idComment)
+    {
+        $db = $this->dbConnect();
+        $comment = $db->prepare('UPDATE comments SET comment_signal = 1 WHERE id = ?');
+        $comment->execute(array($idComment));
     }
 }

@@ -7,6 +7,8 @@ require_once('model/CommentManager.php');
 use Blog_Alaska\model\PostManager as PostManager;
 use Blog_Alaska\model\CommentManager as CommentManager;
 
+/**** VIEW ****/
+
 function loginView()
 {
     require('view/frontend/loginAdminView.php');
@@ -27,10 +29,21 @@ function post($chapterId)
 
     $post = $postManager->getPost($chapterId);
     $comments = $commentManager->getComments($chapterId);
-    $commentsResponse = $commentManager->getCommentsResponse();
+    $commentsResponse = $commentManager->getCommentsResponse($chapterId);
 
     require('view/frontend/postView.php');
 }
+
+function viewModifComment()
+{
+    $commentManager = new CommentManager;
+
+    $commentModifView = $commentManager->viewModifComment($_GET['id']);
+
+    require('view/frontend/modifCommentView.php');
+}
+
+/**** GESTION DES COMMENTAIRES ****/
 
 function addComment($postId, $author, $comment)
 {
@@ -62,15 +75,6 @@ function addCommentResponse($postId, $author, $comment, $idComment)
     }
 }
 
-function viewModifComment()
-{
-    $commentManager = new CommentManager;
-
-    $commentModifView = $commentManager->viewModifComment($_GET['id']);
-
-    require('view/frontend/modifCommentView.php');
-}
-
 function rewordComment()
 {
     $commentManager = new CommentManager;
@@ -81,6 +85,15 @@ function rewordComment()
         throw new Exception('Impossible d\'ajouter le commentaire !');
     }
     else{
-        header('Location: index.php?action=post&id=' . $_GET['idp']);
+        header('Location: index.php?action=chapter&id=' . $_GET['idp']);
     }
 }
+
+function signalComment($idComment)
+    {
+        $commentManager = new CommentManager;
+
+        $commentManager->updateSignalComment($idComment);
+
+        header('Location: index.php?action=chapter&id=' . $_GET['idp']);
+    }

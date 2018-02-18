@@ -29,6 +29,16 @@ try {
         }
         /* Fin d'affichage d'un chapitre */
 
+        /* Signalement commentaire */
+        elseif ($_GET['action'] == 'signal') {
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                signalComment($_GET['id']);
+            }
+            else {
+                throw new Exception('Aucun identifiant de commentaire envoyé');
+            }
+        }
+
         /* Ajout d'un commentaire lié à un chapitre */
         elseif ($_GET['action'] == 'addComment') {
             if (isset($_GET['response'])) {
