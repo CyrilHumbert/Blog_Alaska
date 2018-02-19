@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <h2 class="text-center">Commentaires</h2>
+    <h2 class="text-center">Commentaire</h2>
 
     <p class="text-center"><?= $countcomment = count($comments) + count($commentsResponse); ?> commentaire<?php if($countcomment > 1): ?>s<?php endif ?></p>
 
@@ -69,7 +69,7 @@
                 <li class="media thumbnail">
                     <div class="media-body"> 
                         <div class="pull-left">
-                            <p class="media-heading">Par <?= $data['author'] ?> 
+                            <p class="media-heading">Par <?= htmlspecialchars($data['author']) ?> 
                             | <a href="index.php?action=modifComment&amp;id=<?= $data['id'] ?>&amp;idp=<?= $_GET['id']?>">Modifier</a> | 
                             <a data-toggle="modal" href="#formulaire<?= $data['id'] ?>">Répondre</a> |
                             <a href="index.php?action=signal&amp;id=<?= $data['id'] ?>&amp;idp=<?= $_GET['id']?>">Signaler</a> | 
@@ -108,7 +108,7 @@
                         </div> 
 
                         <div class="pull-right">
-                            <p>Le <?= $data['comment_date_fr'] ?></p>
+                            <p>Le <?= htmlspecialchars($data['comment_date_fr']) ?></p>
                         </div>
 
                         <div class="col-lg-12"><p><?= $data['comment'] ?></p></div>
@@ -121,14 +121,15 @@
                                             <div class="media responsePost">
                                             <div class="media-body">
                                             <div class="pull-left">
-                                                <p class="media-heading">Par <?= $dataResponse['author'] ?> 
+                                                <p class="media-heading">Par <?= htmlspecialchars($dataResponse['author']) ?> 
+                                                | <a href="index.php?action=signal&amp;id=<?= $dataResponse['id'] ?>&amp;idp=<?= $_GET['id']?>">Signaler</a> | 
                                             </div>
 
                                             <div class="pull-right">
                                                 <p>Le <?= $dataResponse['comment_date_fr'] ?></p>
                                             </div>
 
-                                            <div class="col-lg-12"><p><?= $dataResponse['comment'] ?></p></div>
+                                            <div class="col-lg-12"><p><?= htmlspecialchars($dataResponse['comment']) ?></p></div>
                                         </div>
                                         </div>
 

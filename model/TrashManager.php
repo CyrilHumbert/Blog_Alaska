@@ -98,8 +98,7 @@ class TrashManager extends Manager
         return $reqs;
     }
 
-    public function selectCommentFromTrashComments($idChapter)
-    {
+    public function selectCommentFromTrashComments($idChapter){
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT * FROM trash_comment WHERE post_id = ?');
         $req->execute(array($idChapter));
@@ -163,5 +162,12 @@ class TrashManager extends Manager
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM trash WHERE id = ?');
         $req->execute(array($idChapterTrash));
+    }
+
+    public function deleteDefinitelyComment($idChapter)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM trash_comment WHERE post_id = ?');
+        $req->execute(array($idChapter));
     }
 }

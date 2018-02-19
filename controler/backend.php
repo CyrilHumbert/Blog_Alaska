@@ -285,10 +285,11 @@ function restoreTrash($idChapter) {
 	}
 }
 
-function deleteDefinitely($idChapterTrash) {
+function deleteDefinitely($idChapterTrash, $idChapter) {
 	$trashManager = new TrashManager;
 
 	$trashManager->deleteDefinitelySinceTrash($idChapterTrash);
+	$trashManager->deleteCommentFromTrashComments($idChapter);
 
 	header('location: index.php?action=administration&trash');
 }

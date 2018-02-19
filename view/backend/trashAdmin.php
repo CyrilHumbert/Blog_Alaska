@@ -44,7 +44,29 @@
                             </div>
                         </div>
                         <!-- FIN MODAL -->
-                        <a href="index.php?action=administration&amp;trash&amp;deletetrash&amp;id=<?= $data['id'] ?>" class="btn btn-danger">Supprimer définitivement</a>
+                        <span data-toggle="tooltip" data-placement="right" title="Supprimer définitevement de la corbeille" class="spanTool"><a data-toggle="modal" href="#infosDeleteTrash<?= $data['id'] ?>" class="btn btn-danger">Supprimer définitivement</a></span>
+                        <!-- Modal suppresion corbeille d'un chapitre -->
+                        <div class="modal fade" id="infosDeleteTrash<?= $data['id'] ?>">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Confirmation</h4>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        Voulez-vous vraiment supprimer ce chapitre de la corbeille ?<br>
+                                        Celui-ci sera définitivement supprimé ainsi que tous les commentaires lié à lui.<br>
+                                        Vous ne pourrez plus le restaurer.
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <a href="index.php?action=administration&amp;trash&amp;deletetrash&amp;id=<?= $data['id'] ?>&amp;idp=<?= $data['id_chapter'] ?>" class="btn btn-info pull-left">Supprimer</a>
+                                        <a class="btn btn-info" data-dismiss="modal">Annuler</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIN MODAL -->
                     </td>
                 </tr>
             <?php endforeach; ?>

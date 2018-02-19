@@ -70,8 +70,8 @@
 
             <?php foreach($listSignalComments as $rawSignal => $dataSignal): ?>
                 <tr>
-                    <td class="text-center lineTitle"><?= $dataSignal['comment'] ?></td>
-                    <td class="text-center"><?= $dataSignal['author'] ?></td>
+                    <td class="text-center lineTitle"><?= htmlspecialchars($dataSignal['comment']) ?></td>
+                    <td class="text-center"><?= htmlspecialchars($dataSignal['author']) ?></td>
                     <td class="text-center lineAuthor"><?= $dataSignal['comment_date_fr'] ?></td>
                     <td class="text-center">
                         <span data-toggle="tooltip" data-placement="top" title="Modérer le commentaire" class="spanTool"><a data-toggle="modal" href="#infosModereComment<?= $dataSignal['id'] ?>" class="btn btn-default">Modérer</a></span>

@@ -154,7 +154,7 @@ try {
                             }
                         }elseif(isset($_GET['deletetrash'])) {
                             if(isset($_GET['id']) && $_GET['id'] > 0) {
-                                deleteDefinitely($_GET['id']);
+                                deleteDefinitely($_GET['id'], $_GET['idp']);
                             }else {
                                 throw new Exception('Identifiant de chapitre incorrect');  
                             }
