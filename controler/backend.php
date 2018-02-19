@@ -30,6 +30,14 @@ function viewPostsTrash() {
     return $listPosts;
 }
 
+function viewSignalComment() {
+	$adminManager = new AdminManager;
+
+	$listSignalComments = $adminManager->getCommentSignal();
+
+	return $listSignalComments;
+}
+
 function viewTrash() {
 	$listPosts = viewPostsTrash();
 
@@ -37,7 +45,9 @@ function viewTrash() {
 }
 
 function pannelAdminView() {
-    $listPosts = viewPostsAdmin();
+	$listPosts = viewPostsAdmin();
+	
+	$listSignalComments = viewSignalComment();
 
     require('view/backend/pannelAdmin.php');
 }
@@ -221,18 +231,29 @@ function chapterTrash($postId) {
 	$trashManager = new TrashManager;
 
 	$chapterSelected = $trashManager->selectChapterFromPosts($postId);
+	$commentSelectedData = $trashManager->selectCommentFromComments($postId);
 
 	$trashManager->insertChapterInTrash($chapterSelected['id'], $chapterSelected['title'], $chapterSelected['nb_views'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
+	foreach($commentSelectedData as $row => $commentSelected) {
+		$trashManager->insertCommentInTrashComment($commentSelected['id'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment']);
+	}
 
 	$verifChapter = $trashManager->verifChapterSinceTrash($postId);
+	$verifComment = $trashManager->verifCommentSinceTrashComments($postId);
 
-	if(isset($verifChapter) && $verifChapter == false) {
-		throw new Exception('Il a y eu une erreur lors de la suppression.');
+	if($verifChapter) {
+		if($verifComment) {
+			$trashManager->deleteChapterFromPosts($postId);
+			$trashManager->deleteCommentFromComments($postId);
+
+			header('location: index.php?action=administration');
+		}
+		else {
+			throw new Exception('Il a y eu une erreur lors de la suppression des commentaires.');
+		}
 	}
 	else {
-		$trashManager->deleteChapterFromPosts($postId);
-
-		header('location: index.php?action=administration');
+		throw new Exception('Il a y eu une erreur lors de la suppression du chapitre.');
 	}
 }
 
@@ -240,18 +261,29 @@ function restoreTrash($idChapter) {
 	$trashManager = new TrashManager;
 
 	$chapterSelected = $trashManager->selectChapterFromTrash($idChapter);
+	$commentSelectedData = $trashManager->selectCommentFromTrashComments($idChapter);
 
 	$trashManager->insertChapterInPosts($chapterSelected['id_chapter'], $chapterSelected['title'], $chapterSelected['nb_views'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
+	foreach($commentSelectedData as $row => $commentSelected) {
+		$trashManager->insertCommentInComments($commentSelected['id_before_delete'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment']);
+	}
 
 	$verifChapter = $trashManager->verifChapterSincePosts($idChapter);
+	$verifComment = $trashManager->verifCommentSinceComments($idChapter);
 
-	if(isset($verifChapter) && $verifChapter == false) {
-		throw new Exception('Il a y eu une erreur lors de la restauration.');
+	if($verifChapter) {
+		if($verifComment) {
+			$trashManager->deleteChapterFromTrash($idChapter);
+			$trashManager->deleteCommentFromTrashComments($idChapter);
+
+			header('location: index.php?action=administration&trash');
+		}
+		else {
+			throw new Exception('Il a y eu une erreur lors de la restauration des commentaires.');
+		}
 	}
 	else {
-		$trashManager->deleteChapterFromTrash($idChapter);
-
-		header('location: index.php?action=administration&trash');
+		throw new Exception('Il a y eu une erreur lors de la restauration du chapitre.');
 	}
 }
 
@@ -275,4 +307,37 @@ function checkVisite($ip, $idChapter) {
 
 		$adminManager->incrementView($idChapter);
 	}
+}
+
+/**** GESTIONS DES COMMENTAIRES ****/
+
+function modereComment($idComment) {
+	$adminManager = new AdminManager;
+
+	$adminManager->modereAndUnsignalComment($idComment);
+
+	header('location: index.php?action=administration');
+}
+
+function deleteSignalComment($idComment, $response) {
+	$adminManager = new AdminManager;
+
+	$adminManager->deleteSignalComment($idComment);
+
+	if ($response == 1) {
+		$adminManager->deleteResponseLinkAsSignal($idComment);
+
+		header('location: index.php?action=administration');
+	}
+	else {
+		header('location: index.php?action=administration');
+	}
+}
+
+function aproveSignal($idComment) {
+	$adminManager = new AdminManager;
+
+	$adminManager->unsignalComment($idComment);
+
+	header('location: index.php?action=administration');
 }

@@ -26,7 +26,7 @@
 
     <h2 class="text-center">Commentaires</h2>
 
-    <p class="text-center">Commentaire totaux : <?= count($comments) + count($commentsResponse); ?></p>
+    <p class="text-center"><?= $countcomment = count($comments) + count($commentsResponse); ?> commentaire<?php if($countcomment > 1): ?>s<?php endif ?></p>
 
 
     <!--- Modal d'ajout de commentaire -->

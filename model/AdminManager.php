@@ -63,4 +63,37 @@ class AdminManager extends Manager
         $req->execute(array($idChapter));
     }
 
+    /**** GESTION COMMENTAIRES PAR L'ADMIN ****/
+
+    public function getCommentSignal() {
+        $db = $this->dbConnect();
+        $req = $db->query('SELECT id, post_id, author, comment, comment_signal, have_response, comment_response, id_comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%i\') AS comment_date_fr FROM comments WHERE comment_signal = 1 ORDER BY comment_date DESC');
+        $reqs = $req->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $reqs;
+    }
+
+    public function modereAndUnsignalComment($idComment) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE comments SET comment = "Ce commentaire à été modéré car il contenait des propos diffamatoires, injurieux ou illégaux - Jean Forteroche", comment_signal = 0 WHERE id = ?');
+        $req->execute(array($idComment));
+    }
+
+    public function deleteSignalComment($idComment) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM comments WHERE id = ?');
+        $req->execute(array($idComment));
+    }
+
+    public function deleteResponseLinkAsSignal($idComment) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM comments WHERE id_comment = ?');
+        $req->execute(array($idComment));
+    }
+
+    public function unsignalComment($idComment) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE comments SET comment_signal = 0 WHERE id = ?');
+        $req->execute(array($idComment));
+    }
 }

@@ -6,6 +6,7 @@ require_once("model/Manager.php");
 class CommentManager extends Manager
 {
     /**** GESTION COMMENTAIRE QUI NE SONT PAS DES REPONSES ****/
+    
     public function getComments($postId)
     {
         $db = $this->dbConnect();

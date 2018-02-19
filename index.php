@@ -164,6 +164,34 @@ try {
                     }
                     /* Fin de la gestion de la corbeille */
                     
+                    /* Gestion des commentaires */
+                    elseif (isset($_GET['comment'])) {
+                        if(isset($_GET['modere'])) {
+                            if(isset($_GET['id']) && $_GET['id'] > 0) {
+                                modereComment($_GET['id']);
+                            }else {
+                                throw new Exception('Identifiant de commentaire incorrect');
+                            }
+                        }
+                        if(isset($_GET['deletecomment'])) {
+                            if(isset($_GET['signal'])) {
+                                if(isset($_GET['id']) && $_GET['id'] > 0) {
+                                    deleteSignalComment($_GET['id'], $_GET['response']);
+                                }else {
+                                    throw new Exception('Identifiant de commentaire incorrect');
+                                }
+                            }
+                        }
+                        if(isset($_GET['aprove'])) {
+                            if(isset($_GET['id']) && $_GET['id'] > 0) {
+                                aproveSignal($_GET['id']);
+                            }else {
+                                throw new Exception('Identifiant de commentaire incorrect');
+                            }
+                        }
+                    }
+                    /* Fin de la gestion des commentaires */
+
                     /* Si aucune valeur, affiche le pannel admin */
                     else {
                         pannelAdminView();

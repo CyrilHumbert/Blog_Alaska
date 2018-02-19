@@ -14,7 +14,7 @@
     </div> 
 </header>
 
-<p><a href="index.php?action=post&id=<?= $_GET['idp'] ?>">Retour au chapitre</a></p>
+<p><a href="index.php?action=chapter&id=<?= $_GET['idp'] ?>">Retour au chapitre</a></p>
 
 <h2>Commentaires</h2>
 
