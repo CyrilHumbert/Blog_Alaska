@@ -239,18 +239,17 @@ function chapterTrash($postId) {
 	}
 
 	$verifChapter = $trashManager->verifChapterSinceTrash($postId);
-	$verifComment = $trashManager->verifCommentSinceTrashComments($postId);
+	if($commentSelectedData){
+		$verifComment = $trashManager->verifCommentSinceTrashComments($postId);
+	}
 
 	if($verifChapter) {
-		if($verifComment) {
 			$trashManager->deleteChapterFromPosts($postId);
-			$trashManager->deleteCommentFromComments($postId);
+			if(isset($verifComment)){
+				$trashManager->deleteCommentFromComments($postId);
+			}
 
 			header('location: index.php?action=administration');
-		}
-		else {
-			throw new Exception('Il a y eu une erreur lors de la suppression des commentaires.');
-		}
 	}
 	else {
 		throw new Exception('Il a y eu une erreur lors de la suppression du chapitre.');
@@ -269,18 +268,17 @@ function restoreTrash($idChapter) {
 	}
 
 	$verifChapter = $trashManager->verifChapterSincePosts($idChapter);
-	$verifComment = $trashManager->verifCommentSinceComments($idChapter);
+	if($commentSelectedData){
+		$verifComment = $trashManager->verifCommentSinceComments($idChapter);
+	}
 
 	if($verifChapter) {
-		if($verifComment) {
 			$trashManager->deleteChapterFromTrash($idChapter);
-			$trashManager->deleteCommentFromTrashComments($idChapter);
+			if(isset($verifComment)){
+				$trashManager->deleteCommentFromTrashComments($idChapter);
+			}
 
 			header('location: index.php?action=administration&trash');
-		}
-		else {
-			throw new Exception('Il a y eu une erreur lors de la restauration des commentaires.');
-		}
 	}
 	else {
 		throw new Exception('Il a y eu une erreur lors de la restauration du chapitre.');

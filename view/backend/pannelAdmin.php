@@ -17,7 +17,7 @@
                 <th class="text-center lineTitle">Titre du chapitre</th>
                 <th class="text-center">Nombre de vues</th>
                 <th class="text-center">Auteur</th>
-                <th class="text-center">Modification</th>
+                <th class="text-center">Action</th>
             </tr>
 
             <?php foreach($listPosts as $raw => $data): ?>
