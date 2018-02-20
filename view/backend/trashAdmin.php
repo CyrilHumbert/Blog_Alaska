@@ -8,43 +8,24 @@
         <h2 class="text-center">Chapitres supprimés</h2>
     </div>
 
+    <!-- TABLEAU DES CHAPITRES EN CORBEILLE -->
     <table id="tableAdminChapiter" class="table table-bordered table-striped table-condensed">
             <tr>
                 <th class="text-center lineTitle">Titre du chapitre</th>
                 <th class="text-center">Nombre de vues</th>
                 <th class="text-center">Auteur</th>
+                <th class="text-center">Status</th>
                 <th class="text-center">Action</th>
             </tr>
 
-            <?php foreach($listPosts as $row => $data): ?>
+            <?php foreach($listPostsTrash as $row => $data): ?>
                 <tr>
                     <td class="text-center lineTitle"><?= $data['title'] ?></td>
                     <td class="text-center"><?= $data['nb_views'] ?></td>
                     <td class="text-center lineAuthor"><?= $data['author'] ?></td>
+                    <td class="text-center"><?php if($data['status_post'] == 0): ?>Publié<?php else: ?>Brouillon<?php endif; ?></td>
                     <td class="text-center">
-                    <span data-toggle="tooltip" data-placement="top" title="Restaurer le chapitre" class="spanTool"><a data-toggle="modal" href="#infosRestore<?= $data['id'] ?>" class="btn btn-success">Restaurer</a></span>
-                        <!-- Modal restauration d'un chapitre -->
-                        <div class="modal fade" id="infosRestore<?= $data['id'] ?>">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Confirmation</h4>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        Voulez-vous vraiment restaurer ce chapitre ?<br>
-                                        Celui-ci sera restauré avec son ancien état ainsi que tous ses commentaires.
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <a href="index.php?action=administration&amp;trash&amp;restore&amp;id=<?= $data['id_chapter'] ?>" class="btn btn-info pull-left">Restaurer</a>
-                                        <a class="btn btn-info" data-dismiss="modal">Annuler</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- FIN MODAL -->
-                        <span data-toggle="tooltip" data-placement="right" title="Supprimer définitevement de la corbeille" class="spanTool"><a data-toggle="modal" href="#infosDeleteTrash<?= $data['id'] ?>" class="btn btn-danger">Supprimer définitivement</a></span>
+                    <a data-toggle="modal" href="#infosDeleteTrash<?= $data['id'] ?>"><span class="glyphicon glyphicon-remove btnDel" data-toggle="tooltip" data-placement="top" title="Supprimer définitivement le chapitre"></span></a>
                         <!-- Modal suppresion corbeille d'un chapitre -->
                         <div class="modal fade" id="infosDeleteTrash<?= $data['id'] ?>">
                             <div class="modal-dialog">
@@ -61,6 +42,76 @@
 
                                     <div class="modal-footer">
                                         <a href="index.php?action=administration&amp;trash&amp;deletetrash&amp;id=<?= $data['id'] ?>&amp;idp=<?= $data['id_chapter'] ?>" class="btn btn-info pull-left">Supprimer</a>
+                                        <a class="btn btn-info" data-dismiss="modal">Annuler</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIN MODAL -->
+                    <a data-toggle="modal" href="#infosRestore<?= $data['id'] ?>" class="linkInTab"><span class="glyphicon glyphicon-repeat btnRestore" data-toggle="tooltip" data-placement="right" title="Restaurer le chapitre"></span></a>
+                        <!-- Modal restauration d'un chapitre en corbeille -->
+                        <div class="modal fade" id="infosRestore<?= $data['id'] ?>">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Confirmation</h4>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        Voulez-vous vraiment restaurer ce chapitre ?<br>
+                                        Celui-ci sera restauré avec son ancien status ainsi que tous ses commentaires.
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <a href="index.php?action=administration&amp;trash&amp;restore&amp;id=<?= $data['id_chapter'] ?>" class="btn btn-info pull-left">Restaurer</a>
+                                        <a class="btn btn-info" data-dismiss="modal">Annuler</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- FIN MODAL -->
+                    
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+
+        <div class="row">
+            <h2 class="text-center">Commentaires supprimés</h2>
+        </div>
+
+        <!-- TABLEAU DES COMMENTAIRES EN CORBEILLE -->
+        <table id="tableAdminChapiter" class="table table-bordered table-striped table-condensed">
+            <tr>
+                <th class="text-center lineTitle">Commentaire</th>
+                <th class="text-center">Auteur du commentaire</th>
+                <th class="text-center">Date du commentaire</th>
+                <th class="text-center">Action</th>
+            </tr>
+
+            <?php foreach($listCommentsTrash as $rowComment => $dataComment): ?>
+                <tr>
+                    <td class="text-center lineTitle"><?= htmlspecialchars($dataComment['comment']) ?></td>
+                    <td class="text-center"><?= htmlspecialchars($dataComment['author']) ?></td>
+                    <td class="text-center lineAuthor"><?= $dataComment['comment_date_fr'] ?></td>
+                    <td class="text-center">
+                    <?php if($dataComment['delete_manual'] == 0): ?><span class="glyphicon glyphicon-repeat btnRestore btnDesactived" data-toggle="tooltip" data-placement="top" title="Ce commentaire est lié à un chapitre supprimé"></span>
+                    <?php else: ?><a data-toggle="modal" href="#infosRestoreComment<?= $dataComment['id'] ?>"><span class="glyphicon glyphicon-repeat btnRestore" data-toggle="tooltip" data-placement="top" title="Restaurer le commentaire"></span></a><?php endif; ?>
+                        <!-- Modal restauration d'un commentaire en corbeille -->
+                        <div class="modal fade" id="infosRestoreComment<?= $dataComment['id'] ?>">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Confirmation</h4>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        Voulez-vous vraiment restaurer ce commentaire ?<br>
+                                        Celui-ci sera restauré ainsi que tous les commentaires en réponse à lui.
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <a href="" class="btn btn-info pull-left">Restaurer</a>
                                         <a class="btn btn-info" data-dismiss="modal">Annuler</a>
                                     </div>
                                 </div>

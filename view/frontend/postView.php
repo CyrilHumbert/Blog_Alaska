@@ -86,13 +86,13 @@
                                         <div class="modal-body">
                                             <form action="index.php?action=addComment&amp;response&amp;idpost=<?= $post['id'] ?>&amp;idcomment=<?= $data['id'] ?>" method="POST">
                                                 <div class="form-group">
-                                                    <label for="author" class="labelPostAuthor">Pseudo</label>
-                                                    <input type="text" class="inputPostAuthor" name="author" id="author">
+                                                    <label for="authorResponse" class="labelPostAuthorResponse">Pseudo</label>
+                                                    <input type="text" class="inputPostAuthorResponse" name="authorResponse" id="authorResponse">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="comment" class="labelPostComment">Commentaire</label>
-                                                    <input type="text" class="inputPostComment" name="comment" id="comment">
+                                                    <label for="commentResponse" class="labelPostCommentResponse">Commentaire</label>
+                                                    <input type="text" class="inputPostCommentResponse" name="commentResponse" id="commentResponse">
                                                 </div>
                                         </div>
 

@@ -7,7 +7,7 @@
 
     <!-- En-tête tableau admin chapitre -->
     <div class="row">
-        <h2 class="text-center">Liste des chapitres<a class="btn btn-primary btnAdd" href="index.php?action=administration&amp;editer&amp;id=0" data-toggle="tooltip" data-placement="right" title="Ajouter un chapitre">Ajouter</a></h2>
+        <h2 class="text-center">Liste des chapitres<a href="index.php?action=administration&amp;editer&amp;id=0" class="linkAdd"><span class="glyphicon glyphicon-plus btnAdd" data-toggle="tooltip" data-placement="right" title="Ajouter un chapitre"></span></a></h2>
     </div>
 
     <!-- Tableau admin des chapitres -->
@@ -17,6 +17,7 @@
                 <th class="text-center lineTitle">Titre du chapitre</th>
                 <th class="text-center">Nombre de vues</th>
                 <th class="text-center">Auteur</th>
+                <th class="text-center">Status</th>
                 <th class="text-center">Action</th>
             </tr>
 
@@ -25,9 +26,11 @@
                     <td class="text-center lineTitle"><?= $data['title'] ?></td>
                     <td class="text-center"><?= $data['nb_views'] ?></td>
                     <td class="text-center lineAuthor"><?= $data['author'] ?></td>
+                    <td class="text-center"><?php if($data['status_post'] == 0): ?>Publié<?php else: ?>Brouillon<?php endif; ?></td>
                     <td class="text-center">
-                        <a href="index.php?action=administration&amp;editer&amp;id=<?= $data['id'] ?>" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Modifier le chapitre">Modifier</a>
-                        <span data-toggle="tooltip" data-placement="right" title="Supprimer le chapitre" class="spanTool"><a data-toggle="modal" href="#infos<?= $data['id'] ?>" class="btn btn-danger">Supprimer</a></span>
+                    <a href="#"></a>
+                        <a href="index.php?action=administration&amp;editer&amp;id=<?= $data['id'] ?>"><span class="glyphicon glyphicon-pencil btnModif" data-toggle="tooltip" data-placement="top" title="Modifier le chapitre"></span></a>
+                        <a data-toggle="modal" href="#infos<?= $data['id'] ?>" class="linkInTab"><span class="glyphicon glyphicon-remove btnDel" data-toggle="tooltip" data-placement="right" title="Supprimer le chapitre" ></span></a>
                         <!-- Modal suppression d'un chapitre -->
                         <div class="modal fade" id="infos<?= $data['id'] ?>">
                             <div class="modal-dialog">
@@ -59,8 +62,8 @@
     <!-- Tableau commentaire signalé -->
     <div class="row">
         <?php $countSignal = count($listSignalComments) ?>
-<h2 class="text-center"><?php if($countSignal <= 1): ?>Commentaire signalé<?php else: ?>Commentaires signalés<?php endif ?><span class="badge" style="margin-left: 10px;"><?= $countSignal ?></span></h2>
-        <table id="tableAdminChapiter" class="table table-bordered table-striped table-condensed">
+<h2 class="text-center"><?php if($countSignal <= 1): ?>Commentaire signalé<?php else: ?>Commentaires signalés<?php endif ?><span class="badge nbSignal" style="margin-left: 10px;"><?= $countSignal ?></span></h2>
+        <table id="tableAdminChapiter" class="table table-bordered table-striped table-condensed table-responsive">
             <tr>
                 <th class="text-center lineTitle">Commentaire</th>
                 <th class="text-center">Auteur du commentaire</th>
@@ -74,7 +77,7 @@
                     <td class="text-center"><?= htmlspecialchars($dataSignal['author']) ?></td>
                     <td class="text-center lineAuthor"><?= $dataSignal['comment_date_fr'] ?></td>
                     <td class="text-center">
-                        <span data-toggle="tooltip" data-placement="top" title="Modérer le commentaire" class="spanTool"><a data-toggle="modal" href="#infosModereComment<?= $dataSignal['id'] ?>" class="btn btn-default">Modérer</a></span>
+                        <a data-toggle="modal" href="#infosModereComment<?= $dataSignal['id'] ?>"><span class="glyphicon glyphicon-alert btnMod" data-toggle="tooltip" data-placement="top" title="Modérer le commentaire"></span></a>
                         <!-- Modal modération d'un commentaire signalé -->
                         <div class="modal fade" id="infosModereComment<?= $dataSignal['id'] ?>">
                             <div class="modal-dialog">
@@ -97,7 +100,7 @@
                             </div>
                         </div>
                         <!-- FIN MODAL -->
-                        <span data-toggle="tooltip" data-placement="top" title="Supprimer le commentaire" class="spanTool"><a data-toggle="modal" href="#infosDeleteComment<?= $dataSignal['id'] ?>" class="btn btn-danger">Supprimer</a></span>
+                        <a data-toggle="modal" href="#infosDeleteComment<?= $dataSignal['id'] ?>" class="linkInTab"><span class="glyphicon glyphicon-remove btnDel" data-toggle="tooltip" data-placement="top" title="Supprimer le commentaire"></span></a>
                         <!-- Modal suppresion d'un commentaire signalé -->
                         <div class="modal fade" id="infosDeleteComment<?= $dataSignal['id'] ?>">
                             <div class="modal-dialog">
@@ -120,7 +123,7 @@
                             </div>
                         </div>
                         <!-- FIN MODAL -->
-                        <span data-toggle="tooltip" data-placement="right" title="Approuver le commentaire" class="spanTool"><a data-toggle="modal" href="#infosAproveComment<?= $dataSignal['id'] ?>" class="btn btn-success">Approuver</a></span>
+                        <a data-toggle="modal" href="#infosAproveComment<?= $dataSignal['id'] ?>" class="linkInTab"><span class="glyphicon glyphicon-ok btnApr" data-toggle="tooltip" data-placement="right" title="Approuver le commentaire"></span></a>
                         <!-- Modal approuve d'un commentaire signalé -->
                         <div class="modal fade" id="infosAproveComment<?= $dataSignal['id'] ?>">
                             <div class="modal-dialog">
@@ -150,7 +153,7 @@
 
     <!-- Redirection vers la corbeille -->
     <div class="row">
-        <h2 class="text-center">Corbeille<a href="index.php?action=administration&amp;trash" class="btn btn-primary btnAdd" data-toggle="tooltip" data-placement="right" title="Vider la corbeille">Vider</a></h2>
+        <h2 class="text-center">Corbeille<a href="index.php?action=administration&amp;trash" class="linkAdd"><span class="glyphicon glyphicon-trash btnTrash" data-toggle="tooltip" data-placement="right" title="Vider la corbeille" ></span></a></h2>
     </div>
 </div>
 

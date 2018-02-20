@@ -30,6 +30,14 @@ function viewPostsTrash() {
     return $listPosts;
 }
 
+function viewCommentsTrash() {
+	$trashManager = new TrashManager;
+
+	$listCommentsTrash = $trashManager->listCommentsTrash();
+
+	return $listCommentsTrash;
+}
+
 function viewSignalComment() {
 	$adminManager = new AdminManager;
 
@@ -39,7 +47,9 @@ function viewSignalComment() {
 }
 
 function viewTrash() {
-	$listPosts = viewPostsTrash();
+	$listPostsTrash = viewPostsTrash();
+
+	$listCommentsTrash = viewCommentsTrash();
 
 	require('view/backend/trashAdmin.php');
 }
@@ -103,11 +113,11 @@ function refresh_session(){
             
             if($_SESSION['admin_mdp'] != $infoSession['passwordde']) {
 				$informations = Array( /*Mot de passe de session incorrect*/
-									true,
+									'has-error',
 									'Session invalide',
 									'Le mot de passe de votre session est incorrect, vous devez vous reconnecter.',
 									'',
-									'membres/connexion.php',
+									'index.php',
 									3
 									);
 				require_once('../view/frontend/informations.php');
@@ -135,11 +145,11 @@ function refresh_session(){
 				if(isset($infoSession['pseudo']) && $infoSession['pseudo'] != '' && $_COOKIE['admin_pseudo'] == $infoSession['pseudo']) {
 					if($_COOKIE['membre_mdp'] != $infoSession['passwordde']) {
 						$informations = Array( /*Mot de passe de cookie incorrect*/
-											true,
+											'has-error',
 											'Mot de passe cookie erroné',
 											'Le mot de passe conservé sur votre cookie est incorrect vous devez vous reconnecter.',
 											'',
-											'membres/connexion.php',
+											'index.php',
 											3
 											);
                         require_once('../view/frontend/informations.php');
@@ -161,11 +171,11 @@ function refresh_session(){
 			
 			else {
 				$informations = Array( /*L'id de cookie est incorrect*/
-									true,
+									'has-error',
 									'Cookie invalide',
 									'Le cookie conservant votre id est corrompu, il va donc être détruit vous devez vous reconnecter.',
 									'',
-									'membres/connexion.php',
+									'index.php',
 									3
 									);
                 require_once('../view/frontend/informations.php');
@@ -193,11 +203,11 @@ function disconnect() {
 
 /**** GESTION DES CHAPITRES ****/
 
-function addPostAdmin($title, $content, $author) {
+function addPostAdmin($title, $content, $author, $status) {
     $adminManager = new AdminManager;
 
     if(isset($title) && !empty($title) && isset($content) && !empty($content) && isset($author) && !empty($author)) {
-        $adminManager->insertPostAdmin($title, $content, $author);
+        $adminManager->insertPostAdmin($title, $content, $author, $status);
 
         header('location: index.php?action=administration');
     }
@@ -219,10 +229,10 @@ function editerModif($postId) {
 	require('view/backend/editionAdmin.php');
 }
 
-function chapterModif($postTitle, $postAuthor, $postContent, $getId) {
+function chapterModif($postTitle, $postAuthor, $postContent, $status, $getId) {
 	$adminManager = new AdminManager;
 
-	$adminManager->updateChapter($postTitle, $postAuthor, $postContent, $getId);
+	$adminManager->updateChapter($postTitle, $postAuthor, $postContent, $status, $getId);
 
 	header('location: index.php?action=administration');
 }
@@ -233,9 +243,9 @@ function chapterTrash($postId) {
 	$chapterSelected = $trashManager->selectChapterFromPosts($postId);
 	$commentSelectedData = $trashManager->selectCommentFromComments($postId);
 
-	$trashManager->insertChapterInTrash($chapterSelected['id'], $chapterSelected['title'], $chapterSelected['nb_views'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
+	$trashManager->insertChapterInTrash($chapterSelected['id'], $chapterSelected['title'], $chapterSelected['nb_views'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date'], $chapterSelected['status_post']);
 	foreach($commentSelectedData as $row => $commentSelected) {
-		$trashManager->insertCommentInTrashComment($commentSelected['id'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment']);
+		$trashManager->insertCommentInTrashComment($commentSelected['id'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment'], $commentSelected['delete_manual']);
 	}
 
 	$verifChapter = $trashManager->verifChapterSinceTrash($postId);
@@ -262,9 +272,9 @@ function restoreTrash($idChapter) {
 	$chapterSelected = $trashManager->selectChapterFromTrash($idChapter);
 	$commentSelectedData = $trashManager->selectCommentFromTrashComments($idChapter);
 
-	$trashManager->insertChapterInPosts($chapterSelected['id_chapter'], $chapterSelected['title'], $chapterSelected['nb_views'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date']);
+	$trashManager->insertChapterInPosts($chapterSelected['id_chapter'], $chapterSelected['title'], $chapterSelected['nb_views'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date'], $chapterSelected['status_post']);
 	foreach($commentSelectedData as $row => $commentSelected) {
-		$trashManager->insertCommentInComments($commentSelected['id_before_delete'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment']);
+		$trashManager->insertCommentInComments($commentSelected['id_before_delete'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment'], $commentSelected['delete_manual']);
 	}
 
 	$verifChapter = $trashManager->verifChapterSincePosts($idChapter);

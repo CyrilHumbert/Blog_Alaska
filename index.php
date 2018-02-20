@@ -44,8 +44,8 @@ try {
             if (isset($_GET['response'])) {
                 if (isset($_GET['idpost']) && $_GET['idpost'] > 0) {
                     if (isset($_GET['idcomment']) && $_GET['idcomment'] > 0) {
-                        if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-                            addCommentResponse($_GET['idpost'], $_POST['author'], $_POST['comment'], $_GET['idcomment']);
+                        if (!empty($_POST['authorResponse']) && !empty($_POST['commentResponse'])) {
+                            addCommentResponse($_GET['idpost'], $_POST['authorResponse'], $_POST['commentResponse'], $_GET['idcomment']);
                         }
                         else {
                             throw new Exception('Tous les champs ne sont pas remplis !');
@@ -122,9 +122,9 @@ try {
                     if(isset($_GET['editer'])) { 
                         if(isset($_GET['post'])) {
                             if(isset($_GET['id']) && $_GET['id'] > 0) {
-                                chapterModif($_POST['title'], $_POST['author'], $_POST['content'], $_GET['id']);
+                                chapterModif($_POST['title'], $_POST['author'], $_POST['content'], $_POST['status'], $_GET['id']);
                             }else {
-                                addPostAdmin($_POST['title'], $_POST['content'], $_POST['author']);
+                                addPostAdmin($_POST['title'], $_POST['content'], $_POST['author'], $_POST['status']);
                             }
                         }elseif(isset($_GET['id']) && $_GET['id'] > 0) {
                             editerModif($_GET['id']);

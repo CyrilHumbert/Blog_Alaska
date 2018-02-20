@@ -35,6 +35,7 @@
         <script>
             $(function(){
 
+                /* AJOUT D'UN COMMENTAIRE QUI N'EST PAS UNE REPONSE */
                 $(".inputPostComment").focus(function() {
                 $(".labelPostComment").addClass('active');
                 $(".inputPostComment").css({
@@ -101,6 +102,79 @@
                 if($(".inputPostAuthor").val().length > 0) {
                     $(".labelPostAuthor").addClass('active');
                     $(".inputPostAuthor").css({
+                        "border-color": "green",
+                        "border-bottom-width": "2px",
+                        "outline": "0"
+                        });
+                }
+
+                /* AJOUT D'UN COMMENTAIRE QUI EST UNE REPONSE */
+                $(".inputPostCommentResponse").focus(function() {
+                $(".labelPostCommentResponse").addClass('active');
+                $(".inputPostCommentResponse").css({
+                    "border-color": "red",
+                    "border-bottom-width": "2px",
+                    "outline": "0"
+                    });
+                });
+
+                $(".inputPostAuthorResponse").focus(function() {
+                $(".labelPostAuthorResponse").addClass('active');
+                $(".inputPostAuthorResponse").css({
+                    "border-color": "green",
+                    "border-bottom-width": "2px",
+                    "outline": "0"
+                    });
+                });
+
+                $(".inputPostCommentResponse").focusout(function() {
+                    if($(".inputPostCommentResponse").val().length > 0) {
+                        $(".labelPostCommentResponse").addClass('active');
+                        $(".inputPostCommentResponse").css({
+                            "border-color": "red",
+                            "border-bottom-width": "2px",
+                            "outline": "0"
+                            });
+                    }else {
+                        $(".labelPostCommentResponse").removeClass('active');
+                        $(".inputPostCommentResponse").css({
+                        "border-color": "",
+                        "border-bottom-width": "",
+                        "outline": ""
+                        });  
+                    }
+                });
+
+                $(".inputPostAuthorResponse").focusout(function() {
+                    if($(".inputPostAuthorResponse").val().length > 0) {
+                        $(".labelPostAuthorResponse").addClass('active');
+                        $(".inputPostAuthorResponse").css({
+                            "border-color": "green",
+                            "border-bottom-width": "2px",
+                            "outline": "0"
+                            });
+                    }else {
+                        $(".labelPostAuthorResponse").removeClass('active');
+                        $(".inputPostAuthorResponse").css({
+                        "border-color": "",
+                        "border-bottom-width": "",
+                        "outline": ""
+                        });  
+                    }
+                });
+
+                if($(".inputPostCommentResponse").val().length > 0) {
+                    $(".labelPostCommentResponse").addClass('active');
+                    $(".inputPostCommentResponse").css({
+                        "border-color": "red",
+                        "border-bottom-width": "2px",
+                        "outline": "0"
+                        });
+                }
+                
+                if($(".inputPostAuthorResponse").val().length > 0) {
+                    $(".labelPostAuthorResponse").addClass('active');
+                    $(".inputPostAuthorResponse").css({
                         "border-color": "green",
                         "border-bottom-width": "2px",
                         "outline": "0"

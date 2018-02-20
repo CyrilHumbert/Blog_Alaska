@@ -5,17 +5,17 @@ require_once("model/Manager.php");
 
 class AdminManager extends Manager
 {
-    public function updateChapter($postTitle, $postAuthor, $postContent, $getId)
+    public function updateChapter($postTitle, $postAuthor, $postContent, $status, $getId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE posts SET title = ?, author = ?, content = ?, comment_date = NOW() WHERE id = ?');
-        $req->execute(array($postTitle, $postAuthor, $postContent, $getId));
+        $req = $db->prepare('UPDATE posts SET title = ?, author = ?, content = ?, status_post = ? WHERE id = ?');
+        $req->execute(array($postTitle, $postAuthor, $postContent, $status, $getId));
     }
 
     public function listPostsAdmin() 
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, title, nb_views, content, author, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC');
+        $req = $db->query('SELECT id, title, nb_views, content, author, status_post, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC');
         $reqs = $req->fetchAll(\PDO::FETCH_ASSOC);
 
         return $reqs;
@@ -24,18 +24,18 @@ class AdminManager extends Manager
     public function getChapterModif($postId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, title, content, author FROM posts WHERE id = ?');
+        $req = $db->prepare('SELECT id, title, content, author, status_post FROM posts WHERE id = ?');
         $req->execute(array($postId));
         $post = $req->fetch();
 
         return $post;
     }
 
-    public function insertPostAdmin($title, $content, $author)
+    public function insertPostAdmin($title, $content, $author, $status)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO posts(title, content, author, creation_date) VALUE (?, ?, ?, NOW())');
-        $reqs = $req->execute(array($title, $content, $author));
+        $req = $db->prepare('INSERT INTO posts(title, content, author, creation_date, status_post) VALUE (?, ?, ?, NOW(), ?)');
+        $reqs = $req->execute(array($title, $content, $author, $status));
 
         return $reqs;
     }

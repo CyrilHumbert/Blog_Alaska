@@ -27,6 +27,11 @@ body
     padding-bottom: 50px;
 }
 
+a:focus
+{
+    outline: 0;
+}
+
 /**********************************/
 
 /************** CSS de la bannière **************/
@@ -95,7 +100,9 @@ body
 }
 
 .labelPostComment,
-.labelPostAuthor
+.labelPostAuthor,
+.labelPostCommentResponse,
+.labelPostAuthorResponse
 {
     font-size: 1.2em;
     position: absolute;
@@ -112,7 +119,9 @@ body
     }
 
 .labelPostComment.active,
-.labelPostAuthor.active
+.labelPostAuthor.active,
+.labelPostCommentResponse.active,
+.labelPostAuthorResponse.active
 {
     -webkit-transform: translateY(-14px) scale(0.8);
             transform: translateY(-14px) scale(0.8);
@@ -121,7 +130,9 @@ body
 }
 
 .inputPostComment,
-.inputPostAuthor
+.inputPostAuthor,
+.inputPostCommentResponse,
+.inputPostAuthorResponse
 {
     display: block;
     width: 100%;
@@ -186,7 +197,8 @@ body
     margin-left: 15px;
 }
 
-footer {
+footer 
+{
     position: absolute;
     bottom: 0;
     left: 0;
@@ -238,17 +250,100 @@ footer {
     width: 25%;
 }
 
-.btnAdd
-{
-    display: inline-block;
-    vertical-align: middle;
-    margin-left: 10px;
-}
-
 .spanTool
 {
     padding: 6px 0px 6px 0px;
 }
+
+.nbSignal
+{
+    width: 40px;
+    height: 40px;
+    line-height: 35px;
+    background-color: red;
+    font-size: 17px;
+    box-shadow: 0px 0px 5px black;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+.btnModif,
+.btnDel,
+.btnAdd,
+.btnTrash,
+.btnApr,
+.btnMod,
+.btnRestore
+{
+    display: inline-block;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 1.4em;
+    color: white;
+    background-color: rgba(0, 162, 255, 0.685);
+    vertical-align: middle;
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px black;
+}
+
+.btnDel
+{
+    background-color: red;
+    line-height: 42px;
+}
+
+.btnAdd
+{
+    background-color: #669999;
+    font-size: 0.8em;
+    padding-left: 3px;
+    margin-bottom: 7px;
+}
+
+.btnTrash
+{
+    font-size: 0.8em;
+    background-color: red;
+    padding-right: 2px;
+    margin-bottom: 7px;
+}
+
+.btnApr
+{
+    background-color: #5cb85c;
+    padding-right: 2px;
+}
+
+.btnMod
+{
+    background-color: #f0ad4e;
+}
+
+.btnRestore
+{
+    background-color: #5cb85c;
+    line-height: 42px;
+}
+
+.btnDesactived
+{
+    background-color: #DFDFDF !important;
+    color: #9F9F9F !important;
+    cursor: default;
+}
+
+.linkAdd
+{
+    margin-left: 10px;
+}
+
+.linkInTab
+{
+    margin-left: 3px;
+}
+
 
 /**********************************/
 
@@ -308,6 +403,12 @@ footer {
 .rowButton
 {
     padding-right: 13px;
+}
+
+.selecteur
+{
+    margin-right: 13px;
+    margin-bottom: 20px;
 }
 
 /**********************************/

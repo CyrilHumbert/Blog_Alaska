@@ -8,7 +8,16 @@ class TrashManager extends Manager
     public function listPostsTrash()
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, id_chapter, title, nb_views, content, author, creation_date FROM trash ORDER BY creation_date DESC');
+        $req = $db->query('SELECT * FROM trash ORDER BY creation_date DESC');
+        $reqs = $req->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $reqs;
+    }
+
+    public function listCommentsTrash()
+    {
+        $db = $this->dbConnect();
+        $req = $db->query('SELECT id, id_before_delete, post_id, author, comment, comment_signal, have_response, comment_response, id_comment, delete_manual, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%i\') AS comment_date_fr FROM trash_comment ORDER BY comment_date DESC');
         $reqs = $req->fetchAll(\PDO::FETCH_ASSOC);
 
         return $reqs;
@@ -36,18 +45,18 @@ class TrashManager extends Manager
         return $reqs;
     }
 
-    public function insertChapterInTrash($postId, $title, $nb_views, $author, $content, $creationDate)
+    public function insertChapterInTrash($postId, $title, $nb_views, $author, $content, $creationDate, $status)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO trash(id_chapter, title, nb_views, author, content, creation_date) VALUE (?, ?, ?, ?, ?, ?)');
-        $req->execute(array($postId, $title, $nb_views, $author, $content, $creationDate));
+        $req = $db->prepare('INSERT INTO trash(id_chapter, title, nb_views, author, content, creation_date, status_post) VALUE (?, ?, ?, ?, ?, ?, ?)');
+        $req->execute(array($postId, $title, $nb_views, $author, $content, $creationDate, $status));
     }
 
-    public function insertCommentInTrashComment($idBeforeDelete, $postIdComment, $author, $comment, $commentDate, $commentSignal, $haveResponse, $commentResponse, $idComment)
+    public function insertCommentInTrashComment($idBeforeDelete, $postIdComment, $author, $comment, $commentDate, $commentSignal, $haveResponse, $commentResponse, $idComment, $deleteManual)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO trash_comment(id_before_delete, post_id, author, comment, comment_date, comment_signal, have_response, comment_response, id_comment) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        $req->execute(array($idBeforeDelete, $postIdComment, $author, $comment, $commentDate, $commentSignal, $haveResponse, $commentResponse, $idComment));
+        $req = $db->prepare('INSERT INTO trash_comment(id_before_delete, post_id, author, comment, comment_date, comment_signal, have_response, comment_response, id_comment, delete_manual) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $req->execute(array($idBeforeDelete, $postIdComment, $author, $comment, $commentDate, $commentSignal, $haveResponse, $commentResponse, $idComment, $deleteManual));
     }
 
     public function verifChapterSinceTrash($postId)
@@ -107,18 +116,18 @@ class TrashManager extends Manager
         return $reqs;
     }
 
-    public function insertChapterInPosts($idChapter, $title, $nb_views, $author, $content, $creationDate)
+    public function insertChapterInPosts($idChapter, $title, $nb_views, $author, $content, $creationDate, $status)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO posts(id, title, nb_views, author, content, creation_date) VALUE (?, ?, ?, ?, ?, ?)');
-        $req->execute(array($idChapter, $title, $nb_views, $author, $content, $creationDate));
+        $req = $db->prepare('INSERT INTO posts(id, title, nb_views, author, content, creation_date, status_post) VALUE (?, ?, ?, ?, ?, ?, ?)');
+        $req->execute(array($idChapter, $title, $nb_views, $author, $content, $creationDate, $status));
     }
 
-    public function insertCommentInComments($idBeforeDelete, $postIdComment, $author, $comment, $commentDate, $commentSignal, $haveResponse, $commentResponse, $idComment)
+    public function insertCommentInComments($idBeforeDelete, $postIdComment, $author, $comment, $commentDate, $commentSignal, $haveResponse, $commentResponse, $idComment, $deleteManual)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO comments(id, post_id, author, comment, comment_date, comment_signal, have_response, comment_response, id_comment) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        $req->execute(array($idBeforeDelete, $postIdComment, $author, $comment, $commentDate, $commentSignal, $haveResponse, $commentResponse, $idComment));
+        $req = $db->prepare('INSERT INTO comments(id, post_id, author, comment, comment_date, comment_signal, have_response, comment_response, id_comment, delete_manual) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $req->execute(array($idBeforeDelete, $postIdComment, $author, $comment, $commentDate, $commentSignal, $haveResponse, $commentResponse, $idComment, $deleteManual));
     }
 
     public function verifChapterSincePosts($idChapter)
