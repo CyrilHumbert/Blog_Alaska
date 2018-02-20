@@ -65,6 +65,9 @@ class AdminManager extends Manager
 
     /**** GESTION COMMENTAIRES PAR L'ADMIN ****/
 
+
+    /** COMMENTAIRE SIGNALES **/
+
     public function getCommentSignal() {
         $db = $this->dbConnect();
         $req = $db->query('SELECT id, post_id, author, comment, comment_signal, have_response, comment_response, id_comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%i\') AS comment_date_fr FROM comments WHERE comment_signal = 1 ORDER BY comment_date DESC');
@@ -94,6 +97,43 @@ class AdminManager extends Manager
     public function unsignalComment($idComment) {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE comments SET comment_signal = 0 WHERE id = ?');
+        $req->execute(array($idComment));
+    }
+
+    /** SUPPRESSION DE COMMENTAIRE MANUEL **/
+
+    public function selectCommentForManualDelete($idComment) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT * FROM comments WHERE id = ?');
+        $req->execute(array($idComment));
+        $reqs = $req->fetch(\PDO::FETCH_ASSOC);
+
+        return $reqs;
+    }
+
+    public function selectCommentResponseManualDelete($idComment) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT * FROM comments WHERE comment_response = 1 AND id_comment = ?');
+        $req->execute(array($idComment));
+        $reqs = $req->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $reqs;
+    }
+
+    public function verifCommentForManualDelete($idComment)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id FROM trash_comment WHERE id_before_delete = ?');
+        $req->execute(array($idComment));
+        $reqs = $req->fetch();
+
+        return $reqs;
+    }
+
+    public function deleteCommentForManualDelete($idComment)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM comments WHERE id = ?');
         $req->execute(array($idComment));
     }
 }

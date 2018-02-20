@@ -26,7 +26,7 @@
                 </div>                
 
                 <div class="pull-right selecteur text-center thumbnail col-sm-6">
-                    <label for="status" style="font-size: 1.5em;">Status</label>
+                    <label for="status" style="font-size: 1.5em;">État</label>
                     <select class="form-control" name="status">
                         <option value="0" <?php if($data['status_post'] == 0): ?>selected<?php endif; ?>>Publier</option>
                         <option value="1" <?php if($data['status_post'] == 1): ?>selected<?php endif; ?>>Sauvegarder en tant que brouillon</option>

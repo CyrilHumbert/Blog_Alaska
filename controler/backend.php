@@ -244,7 +244,8 @@ function chapterTrash($postId) {
 	$commentSelectedData = $trashManager->selectCommentFromComments($postId);
 
 	$trashManager->insertChapterInTrash($chapterSelected['id'], $chapterSelected['title'], $chapterSelected['nb_views'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date'], $chapterSelected['status_post']);
-	foreach($commentSelectedData as $row => $commentSelected) {
+	foreach($commentSelectedData as $row => $commentSelected) 
+	{
 		$trashManager->insertCommentInTrashComment($commentSelected['id'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment'], $commentSelected['delete_manual']);
 	}
 
@@ -273,12 +274,13 @@ function restoreTrash($idChapter) {
 	$commentSelectedData = $trashManager->selectCommentFromTrashComments($idChapter);
 
 	$trashManager->insertChapterInPosts($chapterSelected['id_chapter'], $chapterSelected['title'], $chapterSelected['nb_views'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date'], $chapterSelected['status_post']);
-	foreach($commentSelectedData as $row => $commentSelected) {
+	foreach($commentSelectedData as $row => $commentSelected) 
+	{
 		$trashManager->insertCommentInComments($commentSelected['id_before_delete'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment'], $commentSelected['delete_manual']);
 	}
 
 	$verifChapter = $trashManager->verifChapterSincePosts($idChapter);
-	if($commentSelectedData){
+	if($commentSelectedData) {
 		$verifComment = $trashManager->verifCommentSinceComments($idChapter);
 	}
 
@@ -349,4 +351,37 @@ function aproveSignal($idComment) {
 	$adminManager->unsignalComment($idComment);
 
 	header('location: index.php?action=administration');
+}
+
+function deleteCommentManual($idComment, $postId) {
+	$adminManager = new AdminManager;
+	$trashManager = new TrashManager;
+
+	$commentSelected = $adminManager->selectCommentForManualDelete($idComment);
+	if($commentSelected['have_response'] == 1) {
+		$commentSelectedResponse = $adminManager->selectCommentResponseManualDelete($idComment);
+	}
+
+	$trashManager->insertCommentInTrashComment($commentSelected['id'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment'], 1);
+	if($commentSelectedResponse) {
+		foreach($commentSelectedResponse as $row => $commentSelectedResponseData) 
+		{
+			$trashManager->insertCommentInTrashComment($commentSelectedResponseData['id'], $commentSelectedResponseData['post_id'], $commentSelectedResponseData['author'], $commentSelectedResponseData['comment'], $commentSelectedResponseData['comment_date'], $commentSelectedResponseData['comment_signal'], $commentSelectedResponseData['have_response'], $commentSelectedResponseData['comment_response'], $commentSelectedResponseData['id_comment'], 1);
+		}
+	}
+
+	$verifComment = $adminManager->verifCommentForManualDelete($idComment);
+
+	if($verifComment) {
+		$adminManager->deleteCommentForManualDelete($idComment);
+		if($commentSelectedResponse) {
+			foreach($commentSelectedResponse as $row => $commentSelectedResponseData) 
+			{
+				$adminManager->deleteCommentForManualDelete($commentSelectedResponseData['id']);
+			}
+		}
+
+		header('Location: index.php?action=chapter&id=' . $postId);
+	}
+
 }

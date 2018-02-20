@@ -23,7 +23,7 @@ class TrashManager extends Manager
         return $reqs;
     }
 
-    /***** Insert into trash *****/
+    /***** INSERTION DANS LES CORBEILLES *****/
 
     public function selectChapterFromPosts($postId)
     {
@@ -93,9 +93,9 @@ class TrashManager extends Manager
         $req->execute(array($postId));
     }
 
-    /***** End of insert into trash *****/
+    /***** FIN D'INSERTION DANS LES CORBEILLES *****/
 
-    /***** Insert into posts *****/
+    /***** INSERTION DANS POSTS ET COMMENTS *****/
 
     public function selectChapterFromTrash($idChapter)
     {
@@ -164,7 +164,7 @@ class TrashManager extends Manager
         $req->execute(array($idChapter));
     }
 
-    /***** End of insert into posts *****/
+    /***** FIN D'INSERTION DANS POSTS ET COMMENTS *****/
 
     public function deleteDefinitelySinceTrash($idChapterTrash)
     {
