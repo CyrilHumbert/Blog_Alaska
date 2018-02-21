@@ -2,6 +2,14 @@
 
 <?php ob_start(); ?>
 
+<div class="container-fluid">
+    <header id="headerBanTrash" class="row">
+        <div>
+            <h1 id="titleTrash" class="text-center">Corbeille</h1>
+        </div>
+    </header>
+</div>
+
 <div class="container">
 
     <div class="row">
@@ -9,7 +17,7 @@
     </div>
 
     <!-- TABLEAU DES CHAPITRES EN CORBEILLE -->
-    <table id="tableAdminChapiter" class="table table-bordered table-striped table-condensed">
+    <table id="tableAdminChapiter" class="table table-bordered table-condensed">
             <tr>
                 <th class="text-center lineTitle">Titre du chapitre</th>
                 <th class="text-center">Nombre de vues</th>
@@ -81,7 +89,7 @@
         </div>
 
         <!-- TABLEAU DES COMMENTAIRES EN CORBEILLE -->
-        <table id="tableAdminChapiter" class="table table-bordered table-striped table-condensed">
+        <table id="tableAdminChapiter" class="table table-bordered table-condensed">
             <tr>
                 <th class="text-center lineTitle">Commentaire</th>
                 <th class="text-center">Auteur du commentaire</th>

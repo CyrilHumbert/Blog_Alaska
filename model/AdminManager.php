@@ -15,7 +15,7 @@ class AdminManager extends Manager
     public function listPostsAdmin() 
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, title, nb_views, content, author, status_post, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC');
+        $req = $db->query('SELECT id, title, nb_views, content, author, status_post, DATE_FORMAT(creation_date, \'%d-%m-%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC');
         $reqs = $req->fetchAll(\PDO::FETCH_ASSOC);
 
         return $reqs;
@@ -70,7 +70,7 @@ class AdminManager extends Manager
 
     public function getCommentSignal() {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, post_id, author, comment, comment_signal, have_response, comment_response, id_comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%i\') AS comment_date_fr FROM comments WHERE comment_signal = 1 ORDER BY comment_date DESC');
+        $req = $db->query('SELECT id, post_id, author, comment, comment_signal, have_response, comment_response, id_comment, DATE_FORMAT(comment_date, \'%d-%m-%Y à %Hh%i\') AS comment_date_fr FROM comments WHERE comment_signal = 1 ORDER BY comment_date DESC');
         $reqs = $req->fetchAll(\PDO::FETCH_ASSOC);
 
         return $reqs;

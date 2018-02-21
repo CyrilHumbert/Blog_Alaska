@@ -9,6 +9,15 @@
 
 }
 
+@font-face {
+    font-family: 'dancing_script_otregular';
+    src: url('../fonts/dancingscript-regular-webfont.woff2') format('woff2'),
+         url('../fonts/dancingscript-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 /************** CSS global **************/
 
 * {-moz-box-sizing: border-box; box-sizing: border-box;}
@@ -25,6 +34,8 @@ body
     margin: 0;
     padding: 0;
     padding-bottom: 50px;
+    overflow-x: hidden;
+    font-family: 'Raleway';
 }
 
 a:focus
@@ -36,28 +47,110 @@ a:focus
 
 /************** CSS de la bannière **************/
 
-/**** Dans postView.php ****/
+/**** Global ****/
 
 #headerBan 
 {
-    background-color: #669999;
+    background-color: #5b677a;
+    color: white;
     min-height: 250px;
     margin-bottom: 50px;
     padding-top: 50px;
+    box-shadow: 0px 1px 15px black;
 }
+
+/**** Dans postView.php ****/
 
 #titleChapter
 {
     font-size: 5em;
-    font-family: 'alex_brushregular';
+    font-family: 'dancing_script_otregular';
 }
 
 #dateChapter
 {
     font-size: 1.5em;
     font-weight: normal;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Raleway';
     font-style: italic;
+}
+
+/**** Dans pannelAdmin.php ****/
+
+#headerBanPannelAdmin
+{
+    background-color: #5b677a;
+    color: white;
+    min-height: 150px;
+    margin-bottom: 50px;
+    padding-top: 20px;
+    box-shadow: 0px 1px 15px black;
+}
+
+#titleAdmin
+{
+    font-size: 5em;
+    font-family: 'dancing_script_otregular';
+}
+
+/**** Dans trashAdmin.php ****/
+
+#headerBanTrash
+{
+    background-color: #5b677a;
+    color: white;
+    min-height: 150px;
+    margin-bottom: 50px;
+    padding-top: 20px;
+    box-shadow: 0px 1px 15px black;
+}
+
+#titleTrash
+{
+    font-size: 5em;
+    font-family: 'dancing_script_otregular';
+}
+
+/**** Dans editionAdmin.php ****/
+
+#headerBanEditer
+{
+    background-color: #5b677a;
+    color: white;
+    min-height: 150px;
+    margin-bottom: 50px;
+    padding-top: 20px;
+    box-shadow: 0px 1px 15px black;
+}
+
+#titleEditer
+{
+    font-size: 5em;
+    font-family: 'dancing_script_otregular';
+}
+
+/**** Dans listPostsView.php ****/
+
+#headerBanAccueil
+{
+    background-color: #5b677a;
+    color: white;
+    min-height: 350px;
+    margin-bottom: 50px;
+    padding-top: 70px;
+    box-shadow: 0px 1px 15px black;
+}
+
+#titleAlaska
+{
+    font-size: 7em;
+    font-family: 'dancing_script_otregular';
+}
+
+#titleJeanForteroche
+{
+    font-size: 3em;
+    font-family: 'dancing_script_otregular';
 }
 
 /**********************************/
@@ -67,14 +160,14 @@ a:focus
 #titreLastNews
 {
     text-align: center;
-    font-size: 20px;
-
+    font-size: 1.8em;
+    font-weight: bold;
 }
 
 #textWelcome
 {
     text-align: center;
-
+    font-size: 1.5em;
 }
 
 .chapterContainer 
@@ -87,7 +180,7 @@ a:focus
 .chapterContent
 {
     height: 390px;
-    border: 1px black solid;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 /**********************************/
@@ -169,11 +262,6 @@ a:focus
     top: 675px;
 }
 
-.modalAddCommenttest
-{
-
-}
-
 /**********************************/
 
 /************** CSS footer **************/
@@ -181,8 +269,9 @@ a:focus
 .footer
 {
     height: 50px;
-    background-color: #669999;
-    margin-top: 20px;
+    background-color: #5b677a;
+    margin-top: 50px;
+    box-shadow: 1px 0px 15px black;
 }
 
 #linkFooterAdmin
@@ -193,8 +282,7 @@ a:focus
 
 #linkFooterDisconnect
 {
-    padding-top: 15px;
-    margin-left: 15px;
+    padding: 15px 0px 0px 25px;
 }
 
 footer 
@@ -204,6 +292,12 @@ footer
     left: 0;
     right: 0;
     height: 50px;
+}
+
+footer a
+{
+    color: blue;
+    font-size: 1.3em;
 }
 
 /**********************************/
@@ -227,7 +321,20 @@ footer
 
 #tableAdminChapiter
 {
-    margin-top: 50px;
+    margin-top: 5px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+#tableAdminChapiter td,
+#tableAdminChapiter th
+{
+    border: 0px;
+    border-top: 1px solid #a6a6a6;
+}
+
+#tableAdminChapiter tr:hover
+{
+    background-color: rgba(192, 192, 192, 0.2);
 }
 
 #tableAdminChapiter tr
@@ -237,22 +344,23 @@ footer
 
 #tableAdminChapiter td
 {
-    padding: 25px;
+    vertical-align: middle;
 }
 
 #tableAdminChapiter th
 {
-    padding-top: 25px;
+    vertical-align: middle;
+    border-top: 0px solid #a6a6a6;
 }
 
 .lineTitle
 {
-    width: 25%;
+    width: 30%;
 }
 
-.spanTool
+.lineView
 {
-    padding: 6px 0px 6px 0px;
+    width: 15%;
 }
 
 .nbSignal
@@ -298,7 +406,8 @@ footer
 {
     background-color: #669999;
     font-size: 0.8em;
-    padding-left: 3px;
+    padding-left: 2px;
+    line-height: 38px;
     margin-bottom: 7px;
 }
 
@@ -344,6 +453,65 @@ footer
     margin-left: 3px;
 }
 
+.pulse {
+    overflow: initial;
+    position: relative;
+}
+
+.pulse::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: inherit;
+    border-radius: inherit;
+    -webkit-transition: opacity .3s, -webkit-transform .3s;
+    transition: opacity .3s, -webkit-transform .3s;
+    transition: opacity .3s, transform .3s;
+    transition: opacity .3s, transform .3s, -webkit-transform .3s;
+    -webkit-animation: pulse-animation 1s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+            animation: pulse-animation 1s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+    z-index: -1;
+}
+
+@-webkit-keyframes pulse-animation {
+    0% {
+      opacity: 1;
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+    50% {
+      opacity: 0;
+      -webkit-transform: scale(1.5);
+              transform: scale(1.5);
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform: scale(1.5);
+              transform: scale(1.5);
+    }
+  }
+  
+  @keyframes pulse-animation {
+    0% {
+      opacity: 1;
+      -webkit-transform: scale(1);
+              transform: scale(1);
+    }
+    50% {
+      opacity: 0;
+      -webkit-transform: scale(1.5);
+              transform: scale(1.5);
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform: scale(1.5);
+              transform: scale(1.5);
+    }
+}
 
 /**********************************/
 

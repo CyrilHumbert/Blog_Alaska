@@ -9,7 +9,7 @@
         </div>
         
         <div class="row" id="secondeLine">
-            <h3 id="dateChapter" class="text-center">le <?= $post['creation_date_fr'] ?></h3>
+            <h3 id="dateChapter" class="text-center">le <?= htmlspecialchars($post['creation_date_fr']) ?></h3>
         </div>
     </div> 
 </header>
@@ -26,7 +26,9 @@
 
     <h2 class="text-center">Commentaire</h2>
 
-    <p class="text-center"><?= $countcomment = count($comments) + count($commentsResponse); ?> commentaire<?php if($countcomment > 1): ?>s<?php endif ?></p>
+    <p class="text-center">
+        <?= $countcomment = count($comments) + count($commentsResponse); ?> commentaire<?php if($countcomment > 1): ?>s<?php endif ?>
+    </p>
 
 
     <!--- Modal d'ajout de commentaire -->
@@ -74,7 +76,7 @@
                                 | <a href="#infosDeleteComment<?= $data['id'] ?>" data-toggle="modal">Supprimer</a>
                                 <?php endif; ?>
                                 | <a data-toggle="modal" href="#formulaire<?= $data['id'] ?>">Répondre</a> |
-                                <a href="index.php?action=signal&amp;id=<?= $data['id'] ?>&amp;idp=<?= $_GET['id']?>">Signaler</a> | 
+                                <a href="#infosSignalComment<?= $data['id'] ?>" data-toggle="modal">Signaler</a> | 
                             </p>
                         </div> 
 
@@ -96,7 +98,7 @@
                                                     <?php if(isset($_SESSION['admin_id'])): ?>
                                                     | <a href="#infosDeleteComment<?= $dataResponse['id'] ?>" data-toggle="modal">Supprimer</a>
                                                     <?php endif; ?>
-                                                    | <a href="index.php?action=signal&amp;id=<?= $dataResponse['id'] ?>&amp;idp=<?= $_GET['id']?>">Signaler</a> | 
+                                                    | <a href="#infosSignalComment<?= $dataResponse['id'] ?>" data-toggle="modal">Signaler</a> | 
                                                 </div>
 
                                                 <div class="pull-right">
@@ -107,6 +109,28 @@
                                             </div>
                                         </div>
                                     <?php endif; ?>
+                                    <!-- Début de la modal de signalement d'un commentaire qui est une réponse -->
+                                    <div class="modal fade" id="infosSignalComment<?= $dataResponse['id'] ?>">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">x</button>
+                                                    <h4 class="modal-title text-center">Confirmation</h4>
+                                                </div>
+
+                                                <div class="modal-body text-center">
+                                                    Voulez-vous vraiment signaler ce commentaire ?<br>
+                                                    Celui-ci sera remonté à l'administrateur pour être modérer.
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <a href="index.php?action=signal&amp;id=<?= $dataResponse['id'] ?>&amp;idp=<?= $_GET['id']?>" class="btn btn-info pull-left">Signaler</a>
+                                                    <a class="btn btn-info" data-dismiss="modal">Annuler</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fin de la modal -->  
                                     <!-- Début de la modal de suppresion d'un commentaire qui est une réponse -->
                                     <div class="modal fade" id="infosDeleteComment<?= $dataResponse['id'] ?>">
                                         <div class="modal-dialog">
@@ -153,6 +177,29 @@
 
                         <div class="modal-footer">
                             <a href="index.php?action=administration&amp;comment&amp;deletecomment&amp;manual&amp;id=<?= $data['id'] ?>&amp;idp=<?= $_GET['id']?>&amp;idc=0" class="btn btn-info pull-left">Supprimer</a>
+                            <a class="btn btn-info" data-dismiss="modal">Annuler</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin de la modal -->  
+
+            <!-- Début de la modal de signalement d'un commentaire qui n'est pas une réponse -->
+            <div class="modal fade" id="infosSignalComment<?= $data['id'] ?>">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">x</button>
+                            <h4 class="modal-title text-center">Confirmation</h4>
+                        </div>
+
+                        <div class="modal-body text-center">
+                            Voulez-vous vraiment signaler ce commentaire ?<br>
+                            Celui-ci sera remonté à l'administrateur pour être modérer.
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="index.php?action=signal&amp;id=<?= $data['id'] ?>&amp;idp=<?= $_GET['id']?>" class="btn btn-info pull-left">Signaler</a>
                             <a class="btn btn-info" data-dismiss="modal">Annuler</a>
                         </div>
                     </div>

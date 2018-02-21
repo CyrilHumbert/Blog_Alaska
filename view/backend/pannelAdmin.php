@@ -2,6 +2,14 @@
 
 <?php ob_start(); ?>
 
+<div class="container-fluid">
+    <header id="headerBanPannelAdmin" class="row">
+        <div class="row" id="firstLinePannelAdmin">
+            <h1 id="titleAdmin" class="text-center">Administration</h1>
+        </div>
+    </header>
+</div>  
+
 <div id="containerListerChapiter" class="container">
     <a href="index.php">Retour vers l'accueil du site</a>
 
@@ -12,10 +20,10 @@
 
     <!-- Tableau admin des chapitres -->
     <div class="row">
-        <table id="tableAdminChapiter" class="table table-bordered table-striped table-condensed">
+        <table id="tableAdminChapiter" class="table table-condensed">
             <tr>
                 <th class="text-center lineTitle">Titre du chapitre</th>
-                <th class="text-center">Nombre de vues</th>
+                <th class="text-center lineView">Nombre de vues</th>
                 <th class="text-center">Auteur</th>
                 <th class="text-center">État</th>
                 <th class="text-center">Action</th>
@@ -24,7 +32,7 @@
             <?php foreach($listPosts as $raw => $data): ?>
                 <tr>
                     <td class="text-center lineTitle"><?= $data['title'] ?></td>
-                    <td class="text-center"><?= $data['nb_views'] ?></td>
+                    <td class="text-center lineView"><?= $data['nb_views'] ?></td>
                     <td class="text-center lineAuthor"><?= $data['author'] ?></td>
                     <td class="text-center"><?php if($data['status_post'] == 0): ?>Publié<?php else: ?>Brouillon<?php endif; ?></td>
                     <td class="text-center">
@@ -62,8 +70,8 @@
     <!-- Tableau commentaire signalé -->
     <div class="row">
         <?php $countSignal = count($listSignalComments) ?>
-<h2 class="text-center"><?php if($countSignal <= 1): ?>Commentaire signalé<?php else: ?>Commentaires signalés<?php endif ?><span class="badge nbSignal" style="margin-left: 10px;"><?= $countSignal ?></span></h2>
-        <table id="tableAdminChapiter" class="table table-bordered table-striped table-condensed table-responsive">
+<h2 class="text-center"><?php if($countSignal <= 1): ?>Commentaire signalé<?php else: ?>Commentaires signalés<?php endif ?><span class="badge nbSignal pulse" style="margin-left: 10px;"><?= $countSignal ?></span></h2>
+        <table id="tableAdminChapiter" class="table table-bordered table-condensed table-responsive">
             <tr>
                 <th class="text-center lineTitle">Commentaire</th>
                 <th class="text-center">Auteur du commentaire</th>

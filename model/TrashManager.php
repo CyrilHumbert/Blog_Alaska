@@ -17,7 +17,7 @@ class TrashManager extends Manager
     public function listCommentsTrash()
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, id_before_delete, post_id, author, comment, comment_signal, have_response, comment_response, id_comment, delete_manual, comment_principal_delete,  DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%i\') AS comment_date_fr FROM trash_comment ORDER BY comment_date DESC');
+        $req = $db->query('SELECT id, id_before_delete, post_id, author, comment, comment_signal, have_response, comment_response, id_comment, delete_manual, comment_principal_delete,  DATE_FORMAT(comment_date, \'%d-%m-%Y à %Hh%i\') AS comment_date_fr FROM trash_comment ORDER BY comment_date DESC');
         $reqs = $req->fetchAll(\PDO::FETCH_ASSOC);
 
         return $reqs;
