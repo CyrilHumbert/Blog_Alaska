@@ -102,6 +102,8 @@ class AdminManager extends Manager
 
     /** SUPPRESSION DE COMMENTAIRE MANUEL **/
 
+    /* INSERTION DANS LA CORBEILLE */
+
     public function selectCommentForManualDelete($idComment) {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT * FROM comments WHERE id = ?');
@@ -134,6 +136,65 @@ class AdminManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM comments WHERE id = ?');
+        $req->execute(array($idComment));
+    }
+
+    public function udpateHaveResponse($haveResponse, $idResponseComment)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE comments SET have_response = ? WHERE id = ?');
+        $req->execute(array($haveResponse, $idResponseComment));
+    }
+
+    public function updateCommentPrincipalDelete($idComment)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE trash_comment SET comment_principal_delete = 1 WHERE id_comment = ?');
+        $req->execute(array($idComment));
+    }
+
+    /* RESTAURATION DE LA CORBEILLE */
+
+    public function selectCommentFromTrashCommentsManualDelete($idComment)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT * FROM trash_comment WHERE id_before_delete = ?');
+        $req->execute(array($idComment));
+        $reqs = $req->fetch(\PDO::FETCH_ASSOC);
+
+        return $reqs;
+    }
+
+    public function selectCommentResponseManualDeleteFromTrash($idComment) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT * FROM trash_comment WHERE comment_response = 1 AND id_comment = ?');
+        $req->execute(array($idComment));
+        $reqs = $req->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $reqs;
+    }
+
+    public function verifCommentForManualDeleteFromComments($idComment)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id FROM comments WHERE id = ?');
+        $req->execute(array($idComment));
+        $reqs = $req->fetch();
+
+        return $reqs;
+    }
+
+    public function deleteCommentForManualDeleteFromTrash($idComment)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM trash_comment WHERE id_before_delete = ?');
+        $req->execute(array($idComment));
+    }
+
+    public function updateCommentPrincipalDeleteForRestor($idComment)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE comments SET comment_principal_delete = 0 WHERE id_comment = ?');
         $req->execute(array($idComment));
     }
 }

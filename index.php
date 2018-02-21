@@ -184,7 +184,7 @@ try {
                             if(isset($_GET['manual'])) {
                                 if(isset($_GET['id']) && $_GET['id'] > 0) {
                                     if(isset($_GET['idp']) && $_GET['idp'] > 0) {
-                                        deleteCommentManual($_GET['id'], $_GET['idp']);
+                                        deleteCommentManual($_GET['id'], $_GET['idp'], $_GET['idc']);
                                     }else {
                                         throw new Exception('Identifiant de chapitre incorrect');
                                     }
@@ -198,6 +198,13 @@ try {
                                 aproveSignal($_GET['id']);
                             }else {
                                 throw new Exception('Identifiant de commentaire incorrect');
+                            }
+                        }
+                        if(isset($_GET['restorecomment'])) {
+                            if(isset($_GET['id']) && $_GET['id'] > 0) {
+                                    restoreCommentManual($_GET['id'], $_GET['idc']);
+                            }else {
+                                    throw new Exception('Identifiant de commentaire incorrect');
                             }
                         }
                     }

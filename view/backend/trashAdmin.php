@@ -96,7 +96,8 @@
                     <td class="text-center lineAuthor"><?= $dataComment['comment_date_fr'] ?></td>
                     <td class="text-center">
                     <?php if($dataComment['delete_manual'] == 0): ?><span class="glyphicon glyphicon-repeat btnRestore btnDesactived" data-toggle="tooltip" data-placement="top" title="Ce commentaire est lié à un chapitre supprimé"></span>
-                    <?php else: ?><a data-toggle="modal" href="#infosRestoreComment<?= $dataComment['id'] ?>"><span class="glyphicon glyphicon-repeat btnRestore" data-toggle="tooltip" data-placement="top" title="Restaurer le commentaire"></span></a><?php endif; ?>
+                    <?php elseif($dataComment['comment_principal_delete'] == 1): ?><span class="glyphicon glyphicon-repeat btnRestore btnDesactived" data-toggle="tooltip" data-placement="top" title="Ce commentaire est lié à un commentaire supprimé"></span>
+                    <?php else: ?><a data-toggle="modal" href="#infosRestoreComment<?= $dataComment['id'] ?>"><span class="glyphicon glyphicon-repeat btnRestore" data-toggle="tooltip" data-placement="top" title="Restaurer le commentaire"></span></a>
                         <!-- Modal restauration d'un commentaire en corbeille -->
                         <div class="modal fade" id="infosRestoreComment<?= $dataComment['id'] ?>">
                             <div class="modal-dialog">
@@ -111,13 +112,14 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <a href="" class="btn btn-info pull-left">Restaurer</a>
+                                        <a href="index.php?action=administration&amp;comment&amp;restorecomment&amp;id=<?= $dataComment['id_before_delete'] ?>&amp;idc=<?= $dataComment['id_comment'] ?>" class="btn btn-info pull-left">Restaurer</a>
                                         <a class="btn btn-info" data-dismiss="modal">Annuler</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- FIN MODAL -->
+                    <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

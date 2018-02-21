@@ -93,6 +93,9 @@
                                             <div class="media-body">
                                                 <div class="pull-left">
                                                     <p class="media-heading">Par <?= htmlspecialchars($dataResponse['author']) ?> 
+                                                    <?php if(isset($_SESSION['admin_id'])): ?>
+                                                    | <a href="#infosDeleteComment<?= $dataResponse['id'] ?>" data-toggle="modal">Supprimer</a>
+                                                    <?php endif; ?>
                                                     | <a href="index.php?action=signal&amp;id=<?= $dataResponse['id'] ?>&amp;idp=<?= $_GET['id']?>">Signaler</a> | 
                                                 </div>
 
@@ -103,8 +106,29 @@
                                                 <div class="col-lg-12"><p><?= htmlspecialchars($dataResponse['comment']) ?></p></div>
                                             </div>
                                         </div>
-
                                     <?php endif; ?>
+                                    <!-- Début de la modal de suppresion d'un commentaire qui est une réponse -->
+                                    <div class="modal fade" id="infosDeleteComment<?= $dataResponse['id'] ?>">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">x</button>
+                                                    <h4 class="modal-title text-center">Confirmation</h4>
+                                                </div>
+
+                                                <div class="modal-body text-center">
+                                                    Voulez-vous vraiment supprimer ce commentaire ?<br>
+                                                    Celui-ci sera placé dans la corbeille ainsi que les commentaires lié à celui-ci.
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <a href="index.php?action=administration&amp;comment&amp;deletecomment&amp;manual&amp;id=<?= $dataResponse['id'] ?>&amp;idp=<?= $_GET['id']?>&amp;idc=<?= $dataResponse['id_comment'] ?>" class="btn btn-info pull-left">Supprimer</a>
+                                                    <a class="btn btn-info" data-dismiss="modal">Annuler</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fin de la modal -->  
                                 <?php endforeach; ?>  
                             </div>
                         <?php endif; ?>
@@ -113,7 +137,7 @@
                 </li>
             <?php endif; ?>
 
-            <!-- Début de la modal de suppresion d'un commentaire -->
+            <!-- Début de la modal de suppresion d'un commentaire qui n'est pas une réponse -->
             <div class="modal fade" id="infosDeleteComment<?= $data['id'] ?>">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -128,7 +152,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <a href="index.php?action=administration&amp;comment&amp;deletecomment&amp;manual&amp;id=<?= $data['id'] ?>&amp;idp=<?= $_GET['id']?>" class="btn btn-info pull-left">Supprimer</a>
+                            <a href="index.php?action=administration&amp;comment&amp;deletecomment&amp;manual&amp;id=<?= $data['id'] ?>&amp;idp=<?= $_GET['id']?>&amp;idc=0" class="btn btn-info pull-left">Supprimer</a>
                             <a class="btn btn-info" data-dismiss="modal">Annuler</a>
                         </div>
                     </div>
