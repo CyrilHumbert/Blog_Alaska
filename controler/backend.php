@@ -260,6 +260,10 @@ function chapterTrash($postId) {
 				$trashManager->deleteCommentFromComments($postId);
 			}
 
+			$trashManager->updateDeleteManual($postId);
+
+			$trashManager->updateCommentPrincipalDeleteByDeleteChapter($postId);
+
 			header('location: index.php?action=administration');
 	}
 	else {

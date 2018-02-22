@@ -79,6 +79,20 @@ class TrashManager extends Manager
         return $reqs;
     }
 
+    public function updateDeleteManual($postId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE trash_comment SET delete_manual = 0 WHERE post_id = ?');
+        $req->execute(array($postId));
+    }
+
+    public function updateCommentPrincipalDeleteByDeleteChapter($postId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE trash_comment SET comment_principal_delete = 0 WHERE post_id = ?');
+        $req->execute(array($postId));
+    }
+
     public function deleteChapterFromPosts($postId)
     {
         $db = $this->dbConnect();

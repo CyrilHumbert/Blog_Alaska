@@ -153,6 +153,24 @@ a:focus
     font-family: 'dancing_script_otregular';
 }
 
+/**** Dans loginAdminView.php ****/ 
+
+#headerBanLogin
+{
+    background-color: #5b677a;
+    color: white;
+    min-height: 150px;
+    margin-bottom: 50px;
+    padding-top: 20px;
+    box-shadow: 0px 1px 15px black;
+}
+
+#titleLogin
+{
+    font-size: 5em;
+    font-family: 'dancing_script_otregular';
+}
+
 /**********************************/
 
 /************** CSS listPostsView **************/
