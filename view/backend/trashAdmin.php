@@ -26,6 +26,11 @@
                 <th class="text-center">Action</th>
             </tr>
 
+            <?php if(empty($listPostsTrash)): ?>
+                <tr>
+                    <td colspan="5" class="text-center">AUCUN CHAPITRE DANS LA CORBEILLE</td>
+                </tr>
+            <?php endif; ?>
             <?php foreach($listPostsTrash as $row => $data): ?>
                 <tr>
                     <td class="text-center lineTitle"><?= $data['title'] ?></td>
@@ -97,15 +102,43 @@
                 <th class="text-center">Action</th>
             </tr>
 
+            <?php if(empty($listCommentsTrash)): ?>
+                <tr>
+                    <td colspan="4" class="text-center">AUCUN COMMENTAIRE DANS LA CORBEILLE</td>
+                </tr>
+            <?php endif; ?>
             <?php foreach($listCommentsTrash as $rowComment => $dataComment): ?>
                 <tr>
                     <td class="text-center lineTitle"><?= htmlspecialchars($dataComment['comment']) ?></td>
                     <td class="text-center"><?= htmlspecialchars($dataComment['author']) ?></td>
                     <td class="text-center lineAuthor"><?= $dataComment['comment_date_fr'] ?></td>
                     <td class="text-center">
-                    <?php if($dataComment['delete_manual'] == 0): ?><span class="glyphicon glyphicon-repeat btnRestore btnDesactived" data-toggle="tooltip" data-placement="top" title="Ce commentaire est lié à un chapitre supprimé"></span>
-                    <?php elseif($dataComment['comment_principal_delete'] == 1): ?><span class="glyphicon glyphicon-repeat btnRestore btnDesactived" data-toggle="tooltip" data-placement="top" title="Ce commentaire est lié à un commentaire supprimé"></span>
-                    <?php else: ?><a data-toggle="modal" href="#infosRestoreComment<?= $dataComment['id'] ?>"><span class="glyphicon glyphicon-repeat btnRestore" data-toggle="tooltip" data-placement="top" title="Restaurer le commentaire"></span></a>
+                    <a data-toggle="modal" href="#infosDeleteTrashComment<?= $dataComment['id'] ?>"><span class="glyphicon glyphicon-remove btnDel" data-toggle="tooltip" data-placement="top" title="Supprimer définitivement le commentaire"></span></a>
+                    <!-- Modal suppresion corbeille d'un commentaire -->
+                    <div class="modal fade" id="infosDeleteTrashComment<?= $dataComment['id'] ?>">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Confirmation</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                    Voulez-vous vraiment supprimer ce commentaire de la corbeille ?<br>
+                                    Celui-ci sera définitivement supprimé ainsi que tous les commentaires lié à lui.<br>
+                                    Vous ne pourrez plus le restaurer.
+                                </div>
+
+                                <div class="modal-footer">
+                                    <a href="index.php?action=administration&amp;comment&amp;deletecomment&amp;trashcomment&amp;id=<?= $dataComment['id_before_delete'] ?>&amp;idc=<?= $dataComment['id_comment'] ?>" class="btn btn-info pull-left">Supprimer</a>
+                                    <a class="btn btn-info" data-dismiss="modal">Annuler</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIN MODAL -->
+                    <?php if($dataComment['delete_manual'] == 0): ?><span class="glyphicon glyphicon-repeat btnRestore btnDesactived linkInTab" data-toggle="tooltip" data-placement="right" title="Ce commentaire est lié à un chapitre supprimé"></span>
+                    <?php elseif($dataComment['comment_principal_delete'] == 1): ?><span class="glyphicon glyphicon-repeat btnRestore btnDesactived linkInTab" data-toggle="tooltip" data-placement="right" title="Ce commentaire est lié à un commentaire supprimé"></span>
+                    <?php else: ?><a data-toggle="modal" href="#infosRestoreComment<?= $dataComment['id'] ?>" class="linkInTab"><span class="glyphicon glyphicon-repeat btnRestore" data-toggle="tooltip" data-placement="right" title="Restaurer le commentaire"></span></a>
                         <!-- Modal restauration d'un commentaire en corbeille -->
                         <div class="modal fade" id="infosRestoreComment<?= $dataComment['id'] ?>">
                             <div class="modal-dialog">

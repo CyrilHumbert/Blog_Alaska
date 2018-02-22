@@ -192,6 +192,13 @@ try {
                                     throw new Exception('Identifiant de commentaire incorrect');
                                 }
                             }
+                            if(isset($_GET['trashcomment'])) {
+                                if(isset($_GET['id']) && $_GET['id'] > 0) {
+                                    deleteCommentFromTrash($_GET['id'], $_GET['idc']);
+                                }else {
+                                    throw new Exception('Identifiant de commentaire incorrect');
+                                }
+                            }
                         }
                         if(isset($_GET['aprove'])) {
                             if(isset($_GET['id']) && $_GET['id'] > 0) {

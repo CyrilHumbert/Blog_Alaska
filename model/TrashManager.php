@@ -5,8 +5,7 @@ require_once("model/Manager.php");
 
 class TrashManager extends Manager
 {
-    public function listPostsTrash()
-    {
+    public function listPostsTrash() {
         $db = $this->dbConnect();
         $req = $db->query('SELECT * FROM trash ORDER BY creation_date DESC');
         $reqs = $req->fetchAll(\PDO::FETCH_ASSOC);
@@ -14,8 +13,7 @@ class TrashManager extends Manager
         return $reqs;
     }
 
-    public function listCommentsTrash()
-    {
+    public function listCommentsTrash() {
         $db = $this->dbConnect();
         $req = $db->query('SELECT id, id_before_delete, post_id, author, comment, comment_signal, have_response, comment_response, id_comment, delete_manual, comment_principal_delete,  DATE_FORMAT(comment_date, \'%d-%m-%Y à %Hh%i\') AS comment_date_fr FROM trash_comment ORDER BY comment_date DESC');
         $reqs = $req->fetchAll(\PDO::FETCH_ASSOC);
@@ -25,8 +23,7 @@ class TrashManager extends Manager
 
     /***** INSERTION DANS LES CORBEILLES *****/
 
-    public function selectChapterFromPosts($postId)
-    {
+    public function selectChapterFromPosts($postId) {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT * FROM posts WHERE id = ?');
         $req->execute(array($postId));
@@ -35,8 +32,7 @@ class TrashManager extends Manager
         return $reqs;
     }
 
-    public function selectCommentFromComments($postId)
-    {
+    public function selectCommentFromComments($postId) {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT * FROM comments WHERE post_id = ?');
         $req->execute(array($postId));
@@ -45,22 +41,19 @@ class TrashManager extends Manager
         return $reqs;
     }
 
-    public function insertChapterInTrash($postId, $title, $nb_views, $author, $content, $creationDate, $status)
-    {
+    public function insertChapterInTrash($postId, $title, $nb_views, $author, $content, $creationDate, $status) {
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO trash(id_chapter, title, nb_views, author, content, creation_date, status_post) VALUE (?, ?, ?, ?, ?, ?, ?)');
         $req->execute(array($postId, $title, $nb_views, $author, $content, $creationDate, $status));
     }
 
-    public function insertCommentInTrashComment($idBeforeDelete, $postIdComment, $author, $comment, $commentDate, $commentSignal, $haveResponse, $commentResponse, $idComment, $deleteManual, $commentPrincipalDelete)
-    {
+    public function insertCommentInTrashComment($idBeforeDelete, $postIdComment, $author, $comment, $commentDate, $commentSignal, $haveResponse, $commentResponse, $idComment, $deleteManual, $commentPrincipalDelete) {
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO trash_comment(id_before_delete, post_id, author, comment, comment_date, comment_signal, have_response, comment_response, id_comment, delete_manual, comment_principal_delete) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $req->execute(array($idBeforeDelete, $postIdComment, $author, $comment, $commentDate, $commentSignal, $haveResponse, $commentResponse, $idComment, $deleteManual, $commentPrincipalDelete));
     }
 
-    public function verifChapterSinceTrash($postId)
-    {
+    public function verifChapterSinceTrash($postId) {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT id FROM trash WHERE id_chapter = ?');
         $req->execute(array($postId));
@@ -69,8 +62,7 @@ class TrashManager extends Manager
         return $reqs;
     }
 
-    public function verifCommentSinceTrashComments($postId)
-    {
+    public function verifCommentSinceTrashComments($postId) {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT id FROM trash_comment WHERE post_id = ?');
         $req->execute(array($postId));
@@ -79,29 +71,25 @@ class TrashManager extends Manager
         return $reqs;
     }
 
-    public function updateDeleteManual($postId)
-    {
+    public function updateDeleteManual($postId) {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE trash_comment SET delete_manual = 0 WHERE post_id = ?');
         $req->execute(array($postId));
     }
 
-    public function updateCommentPrincipalDeleteByDeleteChapter($postId)
-    {
+    public function updateCommentPrincipalDeleteByDeleteChapter($postId) {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE trash_comment SET comment_principal_delete = 0 WHERE post_id = ?');
         $req->execute(array($postId));
     }
 
-    public function deleteChapterFromPosts($postId)
-    {
+    public function deleteChapterFromPosts($postId) {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM posts WHERE id = ?');
         $req->execute(array($postId));
     }
 
-    public function deleteCommentFromComments($postId)
-    {
+    public function deleteCommentFromComments($postId) {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM comments WHERE post_id = ?');
         $req->execute(array($postId));
@@ -111,8 +99,7 @@ class TrashManager extends Manager
 
     /***** INSERTION DANS POSTS ET COMMENTS *****/
 
-    public function selectChapterFromTrash($idChapter)
-    {
+    public function selectChapterFromTrash($idChapter) {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT * FROM trash WHERE id_chapter = ?');
         $req->execute(array($idChapter));
@@ -121,7 +108,7 @@ class TrashManager extends Manager
         return $reqs;
     }
 
-    public function selectCommentFromTrashComments($idChapter){
+    public function selectCommentFromTrashComments($idChapter) {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT * FROM trash_comment WHERE post_id = ?');
         $req->execute(array($idChapter));
@@ -130,22 +117,19 @@ class TrashManager extends Manager
         return $reqs;
     }
 
-    public function insertChapterInPosts($idChapter, $title, $nb_views, $author, $content, $creationDate, $status)
-    {
+    public function insertChapterInPosts($idChapter, $title, $nb_views, $author, $content, $creationDate, $status) {
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO posts(id, title, nb_views, author, content, creation_date, status_post) VALUE (?, ?, ?, ?, ?, ?, ?)');
         $req->execute(array($idChapter, $title, $nb_views, $author, $content, $creationDate, $status));
     }
 
-    public function insertCommentInComments($idBeforeDelete, $postIdComment, $author, $comment, $commentDate, $commentSignal, $haveResponse, $commentResponse, $idComment, $deleteManual, $commentPrincipalDelete)
-    {
+    public function insertCommentInComments($idBeforeDelete, $postIdComment, $author, $comment, $commentDate, $commentSignal, $haveResponse, $commentResponse, $idComment, $deleteManual, $commentPrincipalDelete) {
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO comments(id, post_id, author, comment, comment_date, comment_signal, have_response, comment_response, id_comment, delete_manual, comment_principal_delete) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $req->execute(array($idBeforeDelete, $postIdComment, $author, $comment, $commentDate, $commentSignal, $haveResponse, $commentResponse, $idComment, $deleteManual, $commentPrincipalDelete));
     }
 
-    public function verifChapterSincePosts($idChapter)
-    {
+    public function verifChapterSincePosts($idChapter) {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT id FROM posts WHERE id = ?');
         $req->execute(array($idChapter));
@@ -154,8 +138,7 @@ class TrashManager extends Manager
         return $reqs;
     }
 
-    public function verifCommentSinceComments($idChapter)
-    {
+    public function verifCommentSinceComments($idChapter) {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT id FROM comments WHERE post_id = ?');
         $req->execute(array($idChapter));
@@ -164,15 +147,13 @@ class TrashManager extends Manager
         return $reqs;
     }
 
-    public function deleteChapterFromTrash($idChapter)
-    {
+    public function deleteChapterFromTrash($idChapter) {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM trash WHERE id_chapter = ?');
         $req->execute(array($idChapter));
     }
 
-    public function deleteCommentFromTrashComments($idChapter)
-    {
+    public function deleteCommentFromTrashComments($idChapter) {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM trash_comment WHERE post_id = ?');
         $req->execute(array($idChapter));
@@ -180,17 +161,44 @@ class TrashManager extends Manager
 
     /***** FIN D'INSERTION DANS POSTS ET COMMENTS *****/
 
-    public function deleteDefinitelySinceTrash($idChapterTrash)
-    {
+    /***** SUPPRESSION DE LA CORBEILLE *****/
+
+    public function deleteDefinitelySinceTrash($idChapterTrash) {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM trash WHERE id = ?');
         $req->execute(array($idChapterTrash));
     }
 
-    public function deleteDefinitelyComment($idChapter)
-    {
+    public function deleteDefinitelyComment($idChapter) {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM trash_comment WHERE post_id = ?');
         $req->execute(array($idChapter));
+    }
+
+    public function deleteDefinitelyCommentManualFromTrash($idComment) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM trash_comment WHERE id_before_delete = ?');
+        $req->execute(array($idComment));
+    }
+
+    public function deleteDefinitelyCommentResponseManualFromTrash($idComment) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM trash_comment WHERE id_comment = ?');
+        $req->execute(array($idComment));
+    }
+
+    public function getCommentResponseFromTrash($idResponseComment) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id FROM trash_comment WHERE id_comment = ?');
+        $req->execute(array($idResponseComment));
+        $reqs = $req->fetchAll();
+
+        return $reqs;
+    }
+
+    public function updateHaveResponseFromTrash($idResponseComment) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE trash_comment SET have_response = 0 WHERE id_before_delete = ?');
+        $req->execute(array($idResponseComment));
     }
 }

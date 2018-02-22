@@ -29,6 +29,11 @@
                 <th class="text-center">Action</th>
             </tr>
 
+            <?php if(empty($listPosts)): ?>
+                <tr>
+                    <td colspan="5" class="text-center">AUCUN CHAPITRE EXISTANT</td>
+                </tr>
+            <?php endif; ?>
             <?php foreach($listPosts as $raw => $data): ?>
                 <tr>
                     <td class="text-center lineTitle"><?= $data['title'] ?></td>
@@ -79,6 +84,11 @@
                 <th class="text-center">Action</th>
             </tr>
 
+            <?php if(empty($listSignalComments)): ?>
+                <tr>
+                    <td colspan="4" class="text-center">AUCUN COMMENTAIRE SIGNALÉ</td>
+                </tr>
+            <?php endif; ?>
             <?php foreach($listSignalComments as $rawSignal => $dataSignal): ?>
                 <tr>
                     <td class="text-center lineTitle"><?= htmlspecialchars($dataSignal['comment']) ?></td>

@@ -232,9 +232,16 @@ function editerModif($postId) {
 function chapterModif($postTitle, $postAuthor, $postContent, $status, $getId) {
 	$adminManager = new AdminManager;
 
-	$adminManager->updateChapter($postTitle, $postAuthor, $postContent, $status, $getId);
+	$modifChapter = $adminManager->updateChapter($postTitle, $postAuthor, $postContent, $status, $getId);
 
-	header('location: index.php?action=administration');
+	if($modifChapter == false)
+	{
+		throw new Exception('Identifiant de chapitre incorrect');
+	}
+	else
+	{
+		header('location: index.php?action=administration');
+	}
 }
 
 function chapterTrash($postId) {
@@ -457,4 +464,29 @@ function restoreCommentManual($idComment, $idResponseComment) {
 		header('location: index.php?action=administration&trash');
 	}
 
+}
+
+function deleteCommentFromTrash($idComment, $idResponseComment) {
+	$trashManager = new TrashManager;
+
+	$trashManager->deleteDefinitelyCommentManualFromTrash($idComment);
+	$trashManager->deleteDefinitelyCommentResponseManualFromTrash($idComment);
+
+	if($idResponseComment > 0)
+	{
+		$verifCommentResponse = $trashManager->getCommentResponseFromTrash($idResponseComment);
+
+		if($verifCommentResponse)
+		{
+			header('location: index.php?action=administration&trash');
+		}
+		else
+		{
+			$trashManager->updateHaveResponseFromTrash($idResponseComment);
+
+			header('location: index.php?action=administration&trash');
+		}
+	}
+	
+	header('location: index.php?action=administration&trash');
 }

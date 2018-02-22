@@ -5,15 +5,15 @@ require_once("model/Manager.php");
 
 class AdminManager extends Manager
 {
-    public function updateChapter($postTitle, $postAuthor, $postContent, $status, $getId)
-    {
+    public function updateChapter($postTitle, $postAuthor, $postContent, $status, $getId) {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE posts SET title = ?, author = ?, content = ?, status_post = ? WHERE id = ?');
-        $req->execute(array($postTitle, $postAuthor, $postContent, $status, $getId));
+        $reqs = $req->execute(array($postTitle, $postAuthor, $postContent, $status, $getId));
+
+        return $reqs;
     }
 
-    public function listPostsAdmin() 
-    {
+    public function listPostsAdmin() {
         $db = $this->dbConnect();
         $req = $db->query('SELECT id, title, nb_views, content, author, status_post, DATE_FORMAT(creation_date, \'%d-%m-%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY creation_date DESC');
         $reqs = $req->fetchAll(\PDO::FETCH_ASSOC);
@@ -21,8 +21,7 @@ class AdminManager extends Manager
         return $reqs;
     }
 
-    public function getChapterModif($postId)
-    {
+    public function getChapterModif($postId) {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT id, title, content, author, status_post FROM posts WHERE id = ?');
         $req->execute(array($postId));
@@ -31,8 +30,7 @@ class AdminManager extends Manager
         return $post;
     }
 
-    public function insertPostAdmin($title, $content, $author, $status)
-    {
+    public function insertPostAdmin($title, $content, $author, $status) {
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO posts(title, content, author, creation_date, status_post) VALUE (?, ?, ?, NOW(), ?)');
         $reqs = $req->execute(array($title, $content, $author, $status));
@@ -122,8 +120,7 @@ class AdminManager extends Manager
         return $reqs;
     }
 
-    public function verifCommentForManualDelete($idComment)
-    {
+    public function verifCommentForManualDelete($idComment) {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT id FROM trash_comment WHERE id_before_delete = ?');
         $req->execute(array($idComment));
@@ -132,22 +129,19 @@ class AdminManager extends Manager
         return $reqs;
     }
 
-    public function deleteCommentForManualDelete($idComment)
-    {
+    public function deleteCommentForManualDelete($idComment) {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM comments WHERE id = ?');
         $req->execute(array($idComment));
     }
 
-    public function udpateHaveResponse($haveResponse, $idResponseComment)
-    {
+    public function udpateHaveResponse($haveResponse, $idResponseComment) {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE comments SET have_response = ? WHERE id = ?');
         $req->execute(array($haveResponse, $idResponseComment));
     }
 
-    public function updateCommentPrincipalDelete($idComment)
-    {
+    public function updateCommentPrincipalDelete($idComment) {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE trash_comment SET comment_principal_delete = 1 WHERE id_comment = ?');
         $req->execute(array($idComment));
@@ -155,8 +149,7 @@ class AdminManager extends Manager
 
     /* RESTAURATION DE LA CORBEILLE */
 
-    public function selectCommentFromTrashCommentsManualDelete($idComment)
-    {
+    public function selectCommentFromTrashCommentsManualDelete($idComment) {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT * FROM trash_comment WHERE id_before_delete = ?');
         $req->execute(array($idComment));
@@ -174,8 +167,7 @@ class AdminManager extends Manager
         return $reqs;
     }
 
-    public function verifCommentForManualDeleteFromComments($idComment)
-    {
+    public function verifCommentForManualDeleteFromComments($idComment) {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT id FROM comments WHERE id = ?');
         $req->execute(array($idComment));
@@ -184,15 +176,13 @@ class AdminManager extends Manager
         return $reqs;
     }
 
-    public function deleteCommentForManualDeleteFromTrash($idComment)
-    {
+    public function deleteCommentForManualDeleteFromTrash($idComment) {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM trash_comment WHERE id_before_delete = ?');
         $req->execute(array($idComment));
     }
 
-    public function updateCommentPrincipalDeleteForRestor($idComment)
-    {
+    public function updateCommentPrincipalDeleteForRestor($idComment) {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE comments SET comment_principal_delete = 0 WHERE id_comment = ?');
         $req->execute(array($idComment));
