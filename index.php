@@ -1,10 +1,9 @@
 <?php session_start(); ?>
+<?php ob_start(); ?>
 
 <?php
 require('controler/frontend.php');
 require('controler/backend.php');
-
-refresh_session();
 
 try {
     //======================================================================
@@ -71,23 +70,6 @@ try {
             }
         }
         /* Fin d'ajout de commentaire */
-
-        /* Modification d'un commentaire lié à un chapitre */
-        elseif ($_GET['action'] == 'modifComment') {
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                    viewModifComment($_GET['id']);
-                if ($_GET['action'] == 'modifComment') {
-                    if (isset($_GET['id']) && $_GET['id'] > 0 && isset($_POST['author']) && isset($_POST['comment'])) {
-                        if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-                            rewordComment();
-                        }
-                    }
-                }
-            }else {
-                throw new Exception('Identifiant de chapitre incorrect');
-            }
-        }
-        /* Fin modification commentaire */
 
         /* Système de login */
         elseif ($_GET['action'] == 'login') { 
@@ -236,8 +218,11 @@ try {
     //======================================================================
 
     /* Si aucune valeur, affiche la page d'accueil par défault */
-    else {
+    elseif($_SERVER['QUERY_STRING'] == '') {
         listPosts();
+    } 
+    else{
+        echo 'erreur 404';
     }
 
 } // Fin du try

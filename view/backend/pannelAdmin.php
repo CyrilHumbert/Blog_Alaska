@@ -67,6 +67,19 @@
                         <!-- Fin modal -->
                     </td>
                 </tr>
+                <tr style="display: none;">
+                    <td colspan="5">
+                        <div class="media" style="width: 100%">
+                            <div class="media-heading"><?= $data['title'] ?></div>
+                            
+                            <div class="media-body"><?= $data['content'] ?></div>
+
+                            <div class="text-center">
+                                <a href="#">Voir les commentaires</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
             <?php endforeach; ?>
         </table>
     </div>

@@ -1,4 +1,4 @@
-<?php $title = 'Mon blog'; ?>
+<?php $title = 'Billet simple pour l\'Alaska - Accueil'; ?>
 
 <?php ob_start(); ?>
 
@@ -28,8 +28,8 @@
     </div>
 
 
-    <div id="containerOfChapiter" class="row">
-        <?php while ($data = $posts->fetch()): ?>
+    <div id="content" class="row">
+        <?php foreach ($posts as $raw => $data): ?>
             <div class="chapterContainer col-lg-4">
                 <div class="chapterContent">
                     <h3>
@@ -45,12 +45,11 @@
                     </p>
                 </div>
             </div>
-        <?php endwhile ?>
+        <?php endforeach; ?>
     </div>
 
-    <?php $posts->closeCursor(); ?>
-
+    <div id="page_navigation" class="text-center"> </div>
 </div>
 <?php $content = ob_get_clean(); ?>
 
-<?php require('template.php'); ?>
+<?php require('templateAccueil.php'); ?>

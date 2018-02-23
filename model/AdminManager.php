@@ -42,7 +42,7 @@ class AdminManager extends Manager
 
     public function getCheckIp($ip, $idChapter) {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT ip FROM data_visiter WHERE ip = ? AND id_chapter = ?');
+        $req = $db->prepare('SELECT id FROM data_visiter WHERE ip = ? AND id_chapter = ?');
         $req->execute(array($ip, $idChapter));
         $reqs = $req->fetch();
 

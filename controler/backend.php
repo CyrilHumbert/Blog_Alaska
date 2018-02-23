@@ -87,7 +87,8 @@ function verifLogin($postPseudo, $postPassword) {
 
         $_SESSION['connected'] = true;
         
-        header('location: index.php?action=administration');
+		header('location: index.php?action=administration');
+		exit();
     }
 
     else{
@@ -198,7 +199,8 @@ function disconnect() {
     session_unset();
     session_destroy();
 
-    header('location: index.php');
+	header('location: index.php');
+	exit();
 }
 
 /**** GESTION DES CHAPITRES ****/
@@ -209,13 +211,15 @@ function addPostAdmin($title, $content, $author, $status) {
     if(isset($title) && !empty($title) && isset($content) && !empty($content) && isset($author) && !empty($author)) {
         $adminManager->insertPostAdmin($title, $content, $author, $status);
 
-        header('location: index.php?action=administration');
+		header('location: index.php?action=administration');
+		exit();
     }
 
     else{
         $error = true;
 
-        header('location: index.php?action=administration&editer');
+		header('location: index.php?action=administration&editer');
+		exit();
     }
 }
 
@@ -241,6 +245,7 @@ function chapterModif($postTitle, $postAuthor, $postContent, $status, $getId) {
 	else
 	{
 		header('location: index.php?action=administration');
+		exit();
 	}
 }
 
@@ -272,6 +277,7 @@ function chapterTrash($postId) {
 			$trashManager->updateCommentPrincipalDeleteByDeleteChapter($postId);
 
 			header('location: index.php?action=administration');
+			exit();
 	}
 	else {
 		throw new Exception('Il a y eu une erreur lors de la suppression du chapitre.');
@@ -302,6 +308,7 @@ function restoreTrash($idChapter) {
 			}
 
 			header('location: index.php?action=administration&trash');
+			exit();
 	}
 	else {
 		throw new Exception('Il a y eu une erreur lors de la restauration du chapitre.');
@@ -315,6 +322,7 @@ function deleteDefinitely($idChapterTrash, $idChapter) {
 	$trashManager->deleteCommentFromTrashComments($idChapter);
 
 	header('location: index.php?action=administration&trash');
+	exit();
 }
 
 /**** FONCTION UTILITAIRES ****/
@@ -324,7 +332,7 @@ function checkVisite($ip, $idChapter) {
 
 	$checkIp = $adminManager->getCheckIp($ip, $idChapter);
 
-	if(isset($checkIp) && $checkIp == false) {
+	if($checkIp == false) {
 		$adminManager->insertIp($ip, $idChapter);
 
 		$adminManager->incrementView($idChapter);
@@ -339,6 +347,7 @@ function modereComment($idComment) {
 	$adminManager->modereAndUnsignalComment($idComment);
 
 	header('location: index.php?action=administration');
+	exit();
 }
 
 function deleteSignalComment($idComment, $response) {
@@ -350,9 +359,11 @@ function deleteSignalComment($idComment, $response) {
 		$adminManager->deleteResponseLinkAsSignal($idComment);
 
 		header('location: index.php?action=administration');
+		exit();
 	}
 	else {
 		header('location: index.php?action=administration');
+		exit();
 	}
 }
 
@@ -362,6 +373,7 @@ function aproveSignal($idComment) {
 	$adminManager->unsignalComment($idComment);
 
 	header('location: index.php?action=administration');
+	exit();
 }
 
 function deleteCommentManual($idComment, $postId, $idResponseComment) {
@@ -404,17 +416,20 @@ function deleteCommentManual($idComment, $postId, $idResponseComment) {
 				if($testComment)
 				{
 					header('Location: index.php?action=chapter&id=' . $postId);
+					exit();
 				}
 				else 
 				{
 					$adminManager->udpateHaveResponse(0, $idResponseComment);
 
 					header('Location: index.php?action=chapter&id=' . $postId);
+					exit();
 				}
 			}
 		}
 
 		header('Location: index.php?action=chapter&id=' . $postId);
+		exit();
 	}
 
 }
@@ -458,10 +473,12 @@ function restoreCommentManual($idComment, $idResponseComment) {
 				$adminManager->udpateHaveResponse(1, $idResponseComment);
 
 				header('location: index.php?action=administration&trash');
+				exit();
 			}
 		}
 
 		header('location: index.php?action=administration&trash');
+		exit();
 	}
 
 }
@@ -479,14 +496,17 @@ function deleteCommentFromTrash($idComment, $idResponseComment) {
 		if($verifCommentResponse)
 		{
 			header('location: index.php?action=administration&trash');
+			exit();
 		}
 		else
 		{
 			$trashManager->updateHaveResponseFromTrash($idResponseComment);
 
 			header('location: index.php?action=administration&trash');
+			exit();
 		}
 	}
-	
+
 	header('location: index.php?action=administration&trash');
+	exit();
 }

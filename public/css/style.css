@@ -171,6 +171,25 @@ a:focus
     font-family: 'dancing_script_otregular';
 }
 
+/**** Dans informations.php ****/
+
+#headerBanInfos
+{
+    background-color: #5b677a;
+    color: white;
+    min-height: 150px;
+    margin-bottom: 50px;
+    padding-top: 20px;
+    box-shadow: 0px 1px 15px black;
+}
+
+#titleInfos
+{
+    font-size: 5em;
+    font-family: 'dancing_script_otregular';
+}
+
+
 /**********************************/
 
 /************** CSS listPostsView **************/
@@ -353,6 +372,8 @@ footer a
 #tableAdminChapiter tr:hover
 {
     background-color: rgba(192, 192, 192, 0.2);
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
 #tableAdminChapiter tr

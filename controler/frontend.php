@@ -31,14 +31,6 @@ function post($chapterId) {
     require('view/frontend/postView.php');
 }
 
-function viewModifComment() {
-    $commentManager = new CommentManager;
-
-    $commentModifView = $commentManager->viewModifComment($_GET['id']);
-
-    require('view/frontend/modifCommentView.php');
-}
-
 /**** GESTION DES COMMENTAIRES ****/
 
 function addComment($postId, $author, $comment) {
@@ -51,6 +43,7 @@ function addComment($postId, $author, $comment) {
     }
     else {
         header('Location: index.php?action=chapter&id=' . $postId);
+        exit();
     }
 }
 
@@ -66,6 +59,7 @@ function addCommentResponse($postId, $author, $comment, $idComment) {
         $commentManager->updateCommentHaveResponse($idComment);
 
         header('Location: index.php?action=chapter&id=' . $postId);
+        exit();
     }
 }
 
@@ -75,4 +69,5 @@ function signalComment($idComment) {
         $commentManager->updateSignalComment($idComment);
 
         header('Location: index.php?action=chapter&id=' . $_GET['idp']);
+        exit();
 }

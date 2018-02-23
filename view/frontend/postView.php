@@ -14,13 +14,13 @@
     </div> 
 </header>
 
-<div class="container">
+<div class="container" style="overflow-x: hidden;">
 
     <p><a href="index.php">Retour à la liste des chapitres</a></p>
 
     <div class="chapter">    
         <div class="contentChapter">
-            <?= $post['content'] ?>
+            <p><?= $post['content'] ?></p>
         </div>
     </div>
 

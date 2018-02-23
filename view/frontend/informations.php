@@ -13,12 +13,9 @@
     <body>
     
         <div class="container-fluid">
-            <header id="headerBan" class="row">
+            <header id="headerBanInfos" class="row">
                 <div class="row" id="firstLine">
-                    <h1 id="titleAlaska" class="col-sm-offset-1 col-md-offset-2 col-lg-offset-2 col-lg-8">Billet simple pour l'Alaska</h1>
-                </div>
-                <div class="row" id="secondeLine">
-                    <h1 id="titleJeanForteroche" class="col-lg-offset-6 col-sm-6 pull-right">De Jean Forteroche</h1>
+                    <h1 id="titleInfos" class="text-center">Informations</h1>
                 </div>
             </header>
         </div>  
