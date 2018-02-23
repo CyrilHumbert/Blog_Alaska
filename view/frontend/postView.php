@@ -4,6 +4,10 @@
 
 <header id="headerBan" class="row">
     <div class="container-fluid">
+        <div class="btnRetourAccueil">
+            <a href="index.php" class="btn linkRetourAccueil">Retour à l'accueil</a>
+        </div>
+
         <div class="row" id="firstLine">
             <h1 id="titleChapter" class="text-center"><?= htmlspecialchars($post['title']) ?></h1>
         </div>
@@ -15,9 +19,6 @@
 </header>
 
 <div class="container" style="overflow-x: hidden;">
-
-    <p><a href="index.php">Retour à la liste des chapitres</a></p>
-
     <div class="chapter">    
         <div class="contentChapter">
             <p><?= $post['content'] ?></p>

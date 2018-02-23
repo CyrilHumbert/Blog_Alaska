@@ -39,7 +39,7 @@
                 $(".inputPostComment").focus(function() {
                 $(".labelPostComment").addClass('active');
                 $(".inputPostComment").css({
-                    "border-color": "red",
+                    "border-color": "#33cc33",
                     "border-bottom-width": "2px",
                     "outline": "0"
                     });
@@ -58,7 +58,7 @@
                     if($(".inputPostComment").val().length > 0) {
                         $(".labelPostComment").addClass('active');
                         $(".inputPostComment").css({
-                            "border-color": "red",
+                            "border-color": "#33cc33",
                             "border-bottom-width": "2px",
                             "outline": "0"
                             });
@@ -93,7 +93,7 @@
                 if($(".inputPostComment").val().length > 0) {
                     $(".labelPostComment").addClass('active');
                     $(".inputPostComment").css({
-                        "border-color": "red",
+                        "border-color": "#33cc33",
                         "border-bottom-width": "2px",
                         "outline": "0"
                         });
@@ -112,7 +112,7 @@
                 $(".inputPostCommentResponse").focus(function() {
                 $(".labelPostCommentResponse").addClass('active');
                 $(".inputPostCommentResponse").css({
-                    "border-color": "red",
+                    "border-color": "#33cc33",
                     "border-bottom-width": "2px",
                     "outline": "0"
                     });
@@ -131,7 +131,7 @@
                     if($(".inputPostCommentResponse").val().length > 0) {
                         $(".labelPostCommentResponse").addClass('active');
                         $(".inputPostCommentResponse").css({
-                            "border-color": "red",
+                            "border-color": "#33cc33",
                             "border-bottom-width": "2px",
                             "outline": "0"
                             });
@@ -166,7 +166,7 @@
                 if($(".inputPostCommentResponse").val().length > 0) {
                     $(".labelPostCommentResponse").addClass('active');
                     $(".inputPostCommentResponse").css({
-                        "border-color": "red",
+                        "border-color": "#33cc33",
                         "border-bottom-width": "2px",
                         "outline": "0"
                         });

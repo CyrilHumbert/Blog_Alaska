@@ -32,17 +32,19 @@
         <?php foreach ($posts as $raw => $data): ?>
             <div class="chapterContainer col-lg-4">
                 <div class="chapterContent">
-                    <h3>
+                    <img src="public/images/b_1_q_0_p_0.jpg" class="imgBook">
+
+                    <h3 class="text-center titleChapterAccueil">
                         <?= $data['title'] ?>
                     </h3>
 
-                    <p>
-                        <em>publié le <?= $data['creation_date_fr'] ?> par <?= $data['author'] ?></em>
+                    <p class="text-center assetChapter">
+                        <?= $data['nb_views'] ?> vue<?php if($data['nb_views'] > 1): ?>s<?php endif; ?>, publié le <?= $data['creation_date_fr'] ?> par <?= $data['author'] ?>
                     </p>
                     
-                    <p>
-                        <em><a href="index.php?action=chapter&amp;id=<?= $data['id'] ?>">Voir le chapitre</a></em>
-                    </p>
+
+                        <a href="index.php?action=chapter&amp;id=<?= $data['id'] ?>" class="btn btn-default btnChapterAccueil">Voir le chapitre</a>
+
                 </div>
             </div>
         <?php endforeach; ?>

@@ -4,6 +4,10 @@
 
 <div class="container-fluid">
     <header id="headerBanPannelAdmin" class="row">
+        <div class="btnRetourAccueil">
+            <a href="index.php" class="btn linkRetourAccueil">Retour à l'accueil</a>
+        </div>
+
         <div class="row" id="firstLinePannelAdmin">
             <h1 id="titleAdmin" class="text-center">Administration</h1>
         </div>
@@ -11,7 +15,6 @@
 </div>  
 
 <div id="containerListerChapiter" class="container">
-    <a href="index.php">Retour vers l'accueil du site</a>
 
     <!-- En-tête tableau admin chapitre -->
     <div class="row">
@@ -20,7 +23,7 @@
 
     <!-- Tableau admin des chapitres -->
     <div class="row">
-        <table id="tableAdminChapiter" class="table table-condensed">
+        <table id="tableAdminChapiter" class="table table-condensed table-responsive">
             <tr>
                 <th class="text-center lineTitle">Titre du chapitre</th>
                 <th class="text-center lineView">Nombre de vues</th>
@@ -88,8 +91,8 @@
     <!-- Tableau commentaire signalé -->
     <div class="row">
         <?php $countSignal = count($listSignalComments) ?>
-<h2 class="text-center"><?php if($countSignal <= 1): ?>Commentaire signalé<?php else: ?>Commentaires signalés<?php endif ?><span class="badge nbSignal pulse" style="margin-left: 10px;"><?= $countSignal ?></span></h2>
-        <table id="tableAdminChapiter" class="table table-bordered table-condensed table-responsive">
+        <h2 class="text-center"><?php if($countSignal <= 1): ?>Commentaire signalé<?php else: ?>Commentaires signalés<?php endif ?><span class="badge nbSignal pulse" style="margin-left: 10px;"><?= $countSignal ?></span></h2>
+        <table id="tableAdminCommenter" class="table table-condensed table-responsive">
             <tr>
                 <th class="text-center lineTitle">Commentaire</th>
                 <th class="text-center">Auteur du commentaire</th>

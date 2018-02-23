@@ -28,11 +28,7 @@
             <textarea id="editer" name="content"><?php if(isset($modified)): ?><?= $data['content'] ?><?php endif ?></textarea>
         </div>
 
-        <div class="row">
-            <div class="pull-left imageEditer col-sm-4 thumbnail">
-                <input type="file" name="upload" value="Ajouter une image" class=""/>
-            </div>                
-
+        <div class="row">             
             <div class="pull-right selecteur text-center thumbnail col-sm-6">
                 <label for="status" style="font-size: 1.5em;">État</label>
                 <select class="form-control" name="status">

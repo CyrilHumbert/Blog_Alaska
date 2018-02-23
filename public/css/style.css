@@ -85,12 +85,38 @@ a:focus
     margin-bottom: 50px;
     padding-top: 20px;
     box-shadow: 0px 1px 15px black;
+    position: relative;
 }
 
 #titleAdmin
 {
     font-size: 5em;
     font-family: 'dancing_script_otregular';
+}
+
+.btnRetourAccueil
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.linkRetourAccueil
+{
+    border-radius: 0;
+    width: 250px;
+    font-size: 1.7em;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    background-color: #26a69a;
+    -webkit-transition: all .3s ease-out;
+            transition: all .3s ease-out;
+    color: white;
+}
+
+.linkRetourAccueil:hover
+{
+    background-color: rgba(0, 150, 136, 0.7);
+    color: white;
 }
 
 /**** Dans trashAdmin.php ****/
@@ -103,12 +129,38 @@ a:focus
     margin-bottom: 50px;
     padding-top: 20px;
     box-shadow: 0px 1px 15px black;
+    position: relative;
 }
 
 #titleTrash
 {
     font-size: 5em;
     font-family: 'dancing_script_otregular';
+}
+
+.btnRetourPannel
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.linkRetourPannel
+{
+    border-radius: 0;
+    width: 250px;
+    font-size: 1.5em;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    background-color: #26a69a;
+    -webkit-transition: all .3s ease-out;
+            transition: all .3s ease-out;
+    color: white;
+}
+
+.linkRetourPannel:hover
+{
+    background-color: rgba(0, 150, 136, 0.7);
+    color: white;
 }
 
 /**** Dans editionAdmin.php ****/
@@ -218,8 +270,34 @@ a:focus
 {
     height: 390px;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    overflow-y: auto;
 }
 
+.imgBook
+{
+    width: 90%;
+    height: 200px;
+    margin-left: 18px;
+    margin-top: 10px;
+}
+
+.titleChapterAccueil
+{
+    font-family: 'dancing_script_otregular';
+    font-size: 2.5em;
+}
+
+.assetChapter
+{
+    font-size: 1.2em;
+    margin-top: 20px;
+}
+
+.btnChapterAccueil
+{
+    margin-left: 135px;
+    margin-top: 10px;
+}
 /**********************************/
 
 /************** CSS postView **************/
@@ -343,50 +421,75 @@ footer a
 
 #formLogin 
 {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
-.formPassword
+.linkLogin
 {
-    padding-left: 0px;
-    margin-left: 41.26666667%;
+    border-radius: 0;
+    width: 200px;
+    font-size: 1.5em;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    background-color: #26a69a;
+    -webkit-transition: all .3s ease-out;
+            transition: all .3s ease-out;
+    color: white;
+    margin-top: 25px;
 }
 
+.linkLogin:hover
+{
+    background-color: rgba(0, 150, 136, 0.7);
+    color: white;
+}
+
+.box-error
+{
+    margin-top: 25px;
+}
 /**********************************/
 
 /************** CSS pannelAdmin **************/
 
-#tableAdminChapiter
+#tableAdminChapiter,
+#tableAdminCommenter
 {
     margin-top: 5px;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
 }
 
 #tableAdminChapiter td,
-#tableAdminChapiter th
+#tableAdminChapiter th,
+#tableAdminCommenter td,
+#tableAdminCommenter th
 {
     border: 0px;
     border-top: 1px solid #a6a6a6;
+    vertical-align: middle;
 }
 
-#tableAdminChapiter tr:hover
+#tableAdminChapiter tr:hover,
+#tableAdminCommenter tr:hover
 {
     background-color: rgba(192, 192, 192, 0.2);
     -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
             box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
-#tableAdminChapiter tr
+#tableAdminChapiter tr,
+#tableAdminCommenter tr
 {
     height: 70px;
 }
 
-#tableAdminChapiter td
+#tableAdminChapiter td,
+#tableAdminCommenter td
 {
     vertical-align: middle;
 }
 
-#tableAdminChapiter th
+#tableAdminChapiter th,
+#tableAdminCommenter th
 {
     vertical-align: middle;
     border-top: 0px solid #a6a6a6;
@@ -433,6 +536,13 @@ footer a
     vertical-align: middle;
     border-radius: 50%;
     box-shadow: 0px 0px 5px black;
+    -webkit-transition: all .3s ease-out;
+            transition: all .3s ease-out;
+}
+
+.btnModif:hover
+{
+    background-color: rgba(0, 183, 255, 0.685);
 }
 
 .btnDel
@@ -441,13 +551,23 @@ footer a
     line-height: 42px;
 }
 
+.btnDel:hover
+{
+    background-color: rgba(255, 17, 0, 0.699);
+}
+
 .btnAdd
 {
-    background-color: #669999;
+    background-color: #26a69a;
     font-size: 0.8em;
     padding-left: 2px;
     line-height: 38px;
     margin-bottom: 7px;
+}
+
+.btnAdd:hover
+{
+    background-color: rgba(0, 150, 136, 0.7);
 }
 
 .btnTrash
@@ -458,10 +578,20 @@ footer a
     margin-bottom: 7px;
 }
 
+.btnTrash:hover
+{
+    background-color: rgba(255, 17, 0, 0.699);
+}
+
 .btnApr
 {
     background-color: #5cb85c;
     padding-right: 2px;
+}
+
+.btnApr:hover
+{
+    background-color: #6eb85cd5;
 }
 
 .btnMod
@@ -469,10 +599,20 @@ footer a
     background-color: #f0ad4e;
 }
 
+.btnMod:hover
+{
+    background-color: #f09c4ece;
+}
+
 .btnRestore
 {
     background-color: #5cb85c;
     line-height: 42px;
+}
+
+.btnRestore:hover
+{
+    background-color: #6eb85cd5;
 }
 
 .btnDesactived

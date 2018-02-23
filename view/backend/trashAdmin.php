@@ -4,6 +4,10 @@
 
 <div class="container-fluid">
     <header id="headerBanTrash" class="row">
+        <div class="btnRetourPannel">
+            <a href="index.php?action=administration" class="btn linkRetourPannel">Retour à l'administration</a>
+        </div>
+
         <div>
             <h1 id="titleTrash" class="text-center">Corbeille</h1>
         </div>
@@ -17,7 +21,7 @@
     </div>
 
     <!-- TABLEAU DES CHAPITRES EN CORBEILLE -->
-    <table id="tableAdminChapiter" class="table table-bordered table-condensed">
+    <table id="tableAdminChapiter" class="table table-responsive table-condensed">
             <tr>
                 <th class="text-center lineTitle">Titre du chapitre</th>
                 <th class="text-center">Nombre de vues</th>
@@ -94,7 +98,7 @@
         </div>
 
         <!-- TABLEAU DES COMMENTAIRES EN CORBEILLE -->
-        <table id="tableAdminChapiter" class="table table-bordered table-condensed">
+        <table id="tableAdminCommenter" class="table table-responsive table-condensed">
             <tr>
                 <th class="text-center lineTitle">Commentaire</th>
                 <th class="text-center">Auteur du commentaire</th>

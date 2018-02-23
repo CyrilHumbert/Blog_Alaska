@@ -175,6 +175,12 @@ class TrashManager extends Manager
         $req->execute(array($idChapter));
     }
 
+    public function deleteDefinitelyIp($idChapter) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM data_visiter WHERE id_chapter = ?');
+        $req->execute(array($idChapter));
+    }
+
     public function deleteDefinitelyCommentManualFromTrash($idComment) {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM trash_comment WHERE id_before_delete = ?');

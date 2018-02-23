@@ -320,6 +320,7 @@ function deleteDefinitely($idChapterTrash, $idChapter) {
 
 	$trashManager->deleteDefinitelySinceTrash($idChapterTrash);
 	$trashManager->deleteCommentFromTrashComments($idChapter);
+	$trashManager->deleteDefinitelyIp($idChapter);
 
 	header('location: index.php?action=administration&trash');
 	exit();
