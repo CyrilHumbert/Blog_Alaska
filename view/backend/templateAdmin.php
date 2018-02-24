@@ -24,6 +24,12 @@
                 </div>
 
                 <?php if (isset($_SESSION['connected'])): ?>
+                    <div id="linkConfigAdmin" class="col-sm-offset-4 col-sm-2">
+                        <a href="index.php?action=administration&amp;config"><span class="glyphicon glyphicon-cog iconConfig"></span></a>
+                    </div>
+                <?php endif ?> 
+
+                <?php if (isset($_SESSION['connected'])): ?>
                     <div id="linkFooterDisconnect" class="col-sm-1 pull-right">
                         <a href="index.php?action=disconnect" id="linkDisconnect">
                             Déconnexion

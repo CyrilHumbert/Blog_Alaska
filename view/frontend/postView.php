@@ -1,4 +1,4 @@
-<?php $title = htmlspecialchars($post['title']); ?>
+<?php $title = htmlspecialchars($post['title']) . " - Blog Alaska"; ?>
 
 <?php ob_start(); ?>
 

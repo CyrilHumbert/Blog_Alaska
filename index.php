@@ -199,6 +199,11 @@ try {
                     }
                     /* Fin de la gestion des commentaires */
 
+                    /* Gestion de la page config */
+                    elseif(isset($_GET['config'])) {
+                        viewConfig();
+                    }
+
                     /* Si aucune valeur, affiche le pannel admin */
                     else {
                         pannelAdminView();

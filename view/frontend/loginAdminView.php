@@ -1,4 +1,4 @@
-<?php $title = 'Connexion'; ?>
+<?php $title = 'Connexion - Blog Alaska'; ?>
 
 <?php ob_start(); ?>
 

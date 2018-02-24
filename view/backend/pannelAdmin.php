@@ -1,4 +1,4 @@
-<?php $title = "Pannel d'administration"; ?>
+<?php $title = "Administration"; ?>
 
 <?php ob_start(); ?>
 

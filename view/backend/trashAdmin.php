@@ -1,4 +1,4 @@
-<?php $title = "Pannel d'administration - Corbeille"; ?>
+<?php $title = "Corbeille - Administration"; ?>
 
 <?php ob_start(); ?>
 

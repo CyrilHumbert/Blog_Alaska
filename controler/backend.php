@@ -46,6 +46,10 @@ function viewSignalComment() {
 	return $listSignalComments;
 }
 
+function viewConfig() {
+	require('view/backend/configAdmin.php');
+}
+
 function viewTrash() {
 	$listPostsTrash = viewPostsTrash();
 
@@ -218,8 +222,7 @@ function addPostAdmin($title, $content, $author, $status) {
     else{
         $error = true;
 
-		header('location: index.php?action=administration&editer');
-		exit();
+		require('view/backend/editionAdmin.php');
     }
 }
 

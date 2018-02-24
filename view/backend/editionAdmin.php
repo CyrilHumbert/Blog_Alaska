@@ -1,4 +1,4 @@
-<?php $title = "Pannel d'administration - Editeur"; ?>
+<?php $title = "Editeur - Administration"; ?>
 
 <?php ob_start(); ?>
 

@@ -119,6 +119,25 @@ a:focus
     color: white;
 }
 
+/**** Dans configAdmin.php ****/
+
+#headerBanConfig
+{
+    background-color: #5b677a;
+    color: white;
+    min-height: 150px;
+    margin-bottom: 50px;
+    padding-top: 20px;
+    box-shadow: 0px 1px 15px black;
+    position: relative;
+}
+
+#titleConfig
+{
+    font-size: 5em;
+    font-family: 'dancing_script_otregular';
+}
+
 /**** Dans trashAdmin.php ****/
 
 #headerBanTrash
@@ -413,6 +432,12 @@ footer a
 {
     color: blue;
     font-size: 1.3em;
+}
+
+.iconConfig
+{
+    font-size: 2em;
+    padding-top: 8px;
 }
 
 /**********************************/

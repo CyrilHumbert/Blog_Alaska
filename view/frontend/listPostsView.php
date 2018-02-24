@@ -1,4 +1,4 @@
-<?php $title = 'Billet simple pour l\'Alaska - Accueil'; ?>
+<?php $title = 'Accueil - Blog Alaska'; ?>
 
 <?php ob_start(); ?>
 

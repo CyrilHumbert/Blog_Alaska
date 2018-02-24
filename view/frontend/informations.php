@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><?= $title ?></title>
+        <title>Information - Alaska</title>
         <link href="public/css/bootstrap.css" rel="stylesheet">
         <link href="public/css/style.css" rel="stylesheet"> 
         <script src="public/js/jquery-3.3.1.min.js"></script>
