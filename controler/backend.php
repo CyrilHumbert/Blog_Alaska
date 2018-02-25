@@ -47,6 +47,12 @@ function viewSignalComment() {
 }
 
 function viewConfig() {
+	$adminManager = new AdminManager;
+
+	$pseudoActually = $adminManager->getPseudoActually();
+
+	$choiceModere = $adminManager->getChoiceModere();
+
 	require('view/backend/configAdmin.php');
 }
 
@@ -114,7 +120,7 @@ function refresh_session(){
 	if(isset($_SESSION['admin_id']) && intval($_SESSION['admin_id']) != 0) {     
         $infoSession = $loginManager->getInfoSession();
 		
-		if(isset($infoSession['pseudo']) && $infoSession['pseudo'] != '' && $_SESSION['admin_pseudo'] == $infoSession['pseudo']) {
+		if($_SESSION['admin_pseudo'] == $infoSession['pseudo']) {
             
             if($_SESSION['admin_mdp'] != $infoSession['passwordde']) {
 				$informations = Array( /*Mot de passe de session incorrect*/
@@ -343,12 +349,89 @@ function checkVisite($ip, $idChapter) {
 	}
 }
 
-/**** GESTIONS DES COMMENTAIRES ****/
-
-function modereComment($idComment) {
+function modifPseudo($postPseudo) {
 	$adminManager = new AdminManager;
 
-	$adminManager->modereAndUnsignalComment($idComment);
+	if(!empty($postPseudo)) {
+		$adminManager->updatePseudo($postPseudo);
+
+		header('location: index.php?action=administration&config');
+		exit();
+	}
+	else {
+		$modifPseudoEmpty = true;
+
+		$pseudoActually = $adminManager->getPseudoActually();
+
+		$choiceModere = $adminManager->getChoiceModere();
+
+		require('view/backend/configAdmin.php');
+	}
+}
+
+function modifPassword($postPasswordAncien, $postPasswordNew, $postPasswordConfirm) {
+	$adminManager = new AdminManager;
+
+	$confirmAncienPassword = $adminManager->confirmAncienPassword($postPasswordAncien);
+
+	if($confirmAncienPassword) {
+		if(!empty($postPasswordNew)) {
+			if($postPasswordNew == $postPasswordConfirm) {
+				$adminManager->updatePassword($postPasswordNew);
+
+				$validateChangePassword = true;
+
+				$pseudoActually = $adminManager->getPseudoActually();
+
+				$choiceModere = $adminManager->getChoiceModere();
+
+				require('view/backend/configAdmin.php');
+			}else {
+				$badConfirmPassword = true;
+
+				$pseudoActually = $adminManager->getPseudoActually();
+
+				$choiceModere = $adminManager->getChoiceModere();
+
+				require('view/backend/configAdmin.php');
+			}
+		}else {
+			$newPasswordEmpty = true;
+
+			$pseudoActually = $adminManager->getPseudoActually();
+
+			$choiceModere = $adminManager->getChoiceModere();
+
+			require('view/backend/configAdmin.php');
+		}
+	}else {
+		$badAncienPassword = true;
+
+		$pseudoActually = $adminManager->getPseudoActually();
+
+		$choiceModere = $adminManager->getChoiceModere();
+
+		require('view/backend/configAdmin.php');
+	}
+}
+
+function modifModere($postModere1, $postModere2, $postModere3) {
+	$adminManager = new AdminManager;
+
+	$adminManager->updateChoiceModere($postModere1, $postModere2, $postModere3);
+
+	header('location: index.php?action=administration&config');
+	exit();
+}
+
+/**** GESTIONS DES COMMENTAIRES ****/
+
+function modereComment($idComment, $choiceModere) {
+	$adminManager = new AdminManager;
+
+	$choiceDefModere = $adminManager->selectChoiceModere($choiceModere);
+
+	$adminManager->modereAndUnsignalComment($choiceDefModere[0], $idComment);
 
 	header('location: index.php?action=administration');
 	exit();

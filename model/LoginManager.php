@@ -15,9 +15,11 @@ class LoginManager extends Manager
     }
 
     public function getInfoSession() {
-        $req = $this->sqlquery('SELECT id, pseudo, passwordde FROM logadmin WHERE id = ' . intval($_SESSION['admin_id']), 1);
+        $db = $this->dbConnect();
+        $req = $db->query('SELECT id, pseudo, passwordde FROM logadmin');
+        $reqs = $req->fetch();
 
-        return $req;
+        return $reqs;
     }
 
     public function getInfoCookie() {

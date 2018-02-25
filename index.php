@@ -150,7 +150,11 @@ try {
                     elseif (isset($_GET['comment'])) {
                         if(isset($_GET['modere'])) {
                             if(isset($_GET['id']) && $_GET['id'] > 0) {
-                                modereComment($_GET['id']);
+                                if(isset($_POST['choiceModere'])) {
+                                    modereComment($_GET['id'], $_POST['choiceModere']);
+                                }else {
+                                    throw new Exception('Un choix doit être fait obligatoirement');
+                                }
                             }else {
                                 throw new Exception('Identifiant de commentaire incorrect');
                             }
@@ -201,8 +205,18 @@ try {
 
                     /* Gestion de la page config */
                     elseif(isset($_GET['config'])) {
-                        viewConfig();
+                        if(isset($_GET['modifpseudo'])) {
+                            modifPseudo($_POST['pseudoModif']);
+                        }
+                        elseif(isset($_GET['changepassword'])) {
+                            modifPassword($_POST['ancienPassword'], $_POST['newPassword'], $_POST['confirmPassword']);
+                        }elseif(isset($_GET['modifmodere'])) {
+                            modifModere($_POST['choiceModere1'], $_POST['choiceModere2'], $_POST['choiceModere3']);
+                        }else {
+                            viewConfig();
+                        }
                     }
+                    /* Fin de la gestion page config */
 
                     /* Si aucune valeur, affiche le pannel admin */
                     else {

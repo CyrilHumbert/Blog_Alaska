@@ -33,7 +33,7 @@
 
 
     <!--- Modal d'ajout de commentaire -->
-    <button class="btnAddComment btn btn-primary center-block" href="#addComment" data-toggle="modal">Ajouter un commentaire</button>
+    <button class="btnAddComment btn center-block" href="#addComment" data-toggle="modal" data-backdrop="false">Ajouter un commentaire</button>
     <div class="modal fade modalAddCommenttest" id="addComment">
         <div class="modal-dialog modalAddComment">
             <div class="modal-content">
@@ -45,13 +45,13 @@
                 <div class="modal-body">
                     <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="POST">
                         <div class="form-group">
-                            <label for="author" class="labelPostAuthor">Pseudo</label>
-                            <input type="text" class="inputPostAuthor" name="author" id="author">
+                            <label for="author">Pseudo</label><br>
+                            <input type="text" name="author" id="author" class="form-control">
                         </div>
 
                         <div class="form-group">
-                            <label for="comment" class="labelPostComment">Commentaire</label>
-                            <input type="text" class="inputPostComment" name="comment" id="comment">
+                            <label for="comment">Commentaire</label><br>
+                            <textarea name="comment" id="comment" class="form-control"></textarea>
                         </div>
                </div>
 
@@ -76,7 +76,7 @@
                                 <?php if(isset($_SESSION['admin_id'])): ?>
                                 | <a href="#infosDeleteComment<?= $data['id'] ?>" data-toggle="modal">Supprimer</a>
                                 <?php endif; ?>
-                                | <a data-toggle="modal" href="#formulaire<?= $data['id'] ?>">Répondre</a> |
+                                | <a data-toggle="modal" href="#formulaire<?= $data['id'] ?>" data-backdrop="false">Répondre</a> |
                                 <a href="#infosSignalComment<?= $data['id'] ?>" data-toggle="modal">Signaler</a> | 
                             </p>
                         </div> 
@@ -210,7 +210,7 @@
 
             <!-- Début de la modal de l'ajout d'une réponse à un commentaire -->
             <div class="modal fade" id="formulaire<?= $data['id'] ?>">
-                <div class="modal-dialog">
+                <div class="modal-dialog modalResponse">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">x</button>
@@ -220,13 +220,13 @@
                         <div class="modal-body">
                             <form action="index.php?action=addComment&amp;response&amp;idpost=<?= $post['id'] ?>&amp;idcomment=<?= $data['id'] ?>" method="POST">
                                 <div class="form-group">
-                                    <label for="authorResponse" class="labelPostAuthorResponse">Pseudo</label>
-                                    <input type="text" class="inputPostAuthorResponse" name="authorResponse" id="authorResponse">
+                                    <label for="authorResponse">Pseudo</label>
+                                    <input type="text" name="authorResponse" id="authorResponse" class="form-control">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="commentResponse" class="labelPostCommentResponse">Commentaire</label>
-                                    <input type="text" class="inputPostCommentResponse" name="commentResponse" id="commentResponse">
+                                    <label for="commentResponse">Commentaire</label>
+                                    <textarea name="commentResponse" id="commentResponse" class="form-control"></textarea>
                                 </div>
                         </div>
 

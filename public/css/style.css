@@ -385,15 +385,42 @@ a:focus
     border-bottom: 1px #ddd solid;
 }
 
+.modalAddComment
+{
+    width: 80%;
+    height: 500px;
+}
+
+.modalResponse
+{
+    width: 80%;
+    height: 500px;
+}
+
 .btnAddComment
 {
+    border-radius: 0;
+    width: 200px;
+    font-size: 1.2em;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+    background-color: #26a69a;
+    -webkit-transition: all .3s ease-out;
+            transition: all .3s ease-out;
+    color: white;
+    margin-top: 25px;
     margin-bottom: 50px;
 }
 
-.modalAddComment
+.btnAddComment:hover
 {
-    width: 100%;
-    top: 675px;
+    background-color: rgba(0, 150, 136, 0.7);
+    color: white;
+}
+
+.btnAddComment:focus
+{
+    color: white;
+    outline: 0;
 }
 
 /**********************************/
@@ -783,4 +810,94 @@ footer a
     margin-bottom: 20px;
 }
 
+/**********************************/
+
+/************** CSS configAdmin.php **************/
+
+.btnModifPseudo
+{
+    border-radius: 0;
+    width: 150px;
+    font-size: 1.2em;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    background-color: #26a69a;
+    -webkit-transition: all .3s ease-out;
+            transition: all .3s ease-out;
+    color: white;
+    margin-top: 25px;
+}
+
+.btnModifPseudo:hover
+{
+    background-color: rgba(0, 150, 136, 0.7);
+    color: white;
+}
+
+.btnModifPassword
+{
+    border-radius: 0;
+    width: 150px;
+    font-size: 1.2em;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    background-color: #26a69a;
+    -webkit-transition: all .3s ease-out;
+            transition: all .3s ease-out;
+    color: white;
+    margin-top: 25px;
+}
+
+.btnModifPassword:hover
+{
+    background-color: rgba(0, 150, 136, 0.7);
+    color: white;
+}
+
+.btnModifModere
+{
+    border-radius: 0;
+    width: 150px;
+    font-size: 1.2em;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    background-color: #26a69a;
+    -webkit-transition: all .3s ease-out;
+            transition: all .3s ease-out;
+    color: white;
+}
+
+.btnModifModere:hover
+{
+    background-color: rgba(0, 150, 136, 0.7);
+    color: white;
+}
+
+.titleModifPseudo
+{
+    margin-bottom: 20px;
+}
+
+.labelModifPseudo
+{
+    font-size: 1.3em;
+}
+
+.formPasswordChange label
+{
+    font-size: 1.3em;
+}
+
+.formPasswordChange input
+{
+    margin-bottom: 5px;
+}
+
+#modifModere label
+{
+    font-size: 1.3em;
+}
+
+#modifModere textarea
+{
+    width: 100%;
+    height: 200px;
+}
 /**********************************/

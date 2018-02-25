@@ -122,13 +122,22 @@
 
                                     <div class="modal-body">
                                         Voulez-vous vraiment modérer ce commentaire ?<br>
-                                        Le contenu de celui-ci sera remplacé par :<br>
-                                        "Ce commentaire à été modéré car il contenait des propos diffamatoires, injurieux ou illégaux - Jean Forteroche"
+                                        Le contenu du commentaire sera remplacé par la phrase de modération choisis.<br>
+                                        <form method="POST" action="index.php?action=administration&amp;comment&amp;modere&amp;id=<?= $dataSignal['id'] ?>">
+                                            <label for="choiceModere">Choix n°1</label>
+                                            <input type="radio" name="choiceModere" value="modere1"><br>
+
+                                            <label for="choiceModere">Choix n°2</label>
+                                            <input type="radio" name="choiceModere" value="modere2"><br>
+
+                                            <label for="choiceModere">Choix n°3</label>
+                                            <input type="radio" name="choiceModere" value="modere3">
                                     </div>
 
                                     <div class="modal-footer">
-                                        <a href="index.php?action=administration&amp;comment&amp;modere&amp;id=<?= $dataSignal['id'] ?>" class="btn btn-info pull-left">Modérer</a>
+                                        <button class="btn btn-info pull-left" type="submit">Modérer</button>
                                         <a class="btn btn-info" data-dismiss="modal">Annuler</a>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

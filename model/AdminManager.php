@@ -74,10 +74,18 @@ class AdminManager extends Manager
         return $reqs;
     }
 
-    public function modereAndUnsignalComment($idComment) {
+    public function selectChoiceModere($choiceModere) {
         $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE comments SET comment = "Ce commentaire à été modéré car il contenait des propos diffamatoires, injurieux ou illégaux - Jean Forteroche", comment_signal = 0 WHERE id = ?');
-        $req->execute(array($idComment));
+        $req = $db->query("SELECT $choiceModere FROM logadmin");
+        $reqs = $req->fetch();
+
+        return $reqs;
+    }
+
+    public function modereAndUnsignalComment($choiceDefModere, $idComment) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE comments SET comment = ?, comment_signal = 0 WHERE id = ?');
+        $req->execute(array($choiceDefModere, $idComment));
     }
 
     public function deleteSignalComment($idComment) {
@@ -186,5 +194,50 @@ class AdminManager extends Manager
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE comments SET comment_principal_delete = 0 WHERE id_comment = ?');
         $req->execute(array($idComment));
+    }
+
+    /**** GESTION DES IDENTIFIANT ****/
+
+    public function updatePseudo($postPseudo) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE logadmin SET pseudo = ?');
+        $req->execute(array($postPseudo));
+    }
+
+    public function getPseudoActually() {
+        $db = $this->dbConnect();
+        $req = $db->query('SELECT pseudo FROM logadmin');
+        $reqs = $req->fetch();
+
+        return $reqs;
+    }
+
+    public function confirmAncienPassword($postPasswordAncien) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT passwordde FROM logadmin WHERE passwordde = ?');
+        $req->execute(array($postPasswordAncien));
+        $reqs = $req->fetch();
+
+        return $reqs;
+    }
+
+    public function updatePassword($postNewPassword) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE logadmin SET passwordde = ?');
+        $req->execute(array($postNewPassword));
+    }
+
+    public function getChoiceModere() {
+        $db = $this->dbConnect();
+        $req = $db->query('SELECT modere1, modere2, modere3 FROM logadmin');
+        $reqs = $req->fetch();
+
+        return $reqs;
+    }
+
+    public function updateChoiceModere($postModere1, $postModere2, $postModere3) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE logadmin SET modere1 = ?, modere2 = ?, modere3 = ?');
+        $req->execute(array($postModere1, $postModere2, $postModere3));
     }
 }
