@@ -2,17 +2,17 @@
 
 <?php ob_start(); ?>
 
-<header id="headerBanAccueil" class="row">
-    <div class="container-fluid">
-        <div class="row">
-            <h1 id="titleAlaska" class="col-sm-offset-1 col-md-offset-2 col-lg-offset-3 col-lg-8">Billet simple pour l'Alaska</h1>
-        </div>
-        
-        <div class="row">
-            <h1 id="titleJeanForteroche" class="col-lg-offset-6 col-sm-6">De Jean Forteroche</h1>
-        </div>
-    </div> 
-</header> 
+<div class="container-fluid">
+    <header id="headerBanAccueil" class="row">
+            <div  class="col-sm-offset-1 col-md-offset-2 col-lg-offset-2 col-lg-8">
+                <h1 id="titleAlaska">Billet simple pour l'Alaska</h1>
+            </div>
+            
+            <div class="col-xs-offset-2 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-lg-6">
+                <h1 id="titleJeanForteroche" >De Jean Forteroche</h1>
+            </div>
+    </header> 
+</div>
 
 <div class="container">
     <div class="row">
@@ -28,9 +28,9 @@
     </div>
 
 
-    <div id="content" class="row">
+    <div id="contentChapter" class="row">
         <?php foreach ($posts as $raw => $data): ?>
-            <div class="chapterContainer col-lg-4">
+            <div class="chapterContainer col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="chapterContent">
                     <img src="public/images/b_1_q_0_p_0.jpg" class="imgBook">
 

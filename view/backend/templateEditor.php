@@ -54,7 +54,7 @@
             <?php endif ?> 
 
             <?php if (isset($_SESSION['connected'])): ?>
-                <div id="linkFooterDisconnect" class="col-xs-offset-2 col-xs-2 col-sm-offset-3 col-md-offset-3 col-lg-offset-4 col-lg-1">
+                <div id="linkFooterDisconnectAdmin" class="col-xs-offset-2 col-xs-2 col-sm-offset-3 col-md-offset-3 col-lg-offset-4 col-lg-1">
                     <a href="index.php?action=disconnect" id="linkDisconnect">
                         Déconnexion
                     </a>

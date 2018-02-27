@@ -2,21 +2,21 @@
 
 <?php ob_start(); ?>
 
-<header id="headerBan" class="row">
-    <div class="container-fluid">
+<div class="container-fluid">
+    <header id="headerBan" class="row">
         <div class="btnRetourAccueil">
             <a href="index.php" class="btn linkRetourAccueil">Retour à l'accueil</a>
         </div>
 
-        <div class="row" id="firstLine">
+        <div class="container-fluid" id="firstLine">
             <h1 id="titleChapter" class="text-center"><?= htmlspecialchars($post['title']) ?></h1>
         </div>
-        
-        <div class="row" id="secondeLine">
+            
+        <div class="container-fluid" id="secondeLine">
             <h3 id="dateChapter" class="text-center">le <?= htmlspecialchars($post['creation_date_fr']) ?></h3>
         </div>
-    </div> 
-</header>
+    </header>
+</div>
 
 <div class="container" style="overflow-x: hidden;">
     <div class="chapter">    
@@ -71,21 +71,23 @@
             <?php if($data['comment_response'] == false): ?>
                 <li class="media thumbnail">
                     <div class="media-body"> 
-                        <div class="pull-left">
-                            <p class="media-heading">Par <?= htmlspecialchars($data['author']) ?>
-                                <?php if(isset($_SESSION['admin_id'])): ?>
-                                | <a href="#infosDeleteComment<?= $data['id'] ?>" data-toggle="modal">Supprimer</a>
-                                <?php endif; ?>
-                                | <a data-toggle="modal" href="#formulaire<?= $data['id'] ?>" data-backdrop="false">Répondre</a> |
-                                <a href="#infosSignalComment<?= $data['id'] ?>" data-toggle="modal">Signaler</a> | 
-                            </p>
-                        </div> 
+                        <div class="row">
+                            <div class="pull-left col-sm-6">
+                                <p class="media-heading">Par <?= htmlspecialchars($data['author']) ?>
+                                    <?php if(isset($_SESSION['admin_id'])): ?>
+                                    | <a href="#infosDeleteComment<?= $data['id'] ?>" data-toggle="modal">Supprimer</a>
+                                    <?php endif; ?>
+                                    | <a data-toggle="modal" href="#formulaire<?= $data['id'] ?>" data-backdrop="false">Répondre</a> |
+                                    <a href="#infosSignalComment<?= $data['id'] ?>" data-toggle="modal">Signaler</a> | 
+                                </p>
+                            </div> 
 
-                        <div class="pull-right">
-                            <p>Le <?= htmlspecialchars($data['comment_date_fr']) ?></p>
+                            <div class="col-sm-6">
+                                <p class="pull-right">Le <?= htmlspecialchars($data['comment_date_fr']) ?></p>
+                            </div>
                         </div>
 
-                        <div class="col-lg-12"><p><?= $data['comment'] ?></p></div>
+                        <div class="row"><p class="col-lg-12"><?= $data['comment'] ?></p></div>
 
                         <!-- Affichage des réponses à un commentaire -->
                         <?php if($data['have_response'] == true): ?>
@@ -94,16 +96,18 @@
                                     <?php if($data['id'] == $dataResponse['id_comment']): ?>
                                         <div class="media responsePost">
                                             <div class="media-body">
-                                                <div class="pull-left">
-                                                    <p class="media-heading">Par <?= htmlspecialchars($dataResponse['author']) ?> 
-                                                    <?php if(isset($_SESSION['admin_id'])): ?>
-                                                    | <a href="#infosDeleteComment<?= $dataResponse['id'] ?>" data-toggle="modal">Supprimer</a>
-                                                    <?php endif; ?>
-                                                    | <a href="#infosSignalComment<?= $dataResponse['id'] ?>" data-toggle="modal">Signaler</a> | 
-                                                </div>
+                                                <div class="row">
+                                                    <div class="pull-left col-sm-6">
+                                                        <p class="media-heading">Par <?= htmlspecialchars($dataResponse['author']) ?> 
+                                                        <?php if(isset($_SESSION['admin_id'])): ?>
+                                                        | <a href="#infosDeleteComment<?= $dataResponse['id'] ?>" data-toggle="modal">Supprimer</a>
+                                                        <?php endif; ?>
+                                                        | <a href="#infosSignalComment<?= $dataResponse['id'] ?>" data-toggle="modal">Signaler</a> | 
+                                                    </div>
 
-                                                <div class="pull-right">
-                                                    <p>Le <?= $dataResponse['comment_date_fr'] ?></p>
+                                                    <div class="col-sm-6">
+                                                        <p class="pull-right">Le <?= $dataResponse['comment_date_fr'] ?></p>
+                                                    </div>
                                                 </div>
 
                                                 <div class="col-lg-12"><p><?= htmlspecialchars($dataResponse['comment']) ?></p></div>

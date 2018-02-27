@@ -2,17 +2,17 @@
 
 <?php ob_start(); ?>
 
-<header id="headerBanLogin" class="row">
-    <div class="container-fluid">
-        <div class="btnRetourAccueil">
-            <a href="index.php" class="btn linkRetourAccueil">Retour à l'accueil</a>
-        </div>
+<div class="container-fluid">
+    <header id="headerBanLogin" class="row">
+            <div class="btnRetourAccueil">
+                <a href="index.php" class="btn linkRetourAccueil">Retour à l'accueil</a>
+            </div>
 
-        <div>
-                <h1 id="titleLogin" class="text-center">Connexion</h1>
-        </div>
-    </div> 
-</header>
+            <div>
+                    <h1 id="titleLogin" class="text-center">Connexion</h1>
+            </div>
+    </header>
+</div>
 
 <div class="container">
     <div id="formLogin" class="row col-sm-12 center-block">

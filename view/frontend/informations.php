@@ -18,7 +18,7 @@
                     <a href="index.php" class="btn linkRetourAccueil">Retour à l'accueil</a>
                 </div>
 
-                <div class="row" id="firstLine">
+                <div class="container-fluid" id="firstLine">
                     <h1 id="titleInfos" class="text-center">Informations</h1>
                 </div>
             </header>
@@ -43,25 +43,20 @@
 
         </div>
 
-        <footer>
-            <nav class="footer row">
-                <div id="linkFooterAdmin" class="col-sm-2">
-                    <a href="<?php if(isset($_SESSION['connected'])): ?>index.php?action=administration <?php else: ?>index.php?action=login<?php endif ?>" class="test" id="linkAdmin">
+        <footer class="footer container-fluid">
+            <div id="linkFooterAdmin" class="col-xs-4 col-sm-2 col-lg-2">
+                <a href="<?php if(isset($_SESSION['connected'])): ?>index.php?action=administration <?php else: ?>index.php?action=login<?php endif ?>" class="test" id="linkAdmin">
                     Administration
+                </a>
+            </div>
+
+            <?php if (isset($_SESSION['connected'])): ?>
+                <div id="linkFooterDisconnect" class="col-xs-offset-4 col-xs-2 col-sm-offset-8 col-md-offset-8 col-lg-offset-9 col-lg-1">
+                    <a href="index.php?action=disconnect" id="linkDisconnect">
+                        Déconnexion
                     </a>
                 </div>
-
-                <?php if (isset($_SESSION['connected'])): ?>
-                    <div id="linkFooterDisconnect" class="col-sm-1 pull-right">
-                        <a href="" id="linkDisconnect">
-                            Déconnexion
-                        </a>
-                    </div>
-                <?php endif ?> 
-            </nav>
+            <?php endif ?> 
         </footer>
-
-        <script>
-        </script>
     </body>
 </html>

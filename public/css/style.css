@@ -331,6 +331,69 @@ a:focus
     margin-left: 135px;
     margin-top: 10px;
 }
+
+@media (max-width: 768px) {
+    #contentChapter {
+        padding-left: 150px;
+        padding-right: 150px;
+    }
+
+    .btnChapterAccueil
+    {
+        margin-left: 165px;
+    }
+}
+
+@media (max-width: 425px) {
+    #contentChapter {
+        padding-left: 10px;
+        padding-right: 0px;
+    }
+
+    .btnChapterAccueil
+    {
+        margin-left: 145px;
+    }
+    
+    #titleAlaska {
+        font-size: 5em;
+    }
+
+    #headerBanAccueil {
+        padding-top: 0px;
+        min-height: 100px;
+    }
+}
+
+@media (max-width: 375px) {
+    .btnChapterAccueil
+    {
+        margin-left: 125px;
+    }
+
+    #titleJeanForteroche {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 325px) {
+    .btnChapterAccueil
+    {
+        margin-left: 95px;
+    }
+    
+    #titleAlaska {
+        font-size: 4em;
+    }
+
+    #titleJeanForteroche {
+        font-size: 2.3em;
+    }
+
+    #linkFooterDisconnect {
+        margin-left: 25%;
+    }
+}
 /**********************************/
 
 /************** CSS postView **************/
@@ -480,7 +543,7 @@ footer a
 }
 
 @media (max-width: 375px) {
-    #linkFooterDisconnect {
+    #linkFooterDisconnectAdmin {
         margin-left: 9%;
     }
 }
@@ -517,6 +580,13 @@ footer a
 {
     margin-top: 25px;
 }
+
+@media (max-width: 768px) {
+    #titleLogin {
+        margin-top: 50px;
+    }
+}
+
 /**********************************/
 
 /************** CSS pannelAdmin **************/
@@ -960,6 +1030,18 @@ footer a
 .informationsPage
 {
     font-size: 1.5em;
+}
+
+@media (max-width: 375px) {
+    #titleInfos {
+        font-size: 4em;
+    }
+}
+
+@media (max-width: 768px) {
+    #titleInfos {
+        margin-top: 50px;
+    }
 }
 
 /**********************************/
