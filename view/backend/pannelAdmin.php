@@ -48,7 +48,7 @@
                         <a data-toggle="modal" href="#infos<?= $data['id'] ?>" class="linkInTab"><span class="glyphicon glyphicon-remove btnDel" data-toggle="tooltip" data-placement="right" title="Supprimer le chapitre" ></span></a>
                         <!-- Modal suppression d'un chapitre -->
                         <div class="modal fade" id="infos<?= $data['id'] ?>">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modalRespon">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Confirmation</h4>
@@ -113,7 +113,7 @@
                         <a data-toggle="modal" href="#infosModereComment<?= $dataSignal['id'] ?>"><span class="glyphicon glyphicon-alert btnMod" data-toggle="tooltip" data-placement="top" title="Modérer le commentaire"></span></a>
                         <!-- Modal modération d'un commentaire signalé -->
                         <div class="modal fade" id="infosModereComment<?= $dataSignal['id'] ?>">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modalRespon">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Confirmation</h4>
@@ -145,7 +145,7 @@
                         <a data-toggle="modal" href="#infosDeleteComment<?= $dataSignal['id'] ?>" class="linkInTab"><span class="glyphicon glyphicon-remove btnDel" data-toggle="tooltip" data-placement="top" title="Supprimer le commentaire"></span></a>
                         <!-- Modal suppresion d'un commentaire signalé -->
                         <div class="modal fade" id="infosDeleteComment<?= $dataSignal['id'] ?>">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modalRespon">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Confirmation</h4>
@@ -168,7 +168,7 @@
                         <a data-toggle="modal" href="#infosAproveComment<?= $dataSignal['id'] ?>" class="linkInTab"><span class="glyphicon glyphicon-ok btnApr" data-toggle="tooltip" data-placement="right" title="Approuver le commentaire"></span></a>
                         <!-- Modal approuve d'un commentaire signalé -->
                         <div class="modal fade" id="infosAproveComment<?= $dataSignal['id'] ?>">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modalRespon">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Confirmation</h4>

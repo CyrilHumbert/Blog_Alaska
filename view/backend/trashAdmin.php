@@ -45,7 +45,7 @@
                     <a data-toggle="modal" href="#infosDeleteTrash<?= $data['id'] ?>"><span class="glyphicon glyphicon-remove btnDel" data-toggle="tooltip" data-placement="top" title="Supprimer définitivement le chapitre"></span></a>
                         <!-- Modal suppresion corbeille d'un chapitre -->
                         <div class="modal fade" id="infosDeleteTrash<?= $data['id'] ?>">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modalRespon">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Confirmation</h4>
@@ -68,7 +68,7 @@
                     <a data-toggle="modal" href="#infosRestore<?= $data['id'] ?>" class="linkInTab"><span class="glyphicon glyphicon-repeat btnRestore" data-toggle="tooltip" data-placement="right" title="Restaurer le chapitre"></span></a>
                         <!-- Modal restauration d'un chapitre en corbeille -->
                         <div class="modal fade" id="infosRestore<?= $data['id'] ?>">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modalRespon">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Confirmation</h4>
@@ -120,7 +120,7 @@
                     <a data-toggle="modal" href="#infosDeleteTrashComment<?= $dataComment['id'] ?>"><span class="glyphicon glyphicon-remove btnDel" data-toggle="tooltip" data-placement="top" title="Supprimer définitivement le commentaire"></span></a>
                     <!-- Modal suppresion corbeille d'un commentaire -->
                     <div class="modal fade" id="infosDeleteTrashComment<?= $dataComment['id'] ?>">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modalRespon">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h4 class="modal-title">Confirmation</h4>
@@ -145,7 +145,7 @@
                     <?php else: ?><a data-toggle="modal" href="#infosRestoreComment<?= $dataComment['id'] ?>" class="linkInTab"><span class="glyphicon glyphicon-repeat btnRestore" data-toggle="tooltip" data-placement="right" title="Restaurer le commentaire"></span></a>
                         <!-- Modal restauration d'un commentaire en corbeille -->
                         <div class="modal fade" id="infosRestoreComment<?= $dataComment['id'] ?>">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modalRespon">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Confirmation</h4>

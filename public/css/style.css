@@ -49,8 +49,10 @@ a:focus
 }
 
 @media (max-width: 425px) {
-    .modal-dialog {
-        width: 100%;
+    .modalRespon { 
+        width: 80%;
+        height: 500px;
+        margin: auto;
     }
 
 }
@@ -466,12 +468,14 @@ a:focus
 {
     width: 80%;
     height: 500px;
+    margin: auto;
 }
 
-.modalResponse
+.modalReponse
 {
     width: 80%;
     height: 500px;
+    margin: auto;
 }
 
 .btnAddComment
@@ -584,6 +588,12 @@ footer a
 @media (max-width: 768px) {
     #titleLogin {
         margin-top: 50px;
+    }
+}
+
+@media (max-width: 425px) {
+    .formPasswordLogin {
+        margin-top: 25px;
     }
 }
 

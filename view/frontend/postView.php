@@ -116,7 +116,7 @@
                                     <?php endif; ?>
                                     <!-- Début de la modal de signalement d'un commentaire qui est une réponse -->
                                     <div class="modal fade" id="infosSignalComment<?= $dataResponse['id'] ?>">
-                                        <div class="modal-dialog">
+                                        <div class="modal-dialog modalRespon">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">x</button>
@@ -138,7 +138,7 @@
                                     <!-- Fin de la modal -->  
                                     <!-- Début de la modal de suppresion d'un commentaire qui est une réponse -->
                                     <div class="modal fade" id="infosDeleteComment<?= $dataResponse['id'] ?>">
-                                        <div class="modal-dialog">
+                                        <div class="modal-dialog modalRespon">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">x</button>
@@ -168,7 +168,7 @@
 
             <!-- Début de la modal de suppresion d'un commentaire qui n'est pas une réponse -->
             <div class="modal fade" id="infosDeleteComment<?= $data['id'] ?>">
-                <div class="modal-dialog">
+                <div class="modal-dialog modalRespon">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">x</button>
@@ -191,7 +191,7 @@
 
             <!-- Début de la modal de signalement d'un commentaire qui n'est pas une réponse -->
             <div class="modal fade" id="infosSignalComment<?= $data['id'] ?>">
-                <div class="modal-dialog">
+                <div class="modal-dialog modalRespon">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">x</button>
@@ -214,7 +214,7 @@
 
             <!-- Début de la modal de l'ajout d'une réponse à un commentaire -->
             <div class="modal fade" id="formulaire<?= $data['id'] ?>">
-                <div class="modal-dialog modalResponse">
+                <div class="modal-dialog modalReponse">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">x</button>

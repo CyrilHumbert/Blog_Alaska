@@ -23,7 +23,7 @@
                     <input id="pseudo" name="pseudo" type="text" class="inputPostAuthor"/>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-6 formPasswordLogin">
                     <label for="password" class="labelPostComment">Mot de passe</label>
                     <input id="password" name="password" type="password" class="inputPostComment"/>
                 </div>
