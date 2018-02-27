@@ -2,32 +2,31 @@
 
 <?php ob_start(); ?>
 
-<div class="container-fluid">
-    <header id="headerBanPannelAdmin" class="row">
-        <div class="btnRetourAccueil">
-            <a href="index.php" class="btn linkRetourAccueil">Retour à l'accueil</a>
-        </div>
+<header id="headerBanPannelAdmin" class="container-fluid">
+    <div class="btnRetourAccueil">
+        <a href="index.php" class="btn linkRetourAccueil">Retour à l'accueil</a>
+    </div>
 
-        <div class="row" id="firstLinePannelAdmin">
-            <h1 id="titleAdmin" class="text-center">Administration</h1>
-        </div>
-    </header>
-</div>  
+    <div class="row" id="firstLinePannelAdmin">
+        <h1 id="titleAdmin" class="text-center">Administration</h1>
+    </div>
+</header>
+
 
 <div id="containerListerChapiter" class="container">
 
     <!-- En-tête tableau admin chapitre -->
-    <div class="row">
+    <div class="container">
         <h2 class="text-center">Liste des chapitres<a href="index.php?action=administration&amp;editer&amp;id=0" class="linkAdd"><span class="glyphicon glyphicon-plus btnAdd" data-toggle="tooltip" data-placement="right" title="Ajouter un chapitre"></span></a></h2>
     </div>
 
     <!-- Tableau admin des chapitres -->
-    <div class="row">
+    <div class="container">
         <table id="tableAdminChapiter" class="table table-condensed table-responsive">
             <tr>
                 <th class="text-center lineTitle">Titre du chapitre</th>
                 <th class="text-center lineView">Nombre de vues</th>
-                <th class="text-center">Auteur</th>
+                <th class="text-center lineAuthor">Auteur</th>
                 <th class="text-center">État</th>
                 <th class="text-center">Action</th>
             </tr>
@@ -89,14 +88,14 @@
     <!-- Fin tableau admin chapitre -->
 
     <!-- Tableau commentaire signalé -->
-    <div class="row">
+    <div class="container">
         <?php $countSignal = count($listSignalComments) ?>
         <h2 class="text-center"><?php if($countSignal <= 1): ?>Commentaire signalé<?php else: ?>Commentaires signalés<?php endif ?><span class="badge nbSignal pulse" style="margin-left: 10px;"><?= $countSignal ?></span></h2>
         <table id="tableAdminCommenter" class="table table-condensed table-responsive">
             <tr>
                 <th class="text-center lineTitle">Commentaire</th>
-                <th class="text-center">Auteur du commentaire</th>
-                <th class="text-center">Date du commentaire</th>
+                <th class="text-center">Auteur</th>
+                <th class="text-center">Date</th>
                 <th class="text-center">Action</th>
             </tr>
 
@@ -109,7 +108,7 @@
                 <tr>
                     <td class="text-center lineTitle"><?= htmlspecialchars($dataSignal['comment']) ?></td>
                     <td class="text-center"><?= htmlspecialchars($dataSignal['author']) ?></td>
-                    <td class="text-center lineAuthor"><?= $dataSignal['comment_date_fr'] ?></td>
+                    <td class="text-center"><?= $dataSignal['comment_date_fr'] ?></td>
                     <td class="text-center">
                         <a data-toggle="modal" href="#infosModereComment<?= $dataSignal['id'] ?>"><span class="glyphicon glyphicon-alert btnMod" data-toggle="tooltip" data-placement="top" title="Modérer le commentaire"></span></a>
                         <!-- Modal modération d'un commentaire signalé -->

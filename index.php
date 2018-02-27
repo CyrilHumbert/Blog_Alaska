@@ -241,10 +241,12 @@ try {
         listPosts();
     } 
     else{
-        echo 'erreur 404';
+        header("HTTP/1.0 404 Not Found");
+        
+        require("view/frontend/error404.php");
     }
 
 } // Fin du try
 catch(Exception $e) {
-    require "view/frontend/informations.php";
+    require("view/frontend/informations.php");
 }

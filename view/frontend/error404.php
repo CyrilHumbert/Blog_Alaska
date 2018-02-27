@@ -17,31 +17,19 @@
                 <div class="btnRetourAccueil">
                     <a href="index.php" class="btn linkRetourAccueil">Retour à l'accueil</a>
                 </div>
-
+                
                 <div class="row" id="firstLine">
                     <h1 id="titleInfos" class="text-center">Informations</h1>
                 </div>
             </header>
         </div>  
 
-        <div class="container informationsPage">
-
-            <?php if(isset($informations)): ?>
-                <div id="info" class="<?= $informations[0]; ?>">
-                    <div class="help-block text-center">
-                        <?= $informations[1] ?> : <?= $informations[2]; ?><br/>
-                        <a href="<?= $informations[4]; ?>">Cliquez ici pour revenir à l'accueil...</a>
-                    </div>
+            <div class="container">
+                <div class="row">
+                    <h2 class="text-center" style="font-size: 3em;">Erreur 404</h2>
+                    <p class="text-center" style="font-size: 3em;">La page n'a pas été trouvé...</p>
                 </div>
-            <?php endif ?>
-
-            <?php if(isset($e)): ?>
-                <div id="messageInfo" class="text-center" style="color: red;">
-                    <?= 'Erreur : ' . $e->getMessage(); ?>
-                </div>
-            <?php endif ?>
-
-        </div>
+            </div>
 
         <footer>
             <nav class="footer row">

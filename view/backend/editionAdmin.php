@@ -4,6 +4,10 @@
 
 <div class="container-fluid">
     <header id="headerBanEditer" class="row">
+        <div class="btnRetourPannel">
+            <a href="index.php?action=administration" class="btn linkRetourPannel">Retour à l'administration</a>
+        </div>
+
         <div>
             <h1 id="titleEditer" class="text-center">Éditeur</h1>
         </div>

@@ -29,7 +29,7 @@
         </form>
 
         <?php if(isset($modifPseudoEmpty)): ?>
-        <div class="row">
+        <div class="container">
             <div class="alert alert-block alert-danger text-center col-sm-offset-4 col-sm-4 box-error">
                 <h4>Erreur !</h4>
                 Le champs du nouveau pseudo ne doit pas être vide !
@@ -61,7 +61,7 @@
         </form>
 
         <?php if(isset($newPasswordEmpty)): ?>
-        <div class="row">
+        <div class="container">
             <div class="alert alert-block alert-danger text-center col-sm-offset-4 col-sm-4 box-error">
                 <h4>Erreur !</h4>
                 Le champs nouveau mot de passe ne peut pas être vide !
@@ -70,7 +70,7 @@
         <?php endif; ?>
 
         <?php if(isset($badAncienPassword)): ?>
-        <div class="row">
+        <div class="container">
             <div class="alert alert-block alert-danger text-center col-sm-offset-4 col-sm-4 box-error">
                 <h4>Erreur !</h4>
                 L'ancien mot de passe est incorrect !
@@ -79,7 +79,7 @@
         <?php endif; ?>
 
         <?php if(isset($badConfirmPassword)): ?>
-        <div class="row">
+        <div class="container">
             <div class="alert alert-block alert-danger text-center col-sm-offset-4 col-sm-4 box-error">
                 <h4>Erreur !</h4>
                 Les mots de passe ne sont pas identique !
@@ -88,7 +88,7 @@
         <?php endif; ?>
 
         <?php if(isset($validateChangePassword)): ?>
-        <div class="row">
+        <div class="container">
             <div class="alert alert-block alert-success text-center col-sm-offset-4 col-sm-4 box-error">
                 <h4>Validé !</h4>
                 Le mot de passe a été changer avec succès !

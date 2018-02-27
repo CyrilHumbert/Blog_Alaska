@@ -33,7 +33,7 @@ body
     min-height: 100%;
     margin: 0;
     padding: 0;
-    padding-bottom: 50px;
+    padding-bottom: 100px;
     overflow-x: hidden;
     font-family: 'Raleway';
 }
@@ -41,6 +41,18 @@ body
 a:focus
 {
     outline: 0;
+}
+
+.modal-dialog
+{
+    padding-right: 0px !important;
+}
+
+@media (max-width: 425px) {
+    .modal-dialog {
+        width: 100%;
+    }
+
 }
 
 /**********************************/
@@ -192,6 +204,7 @@ a:focus
     margin-bottom: 50px;
     padding-top: 20px;
     box-shadow: 0px 1px 15px black;
+    position: relative;
 }
 
 #titleEditer
@@ -242,7 +255,7 @@ a:focus
     font-family: 'dancing_script_otregular';
 }
 
-/**** Dans informations.php ****/
+/**** Dans informations.php et error404.php ****/
 
 #headerBanInfos
 {
@@ -252,6 +265,7 @@ a:focus
     margin-bottom: 50px;
     padding-top: 20px;
     box-shadow: 0px 1px 15px black;
+    position: relative;
 }
 
 #titleInfos
@@ -427,23 +441,16 @@ a:focus
 
 /************** CSS footer **************/
 
-.footer
-{
-    height: 50px;
-    background-color: #5b677a;
-    margin-top: 50px;
-    box-shadow: 1px 0px 15px black;
-}
-
 #linkFooterAdmin
 {
-    padding-top: 15px;
-    margin-left: 15px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 #linkFooterDisconnect
 {
-    padding: 15px 0px 0px 25px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 footer 
@@ -452,7 +459,11 @@ footer
     bottom: 0;
     left: 0;
     right: 0;
-    height: 50px;
+    line-height: 50px;
+    display: inline;
+    background-color: #5b677a;
+    box-shadow: 1px 0px 15px black;
+    
 }
 
 footer a
@@ -464,7 +475,14 @@ footer a
 .iconConfig
 {
     font-size: 2em;
-    padding-top: 8px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+@media (max-width: 375px) {
+    #linkFooterDisconnect {
+        margin-left: 9%;
+    }
 }
 
 /**********************************/
@@ -744,6 +762,22 @@ footer a
     }
 }
 
+@media (max-width: 375px) {
+    .lineAuthor {
+        display: none;
+    }
+
+    #titleAdmin {
+        font-size: 4em;
+    }
+}
+
+@media (max-width: 768px) {
+    #titleAdmin {
+        margin-top: 50px;
+    }
+}
+
 /**********************************/
 
 /************** CSS editionAdmin **************/
@@ -808,6 +842,12 @@ footer a
 {
     margin-right: 13px;
     margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    #titleEditer {
+        margin-top: 50px;
+    }
 }
 
 /**********************************/
@@ -899,5 +939,35 @@ footer a
 {
     width: 100%;
     height: 200px;
+}
+
+@media (max-width: 768px) {
+    #titleConfig {
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 375px) {
+    #titleConfig {
+        font-size: 4em;
+    }
+}
+
+/**********************************/
+
+/************** CSS informations.php **************/
+
+.informationsPage
+{
+    font-size: 1.5em;
+}
+
+/**********************************/
+
+/************** CSS trashAdmin.php **************/
+@media (max-width: 768px) {
+    #titleTrash {
+        margin-top: 50px;
+    }
 }
 /**********************************/

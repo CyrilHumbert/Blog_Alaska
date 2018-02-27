@@ -25,7 +25,7 @@
             <tr>
                 <th class="text-center lineTitle">Titre du chapitre</th>
                 <th class="text-center">Nombre de vues</th>
-                <th class="text-center">Auteur</th>
+                <th class="text-center lineAuthor">Auteur</th>
                 <th class="text-center">Status</th>
                 <th class="text-center">Action</th>
             </tr>
@@ -101,8 +101,8 @@
         <table id="tableAdminCommenter" class="table table-responsive table-condensed">
             <tr>
                 <th class="text-center lineTitle">Commentaire</th>
-                <th class="text-center">Auteur du commentaire</th>
-                <th class="text-center">Date du commentaire</th>
+                <th class="text-center">Auteur</th>
+                <th class="text-center">Date</th>
                 <th class="text-center">Action</th>
             </tr>
 
@@ -115,7 +115,7 @@
                 <tr>
                     <td class="text-center lineTitle"><?= htmlspecialchars($dataComment['comment']) ?></td>
                     <td class="text-center"><?= htmlspecialchars($dataComment['author']) ?></td>
-                    <td class="text-center lineAuthor"><?= $dataComment['comment_date_fr'] ?></td>
+                    <td class="text-center"><?= $dataComment['comment_date_fr'] ?></td>
                     <td class="text-center">
                     <a data-toggle="modal" href="#infosDeleteTrashComment<?= $dataComment['id'] ?>"><span class="glyphicon glyphicon-remove btnDel" data-toggle="tooltip" data-placement="top" title="Supprimer définitivement le commentaire"></span></a>
                     <!-- Modal suppresion corbeille d'un commentaire -->
