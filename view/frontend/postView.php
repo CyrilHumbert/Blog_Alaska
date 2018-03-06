@@ -1,4 +1,9 @@
-<?php $title = htmlspecialchars($post['title']) . " - Blog Alaska"; ?>
+<?php $title = htmlspecialchars($post['title']) . " - Blog Alaska"; 
+
+$token = microtime();
+
+$_SESSION['token'] = $token;
+?>
 
 <?php ob_start(); ?>
 
@@ -151,7 +156,10 @@
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <a href="index.php?action=administration&amp;comment&amp;deletecomment&amp;manual&amp;id=<?= $dataResponse['id'] ?>&amp;idp=<?= $_GET['id']?>&amp;idc=<?= $dataResponse['id_comment'] ?>" class="btn btn-info pull-left">Supprimer</a>
+                                                <form method="POST" action="index.php?action=administration&amp;comment&amp;deletecomment&amp;manual&amp;id=<?= $dataResponse['id'] ?>&amp;idp=<?= $_GET['id']?>&amp;idc=<?= $dataResponse['id_comment'] ?>">
+                                                    <input type="hidden" name="token" id="token" value="<?= $_SESSION['token']; ?>" />
+                                                    <button type="submit" class="btn btn-info pull-left">Supprimer</button>
+                                                </form>
                                                     <a class="btn btn-info" data-dismiss="modal">Annuler</a>
                                                 </div>
                                             </div>
@@ -181,7 +189,10 @@
                         </div>
 
                         <div class="modal-footer">
-                            <a href="index.php?action=administration&amp;comment&amp;deletecomment&amp;manual&amp;id=<?= $data['id'] ?>&amp;idp=<?= $_GET['id']?>&amp;idc=0" class="btn btn-info pull-left">Supprimer</a>
+                        <form method="POST" action="index.php?action=administration&amp;comment&amp;deletecomment&amp;manual&amp;id=<?= $data['id'] ?>&amp;idp=<?= $_GET['id']?>&amp;idc=0">
+                            <input type="hidden" name="token" id="token" value="<?= $_SESSION['token']; ?>" />
+                            <button type="submit" class="btn btn-info pull-left">Supprimer</button>
+                        </form>
                             <a class="btn btn-info" data-dismiss="modal">Annuler</a>
                         </div>
                     </div>

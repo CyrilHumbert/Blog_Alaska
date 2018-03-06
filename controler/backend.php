@@ -93,7 +93,7 @@ function verifLogin($postPseudo, $postPassword) {
         session_start();
         $_SESSION['admin_id'] = $verifLogin['id'];
 		$_SESSION['admin_pseudo'] = $verifLogin['pseudo'];
-        $_SESSION['admin_mdp'] = $verifLogin['passwordde'];
+		$_SESSION['admin_mdp'] = $verifLogin['passwordde'];
 
         $_SESSION['connected'] = true;
         
@@ -258,81 +258,96 @@ function chapterModif($postTitle, $postAuthor, $postContent, $status, $getId) {
 	}
 }
 
-function chapterTrash($postId) {
+function chapterTrash($postId, $token) {
 	$trashManager = new TrashManager;
 
-	$chapterSelected = $trashManager->selectChapterFromPosts($postId);
-	$commentSelectedData = $trashManager->selectCommentFromComments($postId);
+	if ($_SESSION['token'] == $token) {
+		$chapterSelected = $trashManager->selectChapterFromPosts($postId);
+		$commentSelectedData = $trashManager->selectCommentFromComments($postId);
 
-	$trashManager->insertChapterInTrash($chapterSelected['id'], $chapterSelected['title'], $chapterSelected['nb_views'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date'], $chapterSelected['status_post']);
-	foreach($commentSelectedData as $row => $commentSelected) 
-	{
-		$trashManager->insertCommentInTrashComment($commentSelected['id'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment'], $commentSelected['delete_manual'], $commentSelected['comment_principal_delete']);
-	}
+		$trashManager->insertChapterInTrash($chapterSelected['id'], $chapterSelected['title'], $chapterSelected['nb_views'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date'], $chapterSelected['status_post']);
+		foreach($commentSelectedData as $row => $commentSelected) 
+		{
+			$trashManager->insertCommentInTrashComment($commentSelected['id'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment'], $commentSelected['delete_manual'], $commentSelected['comment_principal_delete']);
+		}
 
-	$verifChapter = $trashManager->verifChapterSinceTrash($postId);
-	if($commentSelectedData){
-		$verifComment = $trashManager->verifCommentSinceTrashComments($postId);
-	}
+		$verifChapter = $trashManager->verifChapterSinceTrash($postId);
+		if($commentSelectedData){
+			$verifComment = $trashManager->verifCommentSinceTrashComments($postId);
+		}
 
-	if($verifChapter) {
-			$trashManager->deleteChapterFromPosts($postId);
-			if(isset($verifComment)){
-				$trashManager->deleteCommentFromComments($postId);
-			}
+		if($verifChapter) {
+				$trashManager->deleteChapterFromPosts($postId);
+				if(isset($verifComment)){
+					$trashManager->deleteCommentFromComments($postId);
+				}
 
-			$trashManager->updateDeleteManual($postId);
+				$trashManager->updateDeleteManual($postId);
 
-			$trashManager->updateCommentPrincipalDeleteByDeleteChapter($postId);
+				$trashManager->updateCommentPrincipalDeleteByDeleteChapter($postId);
 
-			header('location: index.php?action=administration');
-			exit();
+				header('location: index.php?action=administration');
+				exit();
+		}
+		else {
+			throw new Exception('Il a y eu une erreur lors de la suppression du chapitre.');
+		}
 	}
 	else {
-		throw new Exception('Il a y eu une erreur lors de la suppression du chapitre.');
+		throw new Exception('Token invalide.');
 	}
 }
 
-function restoreTrash($idChapter) {
+function restoreTrash($idChapter, $token) {
 	$trashManager = new TrashManager;
 
-	$chapterSelected = $trashManager->selectChapterFromTrash($idChapter);
-	$commentSelectedData = $trashManager->selectCommentFromTrashComments($idChapter);
+	if ($_SESSION['token'] == $token) {
+		$chapterSelected = $trashManager->selectChapterFromTrash($idChapter);
+		$commentSelectedData = $trashManager->selectCommentFromTrashComments($idChapter);
 
-	$trashManager->insertChapterInPosts($chapterSelected['id_chapter'], $chapterSelected['title'], $chapterSelected['nb_views'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date'], $chapterSelected['status_post']);
-	foreach($commentSelectedData as $row => $commentSelected) 
-	{
-		$trashManager->insertCommentInComments($commentSelected['id_before_delete'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment'], $commentSelected['delete_manual'], $commentSelected['comment_principal_delete']);
-	}
+		$trashManager->insertChapterInPosts($chapterSelected['id_chapter'], $chapterSelected['title'], $chapterSelected['nb_views'], $chapterSelected['author'], $chapterSelected['content'], $chapterSelected['creation_date'], $chapterSelected['status_post']);
+		foreach($commentSelectedData as $row => $commentSelected) 
+		{
+			$trashManager->insertCommentInComments($commentSelected['id_before_delete'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment'], $commentSelected['delete_manual'], $commentSelected['comment_principal_delete']);
+		}
 
-	$verifChapter = $trashManager->verifChapterSincePosts($idChapter);
-	if($commentSelectedData) {
-		$verifComment = $trashManager->verifCommentSinceComments($idChapter);
-	}
+		$verifChapter = $trashManager->verifChapterSincePosts($idChapter);
+		if($commentSelectedData) {
+			$verifComment = $trashManager->verifCommentSinceComments($idChapter);
+		}
 
-	if($verifChapter) {
-			$trashManager->deleteChapterFromTrash($idChapter);
-			if(isset($verifComment)){
-				$trashManager->deleteCommentFromTrashComments($idChapter);
-			}
+		if($verifChapter) {
+				$trashManager->deleteChapterFromTrash($idChapter);
+				if(isset($verifComment)){
+					$trashManager->deleteCommentFromTrashComments($idChapter);
+				}
 
-			header('location: index.php?action=administration&trash');
-			exit();
+				header('location: index.php?action=administration&trash');
+				exit();
+		}
+		else {
+			throw new Exception('Il a y eu une erreur lors de la restauration du chapitre.');
+		}
 	}
 	else {
-		throw new Exception('Il a y eu une erreur lors de la restauration du chapitre.');
+		throw new Exception('Token invalide.');
 	}
 }
 
-function deleteDefinitely($idChapterTrash, $idChapter) {
+function deleteDefinitely($idChapterTrash, $idChapter, $token) {
 	$trashManager = new TrashManager;
 
-	$trashManager->deleteDefinitelySinceTrash($idChapterTrash);
-	$trashManager->deleteCommentFromTrashComments($idChapter);
-	$trashManager->deleteDefinitelyIp($idChapter);
+	if ($_SESSION['token'] == $token) {
+		$trashManager->deleteDefinitelySinceTrash($idChapterTrash);
+		$trashManager->deleteCommentFromTrashComments($idChapter);
+		$trashManager->deleteDefinitelyIp($idChapter);
 
-	header('location: index.php?action=administration&trash');
-	exit();
+		header('location: index.php?action=administration&trash');
+		exit();
+	}
+	else {
+		throw new Exception('Token invalide.');
+	}
 }
 
 /**** FONCTION UTILITAIRES ****/
@@ -349,45 +364,66 @@ function checkVisite($ip, $idChapter) {
 	}
 }
 
-function modifPseudo($postPseudo) {
+function modifPseudo($postPseudo, $token) {
 	$adminManager = new AdminManager;
 
-	if(!empty($postPseudo)) {
-		$adminManager->updatePseudo($postPseudo);
+	if ($_SESSION['token'] == $token) {
+		$postPseudo = trim($postPseudo);
 
-		header('location: index.php?action=administration&config');
-		exit();
+		if(!empty($postPseudo)) {
+			$adminManager->updatePseudo($postPseudo);
+
+			$_SESSION['admin_pseudo'] = $postPseudo;
+
+			header('location: index.php?action=administration&config');
+			exit();
+		}
+		else {
+			$modifPseudoEmpty = true;
+
+			$pseudoActually = $adminManager->getPseudoActually();
+
+			$choiceModere = $adminManager->getChoiceModere();
+
+			require('view/backend/configAdmin.php');
+		}
 	}
 	else {
-		$modifPseudoEmpty = true;
-
-		$pseudoActually = $adminManager->getPseudoActually();
-
-		$choiceModere = $adminManager->getChoiceModere();
-
-		require('view/backend/configAdmin.php');
+		throw new Exception('Token invalide.');
 	}
 }
 
-function modifPassword($postPasswordAncien, $postPasswordNew, $postPasswordConfirm) {
+function modifPassword($postPasswordAncien, $postPasswordNew, $postPasswordConfirm, $token) {
 	$adminManager = new AdminManager;
 
-	$confirmAncienPassword = $adminManager->confirmAncienPassword($postPasswordAncien);
+	if ($_SESSION['token'] == $token) {
+		$confirmAncienPassword = $adminManager->confirmAncienPassword($postPasswordAncien);
 
-	if($confirmAncienPassword) {
-		if(!empty($postPasswordNew)) {
-			if($postPasswordNew == $postPasswordConfirm) {
-				$adminManager->updatePassword($postPasswordNew);
+		if($confirmAncienPassword) {
+			if(!empty($postPasswordNew)) {
+				if($postPasswordNew == $postPasswordConfirm) {
+					$adminManager->updatePassword($postPasswordNew);
 
-				$validateChangePassword = true;
+					$_SESSION['admin_mdp'] = $postPasswordNew;
 
-				$pseudoActually = $adminManager->getPseudoActually();
+					$validateChangePassword = true;
 
-				$choiceModere = $adminManager->getChoiceModere();
+					$pseudoActually = $adminManager->getPseudoActually();
 
-				require('view/backend/configAdmin.php');
+					$choiceModere = $adminManager->getChoiceModere();
+
+					require('view/backend/configAdmin.php');
+				}else {
+					$badConfirmPassword = true;
+
+					$pseudoActually = $adminManager->getPseudoActually();
+
+					$choiceModere = $adminManager->getChoiceModere();
+
+					require('view/backend/configAdmin.php');
+				}
 			}else {
-				$badConfirmPassword = true;
+				$newPasswordEmpty = true;
 
 				$pseudoActually = $adminManager->getPseudoActually();
 
@@ -396,7 +432,7 @@ function modifPassword($postPasswordAncien, $postPasswordNew, $postPasswordConfi
 				require('view/backend/configAdmin.php');
 			}
 		}else {
-			$newPasswordEmpty = true;
+			$badAncienPassword = true;
 
 			$pseudoActually = $adminManager->getPseudoActually();
 
@@ -404,160 +440,226 @@ function modifPassword($postPasswordAncien, $postPasswordNew, $postPasswordConfi
 
 			require('view/backend/configAdmin.php');
 		}
-	}else {
-		$badAncienPassword = true;
-
-		$pseudoActually = $adminManager->getPseudoActually();
-
-		$choiceModere = $adminManager->getChoiceModere();
-
-		require('view/backend/configAdmin.php');
+	}
+	else {
+		throw new Exception('Token invalide.');
 	}
 }
 
-function modifModere($postModere1, $postModere2, $postModere3) {
+function modifModere($postModere1, $postModere2, $postModere3, $token) {
 	$adminManager = new AdminManager;
 
-	$adminManager->updateChoiceModere($postModere1, $postModere2, $postModere3);
+	if ($_SESSION['token'] == $token) {
+		$adminManager->updateChoiceModere($postModere1, $postModere2, $postModere3);
 
-	header('location: index.php?action=administration&config');
-	exit();
+		header('location: index.php?action=administration&config');
+		exit();
+	}
+	else {
+		throw new Exception('Token invalide.');
+	}
 }
 
 /**** GESTIONS DES COMMENTAIRES ****/
 
-function modereComment($idComment, $choiceModere) {
+function modereComment($idComment, $choiceModere, $token) {
 	$adminManager = new AdminManager;
 
-	$choiceDefModere = $adminManager->selectChoiceModere($choiceModere);
+	if ($_SESSION['token'] == $token) {
+		$choiceDefModere = $adminManager->selectChoiceModere($choiceModere);
 
-	$adminManager->modereAndUnsignalComment($choiceDefModere[0], $idComment);
-
-	header('location: index.php?action=administration');
-	exit();
-}
-
-function deleteSignalComment($idComment, $response) {
-	$adminManager = new AdminManager;
-
-	$adminManager->deleteSignalComment($idComment);
-
-	if ($response == 1) {
-		$adminManager->deleteResponseLinkAsSignal($idComment);
+		$adminManager->modereAndUnsignalComment($choiceDefModere[0], $idComment);
 
 		header('location: index.php?action=administration');
 		exit();
 	}
 	else {
+		throw new Exception('Token invalide.');
+	}
+}
+
+function deleteSignalComment($idComment, $response, $idResponseComment, $comment_response, $token) {
+	$adminManager = new AdminManager;
+
+	if ($_SESSION['token'] == $token) {
+		$adminManager->deleteSignalComment($idComment);
+
+		if($comment_response == 1) {
+			$checkResponse = $adminManager->checkResponseComment($idResponseComment);
+
+			if($checkResponse) {
+			}
+			else {
+				$adminManager->udpateHaveResponse(0, $idResponseComment);
+			}
+		}
+		
+		if ($response == 1) {
+			$adminManager->deleteResponseLinkAsSignal($idComment);
+
+			header('location: index.php?action=administration');
+			exit();
+		}
+		else {
+			header('location: index.php?action=administration');
+			exit();
+		}
+	}
+	else {
+			throw new Exception('Token invalide.');
+	}
+}
+
+function aproveSignal($idComment, $token) {
+	$adminManager = new AdminManager;
+
+	if ($_SESSION['token'] == $token) {
+		$adminManager->unsignalComment($idComment);
+
 		header('location: index.php?action=administration');
 		exit();
 	}
+	else {
+		throw new Exception('Token invalide.');
+	}
 }
 
-function aproveSignal($idComment) {
-	$adminManager = new AdminManager;
-
-	$adminManager->unsignalComment($idComment);
-
-	header('location: index.php?action=administration');
-	exit();
-}
-
-function deleteCommentManual($idComment, $postId, $idResponseComment) {
+function deleteCommentManual($idComment, $postId, $idResponseComment, $token) {
 	$adminManager = new AdminManager;
 	$trashManager = new TrashManager;
 
-	$commentSelected = $adminManager->selectCommentForManualDelete($idComment);
-	if($commentSelected['have_response'] == 1) {
-		$commentSelectedResponse = $adminManager->selectCommentResponseManualDelete($idComment);
-	}
-
-	$trashManager->insertCommentInTrashComment($commentSelected['id'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment'], 1, $commentSelected['comment_principal_delete']);
-	if($commentSelectedResponse) {
-		foreach($commentSelectedResponse as $row => $commentSelectedResponseData) 
-		{
-			$trashManager->insertCommentInTrashComment($commentSelectedResponseData['id'], $commentSelectedResponseData['post_id'], $commentSelectedResponseData['author'], $commentSelectedResponseData['comment'], $commentSelectedResponseData['comment_date'], $commentSelectedResponseData['comment_signal'], $commentSelectedResponseData['have_response'], $commentSelectedResponseData['comment_response'], $commentSelectedResponseData['id_comment'], 1, $commentSelectedResponseData['comment_principal_delete']);
+	if ($_SESSION['token'] == $token) {
+		$commentSelected = $adminManager->selectCommentForManualDelete($idComment);
+		if($commentSelected['have_response'] == 1) {
+			$commentSelectedResponse = $adminManager->selectCommentResponseManualDelete($idComment);
 		}
-	}
 
-	$verifComment = $adminManager->verifCommentForManualDelete($idComment);
-
-	if($verifComment) {
-		$adminManager->deleteCommentForManualDelete($idComment);
+		$trashManager->insertCommentInTrashComment($commentSelected['id'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment'], 1, $commentSelected['comment_principal_delete']);
 		if($commentSelectedResponse) {
 			foreach($commentSelectedResponse as $row => $commentSelectedResponseData) 
 			{
-				$adminManager->deleteCommentForManualDelete($commentSelectedResponseData['id']);
+				$trashManager->insertCommentInTrashComment($commentSelectedResponseData['id'], $commentSelectedResponseData['post_id'], $commentSelectedResponseData['author'], $commentSelectedResponseData['comment'], $commentSelectedResponseData['comment_date'], $commentSelectedResponseData['comment_signal'], $commentSelectedResponseData['have_response'], $commentSelectedResponseData['comment_response'], $commentSelectedResponseData['id_comment'], 1, $commentSelectedResponseData['comment_principal_delete']);
 			}
 		}
 
-		if($commentSelected['comment_response'] == 0) 
-		{
-			$adminManager->updateCommentPrincipalDelete($idComment);
-		}
+		$verifComment = $adminManager->verifCommentForManualDelete($idComment);
 
-		if($commentSelected['comment_response'] == 1) {
-			if($idResponseComment > 0) {
-				$testComment = $adminManager->selectCommentResponseManualDelete($idResponseComment);
-
-				if($testComment)
+		if($verifComment) {
+			$adminManager->deleteCommentForManualDelete($idComment);
+			if($commentSelectedResponse) {
+				foreach($commentSelectedResponse as $row => $commentSelectedResponseData) 
 				{
-					header('Location: index.php?action=chapter&id=' . $postId);
-					exit();
-				}
-				else 
-				{
-					$adminManager->udpateHaveResponse(0, $idResponseComment);
-
-					header('Location: index.php?action=chapter&id=' . $postId);
-					exit();
+					$adminManager->deleteCommentForManualDelete($commentSelectedResponseData['id']);
 				}
 			}
-		}
 
-		header('Location: index.php?action=chapter&id=' . $postId);
-		exit();
+			if($commentSelected['comment_response'] == 0) 
+			{
+				$adminManager->updateCommentPrincipalDelete($idComment);
+			}
+
+			if($commentSelected['comment_response'] == 1) {
+				if($idResponseComment > 0) {
+					$testComment = $adminManager->selectCommentResponseManualDelete($idResponseComment);
+
+					if($testComment)
+					{
+						header('Location: index.php?action=chapter&id=' . $postId);
+						exit();
+					}
+					else 
+					{
+						$adminManager->udpateHaveResponse(0, $idResponseComment);
+
+						header('Location: index.php?action=chapter&id=' . $postId);
+						exit();
+					}
+				}
+			}
+
+			header('Location: index.php?action=chapter&id=' . $postId);
+			exit();
+		}
+	}
+	else {
+			throw new Exception('Token invalide.');
 	}
 
 }
 
-function restoreCommentManual($idComment, $idResponseComment) {
+function restoreCommentManual($idComment, $idResponseComment, $token) {
 	$adminManager = new AdminManager;
 	$trashManager = new TrashManager;
 
-	$commentSelected = $adminManager->selectCommentFromTrashCommentsManualDelete($idComment);
-	if($commentSelected['have_response'] == 1)
-	{
-		$commentSelectedResponse = $adminManager->selectCommentResponseManualDeleteFromTrash($idComment);
-	}
-
-	$trashManager->insertCommentInComments($commentSelected['id_before_delete'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment'], 0, $commentSelected['comment_principal_delete']);
-	if($commentSelectedResponse) {
-		foreach($commentSelectedResponse as $row => $commentSelectedResponseData) 
+	if ($_SESSION['token'] == $token) {
+		$commentSelected = $adminManager->selectCommentFromTrashCommentsManualDelete($idComment);
+		if($commentSelected['have_response'] == 1)
 		{
-			$trashManager->insertCommentInComments($commentSelectedResponseData['id_before_delete'], $commentSelectedResponseData['post_id'], $commentSelectedResponseData['author'], $commentSelectedResponseData['comment'], $commentSelectedResponseData['comment_date'], $commentSelectedResponseData['comment_signal'], $commentSelectedResponseData['have_response'], $commentSelectedResponseData['comment_response'], $commentSelectedResponseData['id_comment'], 0, $commentSelectedResponseData['comment_principal_delete']);
+			$commentSelectedResponse = $adminManager->selectCommentResponseManualDeleteFromTrash($idComment);
 		}
-	}
 
-	$verifComment = $adminManager->verifCommentForManualDeleteFromComments($idComment);
-
-	if($verifComment) {
-		$adminManager->deleteCommentForManualDeleteFromTrash($idComment);
+		$trashManager->insertCommentInComments($commentSelected['id_before_delete'], $commentSelected['post_id'], $commentSelected['author'], $commentSelected['comment'], $commentSelected['comment_date'], $commentSelected['comment_signal'], $commentSelected['have_response'], $commentSelected['comment_response'], $commentSelected['id_comment'], 0, $commentSelected['comment_principal_delete']);
 		if($commentSelectedResponse) {
 			foreach($commentSelectedResponse as $row => $commentSelectedResponseData) 
 			{
-				$adminManager->deleteCommentForManualDeleteFromTrash($commentSelectedResponseData['id_before_delete']);
+				$trashManager->insertCommentInComments($commentSelectedResponseData['id_before_delete'], $commentSelectedResponseData['post_id'], $commentSelectedResponseData['author'], $commentSelectedResponseData['comment'], $commentSelectedResponseData['comment_date'], $commentSelectedResponseData['comment_signal'], $commentSelectedResponseData['have_response'], $commentSelectedResponseData['comment_response'], $commentSelectedResponseData['id_comment'], 0, $commentSelectedResponseData['comment_principal_delete']);
 			}
 		}
 
-		if($commentSelected['comment_response'] == 0) 
-		{
-			$adminManager->updateCommentPrincipalDeleteForRestor($idComment);
-		}
+		$verifComment = $adminManager->verifCommentForManualDeleteFromComments($idComment);
 
-		if($commentSelected['comment_response'] == 1) {
-			if($idResponseComment > 0) {
-				$adminManager->udpateHaveResponse(1, $idResponseComment);
+		if($verifComment) {
+			$adminManager->deleteCommentForManualDeleteFromTrash($idComment);
+			if($commentSelectedResponse) {
+				foreach($commentSelectedResponse as $row => $commentSelectedResponseData) 
+				{
+					$adminManager->deleteCommentForManualDeleteFromTrash($commentSelectedResponseData['id_before_delete']);
+				}
+			}
+
+			if($commentSelected['comment_response'] == 0) 
+			{
+				$adminManager->updateCommentPrincipalDeleteForRestor($idComment);
+			}
+
+			if($commentSelected['comment_response'] == 1) {
+				if($idResponseComment > 0) {
+					$adminManager->udpateHaveResponse(1, $idResponseComment);
+
+					header('location: index.php?action=administration&trash');
+					exit();
+				}
+			}
+
+			header('location: index.php?action=administration&trash');
+			exit();
+		}
+	}
+	else {
+		throw new Exception('Token invalide.');
+	}
+
+}
+
+function deleteCommentFromTrash($idComment, $idResponseComment, $token) {
+	$trashManager = new TrashManager;
+
+	if ($_SESSION['token'] == $token) {
+		$trashManager->deleteDefinitelyCommentManualFromTrash($idComment);
+		$trashManager->deleteDefinitelyCommentResponseManualFromTrash($idComment);
+
+		if($idResponseComment > 0)
+		{
+			$verifCommentResponse = $trashManager->getCommentResponseFromTrash($idResponseComment);
+
+			if($verifCommentResponse)
+			{
+				header('location: index.php?action=administration&trash');
+				exit();
+			}
+			else
+			{
+				$trashManager->updateHaveResponseFromTrash($idResponseComment);
 
 				header('location: index.php?action=administration&trash');
 				exit();
@@ -567,33 +669,7 @@ function restoreCommentManual($idComment, $idResponseComment) {
 		header('location: index.php?action=administration&trash');
 		exit();
 	}
-
-}
-
-function deleteCommentFromTrash($idComment, $idResponseComment) {
-	$trashManager = new TrashManager;
-
-	$trashManager->deleteDefinitelyCommentManualFromTrash($idComment);
-	$trashManager->deleteDefinitelyCommentResponseManualFromTrash($idComment);
-
-	if($idResponseComment > 0)
-	{
-		$verifCommentResponse = $trashManager->getCommentResponseFromTrash($idResponseComment);
-
-		if($verifCommentResponse)
-		{
-			header('location: index.php?action=administration&trash');
-			exit();
-		}
-		else
-		{
-			$trashManager->updateHaveResponseFromTrash($idResponseComment);
-
-			header('location: index.php?action=administration&trash');
-			exit();
-		}
+	else {
+		throw new Exception('Token invalide.');
 	}
-
-	header('location: index.php?action=administration&trash');
-	exit();
 }

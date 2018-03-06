@@ -1,4 +1,9 @@
-<?php $title = "Corbeille - Administration"; ?>
+<?php $title = "Corbeille - Administration"; 
+
+$token = microtime();
+
+$_SESSION['token'] = $token;
+?>
 
 <?php ob_start(); ?>
 
@@ -58,7 +63,10 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <a href="index.php?action=administration&amp;trash&amp;deletetrash&amp;id=<?= $data['id'] ?>&amp;idp=<?= $data['id_chapter'] ?>" class="btn btn-info pull-left">Supprimer</a>
+                                    <form method="POST" action="index.php?action=administration&amp;trash&amp;deletetrash&amp;id=<?= $data['id'] ?>&amp;idp=<?= $data['id_chapter'] ?>">
+                                        <input type="hidden" name="token" id="token" value="<?= $_SESSION['token']; ?>" />
+                                        <button type="submit" class="btn btn-info pull-left">Supprimer</button>
+                                    </form>
                                         <a class="btn btn-info" data-dismiss="modal">Annuler</a>
                                     </div>
                                 </div>
@@ -80,7 +88,10 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <a href="index.php?action=administration&amp;trash&amp;restore&amp;id=<?= $data['id_chapter'] ?>" class="btn btn-info pull-left">Restaurer</a>
+                                    <form method="POST" action="index.php?action=administration&amp;trash&amp;restore&amp;id=<?= $data['id_chapter'] ?>">
+                                        <input type="hidden" name="token" id="token" value="<?= $_SESSION['token']; ?>" />
+                                        <button type="submit" class="btn btn-info pull-left">Restaurer</button>
+                                    </form>
                                         <a class="btn btn-info" data-dismiss="modal">Annuler</a>
                                     </div>
                                 </div>
@@ -133,7 +144,10 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <a href="index.php?action=administration&amp;comment&amp;deletecomment&amp;trashcomment&amp;id=<?= $dataComment['id_before_delete'] ?>&amp;idc=<?= $dataComment['id_comment'] ?>" class="btn btn-info pull-left">Supprimer</a>
+                                <form method="POST" action="index.php?action=administration&amp;comment&amp;deletecomment&amp;trashcomment&amp;id=<?= $dataComment['id_before_delete'] ?>&amp;idc=<?= $dataComment['id_comment'] ?>">
+                                    <input type="hidden" name="token" id="token" value="<?= $_SESSION['token']; ?>" />
+                                    <button type="submit" class="btn btn-info pull-left">Supprimer</button>
+                                </form> 
                                     <a class="btn btn-info" data-dismiss="modal">Annuler</a>
                                 </div>
                             </div>
@@ -157,7 +171,10 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <a href="index.php?action=administration&amp;comment&amp;restorecomment&amp;id=<?= $dataComment['id_before_delete'] ?>&amp;idc=<?= $dataComment['id_comment'] ?>" class="btn btn-info pull-left">Restaurer</a>
+                                    <form method="POST" action="index.php?action=administration&amp;comment&amp;restorecomment&amp;id=<?= $dataComment['id_before_delete'] ?>&amp;idc=<?= $dataComment['id_comment'] ?>">
+                                        <input type="hidden" name="token" id="token" value="<?= $_SESSION['token']; ?>" />
+                                        <button type="submit" class="btn btn-info pull-left">Restaurer</button>
+                                    </form> 
                                         <a class="btn btn-info" data-dismiss="modal">Annuler</a>
                                     </div>
                                 </div>

@@ -94,6 +94,15 @@ class AdminManager extends Manager
         $req->execute(array($idComment));
     }
 
+    public function checkResponseComment($idResponseComment) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id FROM comments WHERE id_comment = ?');
+        $req->execute(array($idResponseComment));
+        $reqs = $req->fetch();
+
+        return $reqs;
+    }
+
     public function deleteResponseLinkAsSignal($idComment) {
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM comments WHERE id_comment = ?');

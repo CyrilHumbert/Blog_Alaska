@@ -1,4 +1,10 @@
-<?php $title = "Administration"; ?>
+<?php 
+$title = "Administration"; 
+
+$token = microtime();
+
+$_SESSION['token'] = $token;
+?>
 
 <?php ob_start(); ?>
 
@@ -60,7 +66,10 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <a href="index.php?action=administration&amp;delete&amp;id=<?= $data['id'] ?>" class="btn btn-info pull-left">Supprimer</a>
+                                    <form method="POST" action="index.php?action=administration&amp;delete&amp;id=<?= $data['id'] ?>">
+                                        <input type="hidden" name="token" id="token" value="<?= $_SESSION['token']; ?>" />
+                                        <button type="submit" class="btn btn-info pull-left">Supprimer</button>
+                                    </form>
                                         <a class="btn btn-info" data-dismiss="modal">Annuler</a>
                                     </div>
                                 </div>
@@ -123,14 +132,16 @@
                                         Voulez-vous vraiment modérer ce commentaire ?<br>
                                         Le contenu du commentaire sera remplacé par la phrase de modération choisis.<br>
                                         <form method="POST" action="index.php?action=administration&amp;comment&amp;modere&amp;id=<?= $dataSignal['id'] ?>">
-                                            <label for="choiceModere">Choix n°1</label>
-                                            <input type="radio" name="choiceModere" value="modere1"><br>
+                                            <input type="hidden" name="token" id="token" value="<?= $_SESSION['token']; ?>" />
 
-                                            <label for="choiceModere">Choix n°2</label>
-                                            <input type="radio" name="choiceModere" value="modere2"><br>
+                                            <label for="choiceModere">Insultant</label>
+                                            <input type="radio" name="choiceModere" value="modere1"/><br>
 
-                                            <label for="choiceModere">Choix n°3</label>
-                                            <input type="radio" name="choiceModere" value="modere3">
+                                            <label for="choiceModere">Spam</label>
+                                            <input type="radio" name="choiceModere" value="modere2"/><br>
+
+                                            <label for="choiceModere">Inapproprié</label>
+                                            <input type="radio" name="choiceModere" value="modere3"/>
                                     </div>
 
                                     <div class="modal-footer">
@@ -158,7 +169,10 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <a href="index.php?action=administration&amp;comment&amp;deletecomment&amp;signal&amp;id=<?= $dataSignal['id'] ?>&amp;response=<?= $dataSignal['have_response'] ?>" class="btn btn-info pull-left">Supprimer</a>
+                                    <form method="POST" action="index.php?action=administration&amp;comment&amp;deletecomment&amp;signal&amp;id=<?= $dataSignal['id'] ?>&amp;response=<?= $dataSignal['have_response'] ?>&amp;idc=<?= $dataSignal['id_comment'] ?>&amp;commentresponse=<?= $dataSignal['comment_response'] ?>">
+                                        <input type="hidden" name="token" id="token" value="<?= $_SESSION['token']; ?>" />
+                                        <button type="submit" class="btn btn-info pull-left">Supprimer</button>
+                                    </form>
                                         <a class="btn btn-info" data-dismiss="modal">Annuler</a>
                                     </div>
                                 </div>
@@ -180,7 +194,10 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <a href="index.php?action=administration&amp;comment&amp;aprove&amp;id=<?= $dataSignal['id'] ?>" class="btn btn-info pull-left">Approuver</a>
+                                    <form method="POST" action="index.php?action=administration&amp;comment&amp;aprove&amp;id=<?= $dataSignal['id'] ?>">
+                                        <input type="hidden" name="token" id="token" value="<?= $_SESSION['token']; ?>" />
+                                        <button type="submit" class="btn btn-info pull-left">Approuver</button>
+                                    </form>
                                         <a class="btn btn-info" data-dismiss="modal">Annuler</a>
                                     </div>
                                 </div>

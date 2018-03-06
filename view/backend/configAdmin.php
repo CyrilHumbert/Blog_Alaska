@@ -1,4 +1,9 @@
-<?php $title = "Configuration - Administration"; ?>
+<?php $title = "Configuration - Administration";
+
+$token = microtime();
+
+$_SESSION['token'] = $token;
+?>
 
 <?php ob_start(); ?>
 
@@ -21,6 +26,8 @@
         <p class="text-center" style="font-size: 1.2em;"><strong>Pseudo actuel</strong> : <?= $pseudoActually['pseudo']; ?></p>
         <form method="POST" action="index.php?action=administration&amp;config&amp;modifpseudo" class="form-inline">
             <div class="text-center">
+                <input type="hidden" name="token" id="token" value="<?= $_SESSION['token']; ?>" />
+
                 <label for="pseudoModif" class="labelModifPseudo">Nouveau pseudo</label><br>
                 <input type="text" name="pseudoModif" class="form-control"/>
             </div>
@@ -42,6 +49,8 @@
         <h3 class="text-center titleModifPseudo">Modification du mot de passe</h3>
 
         <form method="POST" action="index.php?action=administration&amp;config&amp;changepassword" class="form-inline formPasswordChange">
+            <input type="hidden" name="token" id="token" value="<?= $_SESSION['token']; ?>" />
+
             <div class="text-center">
                 <label for="ancienPassword">Ancien mot de passe</label><br>
                 <input type="password" name="ancienPassword" class="form-control" />
@@ -101,18 +110,20 @@
         <h3 class="titleModifPseudo">Modification des choix de modération</h3>
 
         <form method="POST" action="index.php?action=administration&amp;config&amp;modifmodere">
+            <input type="hidden" name="token" id="token" value="<?= $_SESSION['token']; ?>" />
+            
             <div class="col-sm-4">
-                <label for="choiceModere1">Choix n°1</label><br>
+                <label for="choiceModere1">Insultant</label><br>
                 <textarea name="choiceModere1"><?= $choiceModere['modere1'] ?></textarea>
             </div>
 
             <div class="col-sm-4">
-                <label for="choiceModere2">Choix n°2</label><br>
+                <label for="choiceModere2">Spam</label><br>
                 <textarea name="choiceModere2"><?= $choiceModere['modere2'] ?></textarea>
             </div>
 
             <div class="col-sm-4">
-                <label for="choiceModere3">Choix n°3</label><br>
+                <label for="choiceModere3">Inapproprié</label><br>
                 <textarea name="choiceModere3"><?= $choiceModere['modere3'] ?></textarea>
             </div>
 

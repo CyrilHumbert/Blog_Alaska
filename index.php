@@ -119,7 +119,11 @@ try {
                     /* Gestion de la mise en corbeille */
                     elseif(isset($_GET['delete'])) { // 
                         if(isset($_GET['id']) && $_GET['id'] > 0) {
-                            chapterTrash($_GET['id']);
+                            if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+                                chapterTrash($_GET['id'], $_POST['token']);
+                            }else {
+                                throw new Exception('Aucun token detecté.');
+                            }
                         }else {
                             throw new Exception('Identifiant de chapitre incorrect');
                         }
@@ -130,13 +134,21 @@ try {
                     elseif(isset($_GET['trash'])) {
                         if(isset($_GET['restore'])) {
                             if(isset($_GET['id']) && $_GET['id'] > 0) {
-                                restoreTrash($_GET['id']);
+                                if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+                                    restoreTrash($_GET['id'], $_POST['token']);
+                                }else {
+                                    throw new Exception('Aucun token detecté.');
+                                }
                             }else {
                                 throw new Exception('Identifiant de chapitre incorrect');
                             }
                         }elseif(isset($_GET['deletetrash'])) {
                             if(isset($_GET['id']) && $_GET['id'] > 0) {
-                                deleteDefinitely($_GET['id'], $_GET['idp']);
+                                if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+                                    deleteDefinitely($_GET['id'], $_GET['idp'], $_POST['token']);
+                                }else {
+                                    throw new Exception('Aucun token detecté.');
+                                }
                             }else {
                                 throw new Exception('Identifiant de chapitre incorrect');  
                             }
@@ -151,7 +163,11 @@ try {
                         if(isset($_GET['modere'])) {
                             if(isset($_GET['id']) && $_GET['id'] > 0) {
                                 if(isset($_POST['choiceModere'])) {
-                                    modereComment($_GET['id'], $_POST['choiceModere']);
+                                    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+                                        modereComment($_GET['id'], $_POST['choiceModere'], $_POST['token']);
+                                    }else {
+                                        throw new Exception('Aucun token detecté.');
+                                    }
                                 }else {
                                     throw new Exception('Un choix doit être fait obligatoirement');
                                 }
@@ -162,7 +178,11 @@ try {
                         if(isset($_GET['deletecomment'])) {
                             if(isset($_GET['signal'])) {
                                 if(isset($_GET['id']) && $_GET['id'] > 0) {
-                                    deleteSignalComment($_GET['id'], $_GET['response']);
+                                    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+                                        deleteSignalComment($_GET['id'], $_GET['response'], $_GET['idc'], $_GET['commentresponse'], $_POST['token']);
+                                    }else {
+                                        throw new Exception('Aucun token detecté.');
+                                    }
                                 }else {
                                     throw new Exception('Identifiant de commentaire incorrect');
                                 }
@@ -170,7 +190,11 @@ try {
                             if(isset($_GET['manual'])) {
                                 if(isset($_GET['id']) && $_GET['id'] > 0) {
                                     if(isset($_GET['idp']) && $_GET['idp'] > 0) {
-                                        deleteCommentManual($_GET['id'], $_GET['idp'], $_GET['idc']);
+                                        if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+                                            deleteCommentManual($_GET['id'], $_GET['idp'], $_GET['idc'], $_POST['token']);
+                                        }else {
+                                            throw new Exception('Aucun token detecté.');
+                                        }
                                     }else {
                                         throw new Exception('Identifiant de chapitre incorrect');
                                     }
@@ -180,7 +204,11 @@ try {
                             }
                             if(isset($_GET['trashcomment'])) {
                                 if(isset($_GET['id']) && $_GET['id'] > 0) {
-                                    deleteCommentFromTrash($_GET['id'], $_GET['idc']);
+                                    if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+                                        deleteCommentFromTrash($_GET['id'], $_GET['idc'], $_POST['token']);
+                                    }else {
+                                        throw new Exception('Aucun token detecté.');
+                                    }
                                 }else {
                                     throw new Exception('Identifiant de commentaire incorrect');
                                 }
@@ -188,14 +216,22 @@ try {
                         }
                         if(isset($_GET['aprove'])) {
                             if(isset($_GET['id']) && $_GET['id'] > 0) {
-                                aproveSignal($_GET['id']);
+                                if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+                                    aproveSignal($_GET['id'], $_POST['token']);
+                                }else {
+                                    throw new Exception('Aucun token detecté.');
+                                }
                             }else {
                                 throw new Exception('Identifiant de commentaire incorrect');
                             }
                         }
                         if(isset($_GET['restorecomment'])) {
                             if(isset($_GET['id']) && $_GET['id'] > 0) {
-                                    restoreCommentManual($_GET['id'], $_GET['idc']);
+                                if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+                                    restoreCommentManual($_GET['id'], $_GET['idc'], $_POST['token']);
+                                }else {
+                                    throw new Exception('Aucun token detecté.');
+                                }
                             }else {
                                     throw new Exception('Identifiant de commentaire incorrect');
                             }
@@ -206,12 +242,24 @@ try {
                     /* Gestion de la page config */
                     elseif(isset($_GET['config'])) {
                         if(isset($_GET['modifpseudo'])) {
-                            modifPseudo($_POST['pseudoModif']);
+                            if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+                                modifPseudo($_POST['pseudoModif'], $_POST['token']);
+                            }else {
+                                throw new Exception('Aucun token detecté.');
+                            }
                         }
                         elseif(isset($_GET['changepassword'])) {
-                            modifPassword($_POST['ancienPassword'], $_POST['newPassword'], $_POST['confirmPassword']);
+                            if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+                                modifPassword($_POST['ancienPassword'], $_POST['newPassword'], $_POST['confirmPassword'], $_POST['token']);
+                            }else {
+                                throw new Exception('Aucun token detecté.');
+                            }
                         }elseif(isset($_GET['modifmodere'])) {
-                            modifModere($_POST['choiceModere1'], $_POST['choiceModere2'], $_POST['choiceModere3']);
+                            if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+                                modifModere($_POST['choiceModere1'], $_POST['choiceModere2'], $_POST['choiceModere3'], $_POST['token']);
+                            }else {
+                                throw new Exception('Aucun token detecté.');
+                            }
                         }else {
                             viewConfig();
                         }

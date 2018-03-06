@@ -512,6 +512,7 @@ a:focus
 {
     display: inline-block;
     vertical-align: middle;
+    padding-left: 0px;
 }
 
 #linkFooterDisconnect
