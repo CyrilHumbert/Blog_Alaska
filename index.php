@@ -122,7 +122,7 @@ try {
                             if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
                                 chapterTrash($_GET['id'], $_POST['token']);
                             }else {
-                                throw new Exception('Aucun token detecté.');
+                                throw new Exception('Action impossible, cet accès est protégé.');
                             }
                         }else {
                             throw new Exception('Identifiant de chapitre incorrect');
@@ -137,7 +137,7 @@ try {
                                 if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
                                     restoreTrash($_GET['id'], $_POST['token']);
                                 }else {
-                                    throw new Exception('Aucun token detecté.');
+                                    throw new Exception('Action impossible, cet accès est protégé.');
                                 }
                             }else {
                                 throw new Exception('Identifiant de chapitre incorrect');
@@ -147,7 +147,7 @@ try {
                                 if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
                                     deleteDefinitely($_GET['id'], $_GET['idp'], $_POST['token']);
                                 }else {
-                                    throw new Exception('Aucun token detecté.');
+                                    throw new Exception('Action impossible, cet accès est protégé.');
                                 }
                             }else {
                                 throw new Exception('Identifiant de chapitre incorrect');  
@@ -166,7 +166,7 @@ try {
                                     if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
                                         modereComment($_GET['id'], $_POST['choiceModere'], $_POST['token']);
                                     }else {
-                                        throw new Exception('Aucun token detecté.');
+                                        throw new Exception('Action impossible, cet accès est protégé.');
                                     }
                                 }else {
                                     throw new Exception('Un choix doit être fait obligatoirement');
@@ -181,7 +181,7 @@ try {
                                     if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
                                         deleteSignalComment($_GET['id'], $_GET['response'], $_GET['idc'], $_GET['commentresponse'], $_POST['token']);
                                     }else {
-                                        throw new Exception('Aucun token detecté.');
+                                        throw new Exception('Action impossible, cet accès est protégé.');
                                     }
                                 }else {
                                     throw new Exception('Identifiant de commentaire incorrect');
@@ -193,7 +193,7 @@ try {
                                         if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
                                             deleteCommentManual($_GET['id'], $_GET['idp'], $_GET['idc'], $_POST['token']);
                                         }else {
-                                            throw new Exception('Aucun token detecté.');
+                                            throw new Exception('Action impossible, cet accès est protégé.');
                                         }
                                     }else {
                                         throw new Exception('Identifiant de chapitre incorrect');
@@ -207,7 +207,7 @@ try {
                                     if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
                                         deleteCommentFromTrash($_GET['id'], $_GET['idc'], $_POST['token']);
                                     }else {
-                                        throw new Exception('Aucun token detecté.');
+                                        throw new Exception('Action impossible, cet accès est protégé.');
                                     }
                                 }else {
                                     throw new Exception('Identifiant de commentaire incorrect');
@@ -219,7 +219,7 @@ try {
                                 if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
                                     aproveSignal($_GET['id'], $_POST['token']);
                                 }else {
-                                    throw new Exception('Aucun token detecté.');
+                                    throw new Exception('Action impossible, cet accès est protégé.');
                                 }
                             }else {
                                 throw new Exception('Identifiant de commentaire incorrect');
@@ -230,7 +230,7 @@ try {
                                 if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
                                     restoreCommentManual($_GET['id'], $_GET['idc'], $_POST['token']);
                                 }else {
-                                    throw new Exception('Aucun token detecté.');
+                                    throw new Exception('Action impossible, cet accès est protégé.');
                                 }
                             }else {
                                     throw new Exception('Identifiant de commentaire incorrect');
@@ -245,20 +245,20 @@ try {
                             if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
                                 modifPseudo($_POST['pseudoModif'], $_POST['token']);
                             }else {
-                                throw new Exception('Aucun token detecté.');
+                                throw new Exception('Action impossible, cet accès est protégé.');
                             }
                         }
                         elseif(isset($_GET['changepassword'])) {
                             if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
                                 modifPassword($_POST['ancienPassword'], $_POST['newPassword'], $_POST['confirmPassword'], $_POST['token']);
                             }else {
-                                throw new Exception('Aucun token detecté.');
+                                throw new Exception('Action impossible, cet accès est protégé.');
                             }
                         }elseif(isset($_GET['modifmodere'])) {
                             if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
                                 modifModere($_POST['choiceModere1'], $_POST['choiceModere2'], $_POST['choiceModere3'], $_POST['token']);
                             }else {
-                                throw new Exception('Aucun token detecté.');
+                                throw new Exception('Action impossible, cet accès est protégé.');
                             }
                         }else {
                             viewConfig();

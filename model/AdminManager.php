@@ -221,10 +221,9 @@ class AdminManager extends Manager
         return $reqs;
     }
 
-    public function confirmAncienPassword($postPasswordAncien) {
+    public function confirmAncienPassword() {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT passwordde FROM logadmin WHERE passwordde = ?');
-        $req->execute(array($postPasswordAncien));
+        $req = $db->query('SELECT passwordde FROM logadmin');
         $reqs = $req->fetch();
 
         return $reqs;

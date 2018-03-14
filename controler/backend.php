@@ -89,11 +89,10 @@ function verifLogin($postPseudo, $postPassword) {
 
     $verifLogin = $loginManager->login();
 
-    if($verifLogin['pseudo'] == $postPseudo && $verifLogin["passwordde"] == $postPassword) {
+    if($verifLogin['pseudo'] == $postPseudo && password_verify($postPassword, $verifLogin["passwordde"])) {
         session_start();
         $_SESSION['admin_id'] = $verifLogin['id'];
 		$_SESSION['admin_pseudo'] = $verifLogin['pseudo'];
-		$_SESSION['admin_mdp'] = $verifLogin['passwordde'];
 
         $_SESSION['connected'] = true;
         
@@ -108,13 +107,7 @@ function verifLogin($postPseudo, $postPassword) {
     }
 }
 
-function empty_cookie(){
-    foreach($_COOKIE as $key => $element){
-            setcookie($key, '', time()-3600);
-        }
-}
-
-function refresh_session(){
+function refresh_session() {
     $loginManager = new LoginManager;
 
 	if(isset($_SESSION['admin_id']) && intval($_SESSION['admin_id']) != 0) {     
@@ -122,16 +115,17 @@ function refresh_session(){
 		
 		if($_SESSION['admin_pseudo'] == $infoSession['pseudo']) {
             
-            if($_SESSION['admin_mdp'] != $infoSession['passwordde']) {
-				$informations = Array( /*Mot de passe de session incorrect*/
+            if($_SESSION['admin_id'] != $infoSession['id']) {
+				$informations = Array( /*ID de session incorrect*/
 									'has-error',
 									'Session invalide',
-									'Le mot de passe de votre session est incorrect, vous devez vous reconnecter.',
+									'Votre session est invalide, vous devez vous reconnecter.',
 									'',
 									'index.php',
 									3
 									);
-				require_once('../view/frontend/informations.php');
+				header("HTTP/1.0 403 Forbidden");
+				require('view/frontend/informations.php');
 				empty_cookie();
 				session_unset();
 				session_destroy();
@@ -141,65 +135,25 @@ function refresh_session(){
 			else {
 					$_SESSION['admin_id'] = $infoSession['id'];
 					$_SESSION['admin_pseudo'] = $infoSession['pseudo'];
-                    $_SESSION['admin_mdp'] = $infoSession['passwordde'];
                     
                     $_SESSION['connected'] = true;
 			}
 		}
-	}
-	
-	else {
-		if(isset($_COOKIE['admin_id']) && isset($_COOKIE['admin_mdp'])) {
-			if(intval($_COOKIE['admin_id']) != 0) {
-				$infoSession = $loginManager->getInfoCookie();
-				
-				if(isset($infoSession['pseudo']) && $infoSession['pseudo'] != '' && $_COOKIE['admin_pseudo'] == $infoSession['pseudo']) {
-					if($_COOKIE['membre_mdp'] != $infoSession['passwordde']) {
-						$informations = Array( /*Mot de passe de cookie incorrect*/
-											'has-error',
-											'Mot de passe cookie erroné',
-											'Le mot de passe conservé sur votre cookie est incorrect vous devez vous reconnecter.',
-											'',
-											'index.php',
-											3
-											);
-                        require_once('../view/frontend/informations.php');
-						empty_cookie();
-						session_unset();
-						session_destroy();
-						exit();
-					}
-					
-					else {
-						$_SESSION['admin_id'] = $infoSession['id'];
-						$_SESSION['admin_pseudo'] = $infoSession['pseudo'];
-                        $_SESSION['admin_mdp'] = $infoSession['passwordde'];
-                        
-                        $_SESSION['connected'] = true;
-					}
-				}
-			}
-			
-			else {
-				$informations = Array( /*L'id de cookie est incorrect*/
-									'has-error',
-									'Cookie invalide',
-									'Le cookie conservant votre id est corrompu, il va donc être détruit vous devez vous reconnecter.',
-									'',
-									'index.php',
-									3
-									);
-                require_once('../view/frontend/informations.php');
-				empty_cookie();
-				session_unset();
-				session_destroy();
-				exit();
-			}
-		}
-		
 		else {
-			if(isset($_SESSION['membre_id'])) unset($_SESSION['membre_id']);
+			$informations = Array( /*Pseudo de session incorrect*/
+								'has-error',
+								'Session invalide',
+								'Votre session est invalide, vous devez vous reconnecter.',
+								'',
+								'index.php',
+								3
+								);
+			header("HTTP/1.0 403 Forbidden");
+			require('view/frontend/informations.php');
 			empty_cookie();
+			session_unset();
+			session_destroy();
+			exit();
 		}
 	}
 }
@@ -294,7 +248,7 @@ function chapterTrash($postId, $token) {
 		}
 	}
 	else {
-		throw new Exception('Token invalide.');
+		throw new Exception('Action impossible, cet accès est protégé.');
 	}
 }
 
@@ -330,7 +284,7 @@ function restoreTrash($idChapter, $token) {
 		}
 	}
 	else {
-		throw new Exception('Token invalide.');
+		throw new Exception('Action impossible, cet accès est protégé.');
 	}
 }
 
@@ -346,7 +300,7 @@ function deleteDefinitely($idChapterTrash, $idChapter, $token) {
 		exit();
 	}
 	else {
-		throw new Exception('Token invalide.');
+		throw new Exception('Action impossible, cet accès est protégé.');
 	}
 }
 
@@ -389,7 +343,7 @@ function modifPseudo($postPseudo, $token) {
 		}
 	}
 	else {
-		throw new Exception('Token invalide.');
+		throw new Exception('Action impossible, cet accès est protégé.');
 	}
 }
 
@@ -397,14 +351,16 @@ function modifPassword($postPasswordAncien, $postPasswordNew, $postPasswordConfi
 	$adminManager = new AdminManager;
 
 	if ($_SESSION['token'] == $token) {
-		$confirmAncienPassword = $adminManager->confirmAncienPassword($postPasswordAncien);
+		$confirmAncienPassword = $adminManager->confirmAncienPassword();
 
-		if($confirmAncienPassword) {
+		if(password_verify($postPasswordAncien, $confirmAncienPassword["passwordde"])) {
+			$postPasswordNew = trim($postPasswordNew);
+
 			if(!empty($postPasswordNew)) {
 				if($postPasswordNew == $postPasswordConfirm) {
-					$adminManager->updatePassword($postPasswordNew);
+					$hashPassword = password_hash($postPasswordNew, PASSWORD_DEFAULT);
 
-					$_SESSION['admin_mdp'] = $postPasswordNew;
+					$adminManager->updatePassword($hashPassword);
 
 					$validateChangePassword = true;
 
@@ -442,7 +398,7 @@ function modifPassword($postPasswordAncien, $postPasswordNew, $postPasswordConfi
 		}
 	}
 	else {
-		throw new Exception('Token invalide.');
+		throw new Exception('Action impossible, cet accès est protégé.');
 	}
 }
 
@@ -456,7 +412,7 @@ function modifModere($postModere1, $postModere2, $postModere3, $token) {
 		exit();
 	}
 	else {
-		throw new Exception('Token invalide.');
+		throw new Exception('Action impossible, cet accès est protégé.');
 	}
 }
 
@@ -474,7 +430,7 @@ function modereComment($idComment, $choiceModere, $token) {
 		exit();
 	}
 	else {
-		throw new Exception('Token invalide.');
+		throw new Exception('Action impossible, cet accès est protégé.');
 	}
 }
 
@@ -506,7 +462,7 @@ function deleteSignalComment($idComment, $response, $idResponseComment, $comment
 		}
 	}
 	else {
-			throw new Exception('Token invalide.');
+			throw new Exception('Action impossible, cet accès est protégé.');
 	}
 }
 
@@ -520,7 +476,7 @@ function aproveSignal($idComment, $token) {
 		exit();
 	}
 	else {
-		throw new Exception('Token invalide.');
+		throw new Exception('Action impossible, cet accès est protégé.');
 	}
 }
 
@@ -582,7 +538,7 @@ function deleteCommentManual($idComment, $postId, $idResponseComment, $token) {
 		}
 	}
 	else {
-			throw new Exception('Token invalide.');
+			throw new Exception('Action impossible, cet accès est protégé.');
 	}
 
 }
@@ -636,7 +592,7 @@ function restoreCommentManual($idComment, $idResponseComment, $token) {
 		}
 	}
 	else {
-		throw new Exception('Token invalide.');
+		throw new Exception('Action impossible, cet accès est protégé.');
 	}
 
 }
@@ -670,6 +626,6 @@ function deleteCommentFromTrash($idComment, $idResponseComment, $token) {
 		exit();
 	}
 	else {
-		throw new Exception('Token invalide.');
+		throw new Exception('Action impossible, cet accès est protégé.');
 	}
 }
