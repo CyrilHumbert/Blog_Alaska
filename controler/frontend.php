@@ -36,30 +36,82 @@ function post($chapterId) {
 function addComment($postId, $author, $comment) {
     $commentManager = new CommentManager;
 
-    $affectedLines = $commentManager->postComment($postId, $author, $comment);
+	$secret = "6Lcj60wUAAAAAPTStOjukTF_1H0p7hgqsdbpM40W";
 
-    if ($affectedLines === false) {
-        throw new Exception('Impossible d\'ajouter le commentaire !');
-    }
-    else {
-        header('Location: index.php?action=chapter&id=' . $postId);
-        exit();
-    }
+	$response = $_POST['g-recaptcha-response'];
+
+	$remoteip = $_SERVER['REMOTE_ADDR'];
+	
+	$api_url = "https://www.google.com/recaptcha/api/siteverify?secret=" 
+	    . $secret
+	    . "&response=" . $response
+	    . "&remoteip=" . $remoteip ;
+	
+	$decode = json_decode(file_get_contents($api_url), true);
+	
+	if ($decode['success'] == true) {
+        $postAuthor = trim($author);
+        $postComment = trim($comment);
+
+        if (!empty($postAuthor) && !empty($postComment)) {
+            $affectedLines = $commentManager->postComment($postId, htmlspecialchars($postAuthor), htmlspecialchars($postComment));
+
+            if ($affectedLines === false) {
+                throw new Exception('Impossible d\'ajouter le commentaire !');
+            }
+            else {
+                header('Location: index.php?action=chapter&id=' . $postId);
+                exit();
+            }
+        }
+        else {
+            throw new Exception('Tous les champs ne sont pas remplis !');
+        }        
+	}	
+	else {
+        throw new Exception('Captcha invalide !');
+	}
 }
 
 function addCommentResponse($postId, $author, $comment, $idComment) {
     $commentManager = new CommentManager;
 
-    $addComment = $commentManager->postCommentResponse($postId, $author, $comment, $idComment);
+    $secret = "6Lcj60wUAAAAAPTStOjukTF_1H0p7hgqsdbpM40W";
 
-    if ($addComment === false) {
-        throw new Exception('Impossible d\'ajouter le commentaire !');
-    }
+	$response = $_POST['g-recaptcha-response'];
+
+	$remoteip = $_SERVER['REMOTE_ADDR'];
+	
+	$api_url = "https://www.google.com/recaptcha/api/siteverify?secret=" 
+	    . $secret
+	    . "&response=" . $response
+	    . "&remoteip=" . $remoteip ;
+	
+    $decode = json_decode(file_get_contents($api_url), true);
+    
+    if ($decode['success'] == true) {
+        $postAuthorResponse = trim($author);
+        $postCommentResponse = trim($comment);
+
+        if (!empty($postAuthorResponse) && !empty($postCommentResponse)) {
+            $addComment = $commentManager->postCommentResponse($postId, htmlspecialchars($postAuthorResponse), htmlspecialchars($postCommentResponse), $idComment);
+
+            if ($addComment === false) {
+                throw new Exception('Impossible d\'ajouter le commentaire !');
+            }
+            else {
+                $commentManager->updateCommentHaveResponse($idComment);
+
+                header('Location: index.php?action=chapter&id=' . $postId);
+                exit();
+            }
+        }
+        else {
+            throw new Exception('Tous les champs ne sont pas remplis !');
+        }    
+    }      
     else {
-        $commentManager->updateCommentHaveResponse($idComment);
-
-        header('Location: index.php?action=chapter&id=' . $postId);
-        exit();
+        throw new Exception('Captcha invalide !');
     }
 }
 

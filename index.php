@@ -43,12 +43,7 @@ try {
             if (isset($_GET['response'])) {
                 if (isset($_GET['idpost']) && $_GET['idpost'] > 0) {
                     if (isset($_GET['idcomment']) && $_GET['idcomment'] > 0) {
-                        if (!empty($_POST['authorResponse']) && !empty($_POST['commentResponse'])) {
-                            addCommentResponse($_GET['idpost'], $_POST['authorResponse'], $_POST['commentResponse'], $_GET['idcomment']);
-                        }
-                        else {
-                            throw new Exception('Tous les champs ne sont pas remplis !');
-                        }
+                        addCommentResponse($_GET['idpost'], $_POST['authorResponse'], $_POST['commentResponse'], $_GET['idcomment']);
                     }
                     else {
                         throw new Exception('Identifiant du commentaire incorrect');
@@ -59,12 +54,7 @@ try {
                 }
             }
             elseif (isset($_GET['id']) && $_GET['id'] > 0) {
-                if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-                    addComment($_GET['id'], $_POST['author'], $_POST['comment']);
-                }
-                else {
-                    throw new Exception('Tous les champs ne sont pas remplis !');
-                }
+                addComment($_GET['id'], $_POST['author'], $_POST['comment']);
             }else {
                 throw new Exception('Aucun identifiant de chapitre envoyé');
             }
@@ -271,7 +261,7 @@ try {
                         pannelAdminView();
                     }
             }else {
-                throw new Exception('Session invalide, merci de vous reconnectez. <br> <a href="index.php"/>Cliquez ici pour revenir à l\'accueil...</a>'); // Connecté mais session invalide
+                throw new Exception('Session invalide, merci de vous reconnectez.'); // Connecté mais session invalide
             }            
         }else {
             accessDenied(); // Si on veut accèder à l'administration sans être connecté, erreur 403

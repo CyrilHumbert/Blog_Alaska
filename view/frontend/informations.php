@@ -30,7 +30,6 @@
                 <div id="info" class="<?= $informations[0]; ?>">
                     <div class="help-block text-center">
                         <?= $informations[1] ?> : <?= $informations[2]; ?><br/>
-                        <a href="<?= $informations[4]; ?>">Cliquez ici pour revenir à l'accueil...</a>
                     </div>
                 </div>
             <?php endif ?>

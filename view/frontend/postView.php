@@ -58,6 +58,8 @@ $_SESSION['token'] = $token;
                             <label for="comment">Commentaire</label><br>
                             <textarea name="comment" id="comment" class="form-control"></textarea>
                         </div>
+
+                        <div class="g-recaptcha" data-sitekey="6Lcj60wUAAAAALBk00MSWAxylxt9g5u7_GRrfT3R" data-theme="light" style="transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;"></div>
                </div>
 
                 <div class="modal-footer">
@@ -243,6 +245,8 @@ $_SESSION['token'] = $token;
                                     <label for="commentResponse">Commentaire</label>
                                     <textarea name="commentResponse" id="commentResponse" class="form-control"></textarea>
                                 </div>
+
+                                <div class="g-recaptcha" data-sitekey="6Lcj60wUAAAAALBk00MSWAxylxt9g5u7_GRrfT3R" data-theme="light" style="transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;"></div>
                         </div>
 
                         <div class="modal-footer">
